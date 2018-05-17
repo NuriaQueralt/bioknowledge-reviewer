@@ -67,7 +67,7 @@ def read_network():
     return network_df
 
 
-def get_nodes(network_df):
+def get_nodes_df(network_df):
     """This function extracts the network nodes."""
 
     # optimize network dataframe
@@ -153,7 +153,7 @@ def normalize_nodes(nodes_df):
 def get_uniprot_list(df):
         """This function returns a UniProt ID list in the network."""
 
-        uniprot_df = nodes_df[nodes_df.id_type == 'UniProt'].copy()
+        uniprot_df = df[df.id_type == 'UniProt'].copy()
         uniprot_df['uniprot_id'] = (uniprot_df
                                         .loc[:, 'node_id']
                                         .apply(lambda x: x.split(':')[1])
@@ -193,10 +193,10 @@ def get_uniprot2geneid_dict(uniprot_list):
 def map_uniprot2geneid(df, p2g_dct):
     """This function maps proteins (as UniProt ID) to genes (as NCBI gene IDs)."""
 
-    nodes_df = nodes_df.reset_index(drop=True)
+    nodes_df = df.reset_index(drop=True)
     nodes_df['monarch_id'] = (nodes_df
                                 .node_id
-                                .apply(lambda x: p2g_dict.get(x, None) if 'UniProt' in str(x) else x)
+                                .apply(lambda x: p2g_dct.get(x, None) if 'UniProt' in str(x) else x)
                             )
     #print(nodes_df.loc[nodes_df.node_type == 'protein'])
 
@@ -215,7 +215,7 @@ def get_nodes_as_monarch(df):
     """This function retuns nodes identified as Monarch can recognize: no protein IDs and all identified using vocabularies used in Monarch."""
 
     # get rid of None values:
-    nodes_monarch_df = nodes_df[['monarch_id']].copy()
+    nodes_monarch_df = df[['monarch_id']].copy()
     nodes_monarch_df = nodes_monarch_df.dropna()
     #print('\nTotal nodes in the Monarch-converted network: {}'.format(len(nodes_monarch_df)))
 
@@ -227,7 +227,7 @@ def get_monarch_list(df):
 
     # normalize all types to str():
     nodes_l = []
-    for value in nodes_monarch_df.monarch_id:
+    for value in df.monarch_id:
         if isinstance(value, list):
             for node in value:
                 nodes_l.append(node)
@@ -257,7 +257,7 @@ def get_normalized_nodes(net_df):
     # net_df = read_network()
 
     # get all network nodes as a dataframe
-    nodes_df = get_nodes(net_df)
+    nodes_df = get_nodes_df(net_df)
 
     # normalize node ids to Monarch ID schemes
     norm_df = normalize_nodes(nodes_df)
@@ -292,7 +292,7 @@ def get_list_of_monarch_id_nodes(df):
     return nodes_list
 
 
-def get_node_list(network_df):
+def get_nodes(network_df):
     """This function get nodes list to query Monarch API."""
 
     # get all network nodes normalized to ID schemes used in Monarch
@@ -316,6 +316,6 @@ if __name__ == '__main__':
     curatedNetwork_df = read_network()
 
     # get nodes
-    #curatedNetworkNodes_df = get_nodes(curatedNetwork_df)
-    #curatedNetworkNodes_list = get_nodes_list_to_query_monarch(curatedNetworkNodes_df)
-    curatedNodes_list = get_node_list(curatedNetwork_df)
+    ##curatedNetworkNodes_df = get_nodes_df(curatedNetwork_df)
+    ##curatedNetworkNodes_list = get_list_of_monarch_id_nodes(curatedNetworkNodes_df)
+    curatedNodes_list = get_nodes(curatedNetwork_df)
