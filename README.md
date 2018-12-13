@@ -4,9 +4,17 @@ This is a Python library to create structured reviews integrating knowledge and 
 ##### Prerequisites
 Python 3
 
+### Input / Output
+#### Input
+Edges to build the structured review.
+http://edamontology.org/data_2080
 
-### Library structure
-Currently the library is in plan status or development state.
+#### Output
+Structured review network
+http://edamontology.org/data_2600
+
+### Library architecture
+The library is currently in development. 
 
 #### Edges
 ##### Curation
