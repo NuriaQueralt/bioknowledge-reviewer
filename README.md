@@ -33,3 +33,9 @@ This sections showcase examples of use.
 
 #### 1. Build a review network
 Build the network by compiling edges.
+
+#### License
+GPL v3.0
+
+#### DOI
+[![DOI](https://zenodo.org/badge/132827298.svg)](https://zenodo.org/badge/latestdoi/132827298)
