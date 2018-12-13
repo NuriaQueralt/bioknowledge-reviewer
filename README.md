@@ -7,10 +7,12 @@ Python 3
 ### Input / Output
 #### Input
 Edges to build the structured review.
+
 http://edamontology.org/data_2080
 
 #### Output
-Structured review network
+Structured review network.
+
 http://edamontology.org/data_2600
 
 ### Library architecture
