@@ -1,7 +1,8 @@
 # @name: graph.py
+# @description: Module for graph building and management
 # @version: 1.0
-# @author: Núria Queralt Rosinach
 # @date: 16-02-2018
+# @author: Núria Queralt Rosinach
 # @email: nuriaqr@scripps.edu
 
 # All files before concatenation should have the same format:
@@ -23,8 +24,8 @@
 # 'synonyms',
 # 'description'
 
-# TO DO: modularize from:
-# http://localhost:8888/notebooks/workspace/ngly1-graph/curation/kylo/neo4j/networks/concatenate_network_files.ipynb
+# TODO: modularize from: http://localhost:8888/notebooks/workspace/ngly1-graph/curation/kylo/neo4j/networks/concatenate_network_files.ipynb
+# TODO: each network type should be a class, then class methods: .get_nodes(), .get_edges(),...
 
 """Module for functions to build the graph"""
 
@@ -34,6 +35,13 @@ import datetime
 
 # VARIABLES
 today = datetime.date.today()
+
+
+# CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
+
+# BUILD NETWORK
+
+# NETWORK MANAGEMENT FUNCTIONS
 
 
 ################ UTILS SECTION

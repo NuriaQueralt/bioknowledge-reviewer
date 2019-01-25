@@ -1,13 +1,13 @@
 # @name: monarch.py
-# @version: 1.0
+# @description: Module for Monarch network preparation and management
+# @version: 2.0
+# @date: 22-01-2019
 # @author: Núria Queralt Rosinach
-# @date: 12-02-2018
 # @email: nuriaqr@scripps.edu
 
-# TO-DO:
-# Add printings for starting execution of functions
-# Debugg: Why json.decoder.JSONDecodeError?,t
-# add documentation
+# TODO: Add printings for starting execution of functions
+# TODO: Debugg: Why json.decoder.JSONDecodeError?,t
+# TODO: add documentation
 """Module for Monarch data"""
 
 
@@ -20,6 +20,42 @@ import pandas as pd
 # VARIABLES
 today = datetime.date.today()
 
+
+# CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
+# check network schema
+# TODO: check functions
+
+## from monarch/add-connections-to-net or regulation/monarch
+# TODO: build the following functions according monarch.ipynb and add-connections-to-net.ipynb notebooks
+
+# read monarch edges or connections or get-monarch-connections/monarch_connections.[tsv|csv]
+
+# generate statement file/monarch network edges file with graph schema: add-connections-to-net/monarch_edges_v{}.[tsv|csv]
+
+  # generate static variable: uriPrefixes_dct (url references)
+
+  # generate static variable: dbPrefixes_dct (source/database references)
+
+  # build graph schema network edges
+
+# generate concept file/monarch network nodes file with graph schema: add-connections-to-net/monarch_nodes_v{}.[tsv|csv]
+
+  # build semantic groups dictionary
+
+    # collide concepts in a concept dict
+
+    # list of concept prefixes with dict
+
+    # build conceptPrefix2semantic dict
+
+  # build concept attributes dict
+
+  # build graph schema network nodes
+
+
+
+# BUILD NETWORK
+# preamble functions in notebook
 
 def hit_monarch_api(node = 'HGNC:17646', rows = 2000):
     """
@@ -271,6 +307,9 @@ def get_connections(nodes):
     return keep
 
 
+# From here, lib new functions...
+# NETWORK MANAGEMENT FUNCTIONS
+
 def get_neighbours_list(seed_list):
     """This function returns the 1st layer of neighbours from a list of nodes."""
 
@@ -307,8 +346,14 @@ def get_orthopheno_list(seed_list):
     return list(nodes)
 
 
-def expand_edges(gene_list):
-    """This function returns Monarch edges from a list of query nodes. The network variable is a set of tuples (edges)."""
+def extract_edges(gene_list):
+    """This function returns the Monarch network from a list of query nodes. It retrieves connectivity from Monarch.
+    The network variable that returns is a set of tuples (edges).
+
+    Note that i changed the name of this function in v2.0 of the module. This function is named as 'expand_edges' in
+    version 1.0 of the module, and used as 'expand_edges' in the graph building notebook
+    'graph_hypothesis_1shell_v11012018'.
+    """
 
     # print executing function
     print('\nThe function "expand_edges()" is running, please keep calm and have some coffee...')
@@ -323,7 +368,7 @@ def expand_edges(gene_list):
 
 
 def print_network(network, filename):
-    """This function save the Monarch expanded network into a CSV file."""
+    """This function saves the Monarch expanded network into a CSV file."""
 
     # print output file
     path = os.getcwd() + '/monarch'
@@ -338,7 +383,7 @@ def print_network(network, filename):
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
 
 def print_network2(network, filename):
-    """This function save the Monarch expanded network into a CSV file."""
+    """This function saves the Monarch expanded network into a CSV file."""
 
     # transform set of tuples to list of dictionaries
     edges = list()
@@ -361,7 +406,7 @@ def print_network2(network, filename):
     return print("\nFile '{}/{}_dataframe_v{}.csv' saved.".format(path, filename, today))
 
 def print_nodes(nodes, filename):
-    """This function save Monarch nodes into a CSV file."""
+    """This function saves Monarch nodes into a CSV file."""
 
     # print output file
     path = os.getcwd() + '/monarch'
@@ -370,6 +415,41 @@ def print_nodes(nodes, filename):
         f.write('{}\n'.format('\n'.join(list(nodes))))
 
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
+
+# New functions to debug.
+
+def expand_edges(seed_list):
+    """This function returns the Monarch network expanded with the first layer of neighbors from a list of query nodes.
+    This function builds monarch 1shell network.
+    This function receives a list of nodes and returns a network or edges from Monarch."""
+
+    # get 1shell list of nodes or neighbors
+    neighbours, relations = get_neighbours(seed_list)
+
+    # network nodes:  seed + 1shell
+    nodes = set(seedList).union(neighbours)
+
+    # get connections for network nodes
+    network = get_connections(nodes)
+
+    return network
+
+def orthopheno_expand_edges(seed_list):
+    """This function returns the Monarch network expanded with the orthologs and the ortholog associated phenotypes from
+     a list of query nodes.
+    This function builds monarch 1shell-animal network.
+    This function receives a list of nodes and returns a network or edges from Monarch."""
+
+    # get ortholog-phenotypes list
+    orthophenoList = get_orthopheno_list(seed_list):
+
+    # network nodes:  seed + neighbors + orthologs + phenotypes
+    nodes = set(seed_list).union(set(orthophenoList))
+
+    # get connections for network nodes
+    network = get_connections(nodes)
+
+    return network
 
 if __name__ == '__main__':
     #geneList = ['OMIM:615273']  # NGLY1 deficiency

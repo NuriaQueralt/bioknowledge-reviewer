@@ -1,14 +1,14 @@
-#!/usr/bin/env python3
 # @name: summary.py
 # @description: Module for hypothesis summarization
-# @author: Núria Queralt Rosinach
-# @date: 02-28-2018
 # @version: 2.0
+# @date: 28-02-2018
+# @author: Núria Queralt Rosinach
+# @email: nuriaqr@scripps.edu
 
 # This module is v2.0 because it is integrated with the rest of the graph library.
 # It prints summaries in CSV format for consistency with the rest of the pipeline.
 
-# to dos:
+# TO DO:
 #   * do a function than return table objects into dataframes, sort dataframe values by columns and print a table
 #   * do a control for queries with 0 paths as result
 #   * clean metapaths functions and distinguish work with dataframes

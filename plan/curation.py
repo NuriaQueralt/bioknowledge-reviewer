@@ -1,3 +1,12 @@
+# @name: curation.py
+# @description: Module for curation network preparation and management
+# @version: 1.0
+# @date: 01-03-2018
+# @author: Núria Queralt Rosinach
+# @email: nuriaqr@scripps.edu
+
+# TO DO:
+
 """Module for the curation data"""
 
 import os, glob, sys
@@ -6,6 +15,18 @@ from gsheets import Sheets
 from biothings_client import get_client
 sys.path.insert(0,'/home/nuria/soft/utils3/lib/')
 import abravo_lib as utils
+
+
+# VARIABLES
+today = datetime.date.today()
+
+
+# CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
+
+# BUILD NETWORK
+
+# NETWORK MANAGEMENT FUNCTIONS
+
 
 
 def download_networks():

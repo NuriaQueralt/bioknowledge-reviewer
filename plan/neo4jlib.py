@@ -1,7 +1,8 @@
-# @name: neo4j.py
+# @name: neo4jlib.py
+# @description: Module for Neo4j data structure and management
 # @version: 1.0
-# @author: Núria Queralt Rosinach
 # @date: 22-02-2018
+# @author: Núria Queralt Rosinach
 # @email: nuriaqr@scripps.edu
 
 # All files before concatenation should have the same format:
@@ -28,7 +29,7 @@
 # modularize
 # debugging
 # documentation
-"""Module for neo4j"""
+"""Module for Neo4j"""
 
 import pandas as pd
 import datetime
@@ -37,6 +38,13 @@ import subprocess
 
 # VARIABLES
 today = datetime.date.today()
+
+# CHECK GRAPH SCHEMA AND NORMALIZE TO NEO4J FORMAT
+
+# BUILD NETWORK
+
+# NETWORK MANAGEMENT FUNCTIONS
+
 
 #### UTILS
 

@@ -1,8 +1,9 @@
 # @name: hypothesis.py
 # @description: Module for hypothesis generation
-# @author: Núria Queralt Rosinach
-# @date: 02-24-2018
 # @version: 2.0
+# @date: 24-02-2018
+# @author: Núria Queralt Rosinach
+# @email: nuriaqr@scripps.edu
 
 # This module is v2.0 because it is integrated with the rest of the graph library.
 # This module reproduces orthopheno query on ngly1 graph created in the pipeline:
@@ -13,7 +14,7 @@
 #      PROBLEM: concept type
 #      Sanity check:
 
-# to dos:
+# TO DO:
 #   * add check function to ensure that neo4j is up after import
 #   * add check function to ensure that a query does not kill neo4j and that is up
 #   * clean query (eliminate g1, ..)
