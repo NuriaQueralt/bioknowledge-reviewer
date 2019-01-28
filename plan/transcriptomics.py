@@ -200,7 +200,7 @@ def build_edges(edges):
 
     # print edges info
     print('\n* This is the size of the edges file data structure: {}'.format(pd.DataFrame(edges_l).shape))
-    print('* These are the nodes attributes: {}'.format(pd.DataFrame(edges_l).columns))
+    print('* These are the edges attributes: {}'.format(pd.DataFrame(edges_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(edges_l).head(1)))
 
     #return
