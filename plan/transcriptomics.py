@@ -17,6 +17,10 @@ from biothings_client import get_client
 # VARIABLES
 today = datetime.date.today()
 
+# path to write data
+path = os.getcwd() + "/transcriptomics"
+if not os.path.isdir(path): os.makedirs(path)
+
 
 # CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
 # check network schema
@@ -165,7 +169,7 @@ def build_edges(edges):
         if ':' in row['property_id']:
             property_uri = curie_dct[row['property_id'].split(':')[0].lower()] + row['property_id'].replace(':', '_')
 
-            # reference_uri: https://www.ncbi.nlm.nih.gov/pubmed/25416956
+        # reference_uri: https://www.ncbi.nlm.nih.gov/pubmed/25416956
         # capture nan or None values, i.e. all possible nulls
         if (isinstance(row['reference_id'], float) and str(row['reference_id']).lower() == 'nan') or row[
             'reference_id'] is None:

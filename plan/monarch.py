@@ -34,8 +34,8 @@ path = os.getcwd() + '/monarch'
 if not os.path.isdir(path): os.makedirs(path)
 
 # case = graph connectivity
-#path = os.getcwd() + '/graph'
-#if not os.path.isdir(path): os.makedirs(path)
+#graph = os.getcwd() + '/graph'
+#if not os.path.isdir(graph): os.makedirs(graph)
 
 
 # CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
