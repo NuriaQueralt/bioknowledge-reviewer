@@ -15,19 +15,198 @@ from gsheets import Sheets
 from biothings_client import get_client
 sys.path.insert(0,'/home/nuria/soft/utils3/lib/')
 import abravo_lib as utils
+import datetime
+
+# mondo annotation
+sys.path.insert(0,'/home/nuria/workspace/utils3/ontologies')
+import mondo_class as mondo
 
 
 # VARIABLES
 today = datetime.date.today()
 
+# path to write data
+path = os.getcwd() + "/curation"
+if not os.path.isdir(path): os.makedirs(path)
+
 
 # CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
 
+# import curated statements as edges and nodes
+def read_data():
+    """This function imports curated statements as edges and nodes."""
+
+    # read edges
+    csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/curated_v20180118'
+    edges_df = pd.read_csv('{}/curated_edges_v2019-01-18.csv'.format(csv_path))
+    print('\n* Number of curated edges:', len(edges_df))
+
+    # read nodes
+    nodes_df = pd.read_csv('{}/curated_nodes_v2019-01-18.csv'.format(csv_path))
+    print('\n* Number of curated nodes:', len(nodes_df))
+
+    return edges_df, nodes_df
+
+
+# normalize ID CURIEs and types
+def prepare_data_edges(edges_df):
+    """This function normalizes data edges."""
+
+    ## GENES: normalize to HGNC
+    # biothings api + dictionaries
+    # concepts
+    concept_dct = dict()
+    for i, row in edges_df.iterrows():
+        # node for subject
+        concept_dct[row['subject_id']] = 1
+        # node for object
+        concept_dct[row['object_id']] = 1
+    len(concept_dct.keys())
+
+    # api input
+    entrez = list()
+    diseases = set()
+    for idx, row in concept_dct.items():
+        if ':' in idx:
+            if 'ncbigene' in idx.split(':')[0].lower():
+                entrez.append(idx.split(':')[1])
+            elif 'doid' in idx.split(':')[0].lower() or 'omim' in idx.split(':')[0].lower() or 'orphanet' in \
+                    idx.split(':')[0].lower():
+                diseases.add(idx)
+    print(len(entrez))
+    entrez = list(set(entrez))
+    print(len(entrez))
+    print(len(diseases))
+    print(diseases)
+
+    # api call
+    mg = get_client('gene')
+    df = mg.querymany(entrez, scopes='entrezgene', fields='HGNC', size=1, as_dataframe=True)
+    #df.head(2)
+
+    # build dictionary
+    ids = df.reset_index().rename(columns={'query': 'entrez'}).copy()
+    # deal with no mappings
+    # ids['HGNC'] = ids.HGNC.apply(lambda x: x if type(x) == str else 'NA')
+    # dictionary
+    entrez2hgnc_dct = dict(zip(ids.entrez, ids.HGNC))
+    print(entrez2hgnc_dct['173028'])
+    print(entrez2hgnc_dct['358'])
+
+    # map to hgnc
+    lines = []
+    for idx, row in edges_df.iterrows():
+        # subject
+        if ':' in row['subject_id']:
+            if 'NCBIGene' in row['subject_id'].split(':')[0]:
+                if str(entrez2hgnc_dct[row['subject_id'].split(':')[1]]) != 'nan':
+                    row['subject_id'] = "HGNC:" + entrez2hgnc_dct[row['subject_id'].split(':')[1]]
+
+        # object
+        if ':' in row['object_id']:
+            if 'NCBIGene' in row['object_id'].split(':')[0]:
+                if str(entrez2hgnc_dct[row['object_id'].split(':')[1]]) != 'nan':
+                    row['object_id'] = "HGNC:" + entrez2hgnc_dct[row['object_id'].split(':')[1]]
+
+        lines.append((row))
+    edges = pd.DataFrame.from_records(lines)
+    #edges.head(2)
+
+    #return edges
+
+
+# add d2m and g2p edges
+def prepare_curated_edges(edges, nodes_df):
+    """This function prepares curated edges to build the graph."""
+
+    ## DISEASES:
+    # add d2m edges
+    # manually: dict diseases to mondo
+    d2m = {
+        'OMIM:223900': 'MONDO:0009131',
+        'DOID:2476': 'MONDO:0019064',
+        'Orphanet:869': 'MONDO:0009279',
+        'DOID:11589': 'MONDO:0009131',
+        'OMIM:614653': 'MONDO:0013839',
+        'OMIM:615510': 'MONDO:0014219',
+        'Orphanet:314381': 'MONDO:0013839',
+        'DOID:10595': 'MONDO:0015626',
+        'OMIM:608984': 'MONDO:0012166',
+        'DOID:5212': 'MONDO:0015286',
+        'OMIM:615273': 'MONDO:0014109',
+        'DOID:0060308': 'MONDO:0019502',
+        'DOID:0060728': 'MONDO:0014109',
+        'OMIM:231550': 'MONDO:0009279',
+        'DOID:0050602': 'MONDO:0009279'
+    }
+
+    # add equivalentTo MONDO edges
+    edges_l = list()
+    for disease, mondo in d2m.items():
+        edge = dict()
+        edge['subject_id'] = disease
+        edge['object_id'] = mondo
+        edge['property_id'] = 'skos:exactMatch'
+        edge['property_label'] = 'exact match'
+        edge['property_description'] = 'NA'
+        edge['property_uri'] = 'NA'
+        edge['reference_uri'] = 'NA'
+        edge['reference_supporting_text'] = 'NA'
+        edge['reference_date'] = 'NA'
+        edges_l.append(edge)
+
+    d2m_edges_df = pd.DataFrame(edges_l)
+    #d2m_edges_df
+
+    edges = pd.concat([edges, d2m_edges_df], ignore_index=True, join="inner")
+    #edges.tail(2)
+
+    # add mondo nodes
+    # build dictionary with nodes'description
+    # test mondo module
+    owl_f = '/home/nuria/workspace/ngly1-graph/ontologies/mondo.owl'
+    tm = mondo.term(owl_f)
+    print(tm.get_metadata_per_id(id='MONDO:0015286'))
+
+    # extract metadata from the mondo ontology
+    nodes_l = list()
+    for disease, mondo in d2m.items():
+        mondo_term = tm.get_metadata_per_id(id=mondo)
+        node = dict()
+        node['id'] = mondo_term['id']
+        node['semantic_groups'] = 'DISO'
+        node['preflabel'] = mondo_term['label']
+        # node['name'] = mondo_term['label']
+        node['synonyms'] = mondo_term['synonyms']
+        node['description'] = mondo_term['definition']
+        nodes_l.append(node)
+
+    # add to nodes_df
+    d2m_nodes_df = pd.DataFrame(nodes_l)
+    d2m_nodes_df.drop_duplicates(inplace=True)
+    #d2m_nodes_df
+
+    nodes = pd.concat([nodes_df, d2m_nodes_df], ignore_index=True, join="inner")
+    #nodes.tail(2)
+
+    #return edges, nodes
+
+
+
 # BUILD NETWORK
 
+def build_edges(edges):
+    """This function builds the edges network file."""
+
+    #return
+
+
+def build_nodes(edges):
+    """This function builds the nodes network file."""
+
+    #return
+
 # NETWORK MANAGEMENT FUNCTIONS
-
-
 
 def download_networks():
     """This function downloads curated network files (edges and nodes) from spreadsheets in Google Drive as csv files."""
@@ -330,13 +509,19 @@ def get_nodes(network_df):
 
 if __name__ == '__main__':
 
+    # prepare curated edges for monarch network interoperability
     # download curated network (web to local csv: edges and node descriptions)
     #download_networks()
 
     # read curated network(edges.csv)
-    curatedNetwork_df = read_network()
+    #curatedNetwork_df = read_network()
 
     # get nodes
     ##curatedNetworkNodes_df = get_nodes_df(curatedNetwork_df)
     ##curatedNetworkNodes_list = get_list_of_monarch_id_nodes(curatedNetworkNodes_df)
-    curatedNodes_list = get_nodes(curatedNetwork_df)
+    #curatedNodes_list = get_nodes(curatedNetwork_df)
+
+    # build network for the graph
+    #edges_df, nodes_df = read_data()
+    #data_edges = prepare_data_edges(edges_df)
+    #prepare_curated_edges(data_edges,nodes_df)

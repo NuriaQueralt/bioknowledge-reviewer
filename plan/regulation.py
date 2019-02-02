@@ -12,13 +12,11 @@
 
 import datetime
 import json
-import os #, glob, sys
+import os
 import gseapy as gs
 from biothings_client import get_client
 import gzip
 import pandas as pd
-#sys.path.insert(0,'/home/nuria/soft/utils3/lib/')
-#import abravo_lib as utils
 
 # VARIABLES
 today = datetime.date.today()
@@ -858,7 +856,7 @@ if __name__ == '__main__':
     #dicts = get_gene_id_normalization_dictionaries(data)
     #prepare_data_edges(data, dicts)
     ## prepare regulation network
-    network = prepare_regulation_edges()
+    #network = prepare_regulation_edges()
     ## build regulation network
     #build_edges(network)
-    build_nodes(network)
+    #build_nodes(network)
