@@ -59,7 +59,7 @@ def read_connections():
     print('* These are the attributes: {}'.format(network_df.columns))
     print('* This is the first record:\n{}'.format(network_df.head(1)))
 
-    #return network_df
+    return network_df
 
 
 
@@ -464,9 +464,17 @@ def orthopheno_expand_edges(seed_list):
 
 
 # generate statement file/monarch network edges file with graph schema: add-connections-to-net/monarch_edges_v{}.[tsv|csv]
-def build_edges():
-    """This function builds the edges network file."""
+def build_edges(edges_df):
+    """This function builds the edges network data structure and file.
+       edges_df = pd.read_table('./get-monarch-connections/monarch_connections.tsv')
+       Input: data from monarch_connections at
+              /home/nuria/workspace/ngly1-graph/monarch/1shell-animal/get-monarch-connections/monarch_connections.tsv
+              or
+              /home/nuria/workspace/ngly1-graph/regulation/graph/monarch _connections_regulation_graph.tsv
+       Output: data structure for graph edges
+    """
 
+    ## variables
     # generate static variable: uriPrefixes_dct (url references)
     uriPrefixes_dct = {
         'pmid': 'https://www.ncbi.nlm.nih.gov/pubmed/',  # 'http://identifiers.org/pubmed/',
@@ -486,11 +494,13 @@ def build_edges():
     # generate static variable: dbPrefixes_dct (source/database references)
     dbPrefixes_dct = {
         'na': 'NA',
+        'nan': 'NA',
         'mgi': 'http://www.informatics.jax.org/',
         'fb': 'http://flybase.org/',
         'rgd': 'http://rgd.mcw.edu/',
         'zfin': 'http://zfin.org/',
         'sgd': 'https://www.yeastgenome.org/',
+        'hgnc': 'https://www.genenames.org/',
         'xenbase': 'http://www.xenbase.org/'
     }
 
@@ -498,36 +508,61 @@ def build_edges():
     ref_text = 'This edge comes from the Monarch Knowledge Graph 2019.'  # 'NA'
     ref_date = 'NA'
 
-    # build graph schema network edges and save edges file
+
+    ## build graph schema network edges data structure and save edges file
     #csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/monarch_connections_regulation_graph.tsv'
-    csv_path = '/home/nuria/workspace/ngly1-graph/monarch/1shell-animal/get-monarch-connections/monarch_connections.tsv'
+    #csv_path = '/home/nuria/workspace/ngly1-graph/monarch/1shell-animal/get-monarch-connections/monarch_connections.tsv'
+    # edges_df = pd.read_table('./get-monarch-connections/monarch_connections.tsv')
+    # prepare dataframe = [ {} ... {} ], where every row = {} = concept
     edges_l = list()
     with open('{}/monarch_edges_v{}.tsv'.format(path,today), 'w') as f:
         f.write(
             'subject_id\tproperty_id\tobject_id\treference_uri\treference_supporting_text\treference_date\tproperty_label\tproperty_description\tproperty_uri\n'
         )
-        header = 1
-        for row in open('{}'.format(csv_path)).readlines():
-            if header:
-                header = 0
-                continue
-            edge = row.strip('\n').split('\t')
+        # read edges from file monarch_connections:
+        #header = 1
+        #for row in open('{}'.format(csv_path)).readlines():
+        #    if header:
+        #        header = 0
+        #        continue
+        #    edge = row.strip('\n').split('\t')
+        # read edges from variable
+        for edge in edges_df.itertuples():
+            # edge or row is a tuple (named and ordered attributes)
+            #print("edge_tuple:", edge)
+            # edge.reference_id_list >> can be 1) np.nan (float type) or 2) str without "|" 3) str with "|"
+            ref_s = str(edge.reference_id_list)
+
+            # prepare reference_uri_list attribute
             ref_uri_l = list()
             # expand to uri or NA
             pmid_l = list()
-            for ref in edge[-1].strip().split('|'):
+            # reference_id list iteration
+            for ref in ref_s.strip().split('|'):
                 # NA or database
                 if ':' not in ref:
-                    ref_uri = dbPrefixes_dct[ref.lower()]
+                    try:
+                        ref_uri = dbPrefixes_dct[ref.lower()]
+                    except KeyError:
+                        print("Error:")
+                        print("In build_edges() method, update 'dbPrefixes_dct' variable with '{}'".format(ref))
+                        print(edge)
                     ref_uri_l.append(ref_uri)
-                # publications
+                # publication uri: pubmed_id or url
                 else:
                     pref, uriId = ref.split(':')
-                    # separate pmid from non pmid
+                    # separate pmid from non pmid and detect:
+                    # pubmed_id
                     if ref.startswith('PMID'):
                         pmid_l.append(uriId)
+                    # url
                     else:
-                        ref_uri = uriPrefixes_dct[pref.lower()] + uriId
+                        try:
+                            ref_uri = uriPrefixes_dct[pref.lower()] + uriId
+                        except KeyError:
+                            print("Error:")
+                            print("In build_edges() method, update 'uriPrefixes_dct' variable with '{}'".format(pref))
+                            print(edge)
                         ref_uri_l.append(ref_uri)
             # create multi-term pubmed url
             if len(pmid_l):
@@ -535,23 +570,26 @@ def build_edges():
                 ref_uri = uriPrefixes_dct['pmid'] + pmid_s
                 ref_uri_l.append(ref_uri)
             ref_uri_list = '|'.join(ref_uri_l)
-            # write the associations + list of references as uri or NA
-            sub_id = 'NA' if edge[0] is None else edge[0]
-            rel_id = 'NA' if edge[2] is None else edge[2]
-            obj_id = 'NA' if edge[4] is None else edge[4]
-            rel_label = 'NA' if edge[3] is None else edge[3]
-            rel_def = 'NA'  # if edge[5] is None else edge[5]
+
+            # prepare edge attributes: sub_id, obj_id, rel_id, rel_label, rel_def, rel_iri
+            sub_id = 'NA' if edge.subject_id is None or str(edge.subject_id) == 'nan' else edge.subject_id
+            rel_id = 'NA' if edge.relation_id is None or str(edge.relation_id) == 'nan' else edge.relation_id
+            obj_id = 'NA' if edge.object_id is None or str(edge.object_id) == 'nan' else edge.object_id
+            rel_label = 'NA' if edge.relation_label is None or str(edge.relation_label) == 'nan' else edge.relation_label
+            rel_def = 'NA'
             if ':' in rel_id:
                 rel_iri = 'http://purl.obolibrary.org/obo/' + rel_id.replace(':', '_')
             else:
                 rel_iri = rel_id
+
+            # print edges file
+            #TODO: abstract this function
             f.write(
                 '{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n'.format(sub_id, rel_id, obj_id, ref_uri_list, ref_text, ref_date,
                                                               rel_label, rel_def, rel_iri))
-            # print(sub_id, rel_id, obj_id, ref_uri_list, ref_text, ref_date, rel_label, rel_def, rel_iri)
+            #print(sub_id, rel_id, obj_id, ref_uri_list, ref_text, ref_date, rel_label, rel_def, rel_iri)
 
-    # print edges info
-            # build a list of edges as list of dict, i.e a df, where a dict is an edge
+            # build the data structure = list of edges as list of dict, where a dict is an edge
             edge = dict()
             edge['subject_id'] = sub_id
             edge['object_id'] = obj_id
@@ -572,27 +610,33 @@ def build_edges():
     print('* These are the edges attributes: {}'.format(pd.DataFrame(edges_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(edges_l).head(1)))
 
-    #return edges_l
+    return edges_l
 
 
 # generate concept file/monarch network nodes file with graph schema: add-connections-to-net/monarch_nodes_v{}.[tsv|csv]
-def build_nodes():
-    """This function builds the nodes network file."""
+def build_nodes(edges_df):
+    """This function builds the nodes network file.
+    edges_df = .../monarch/1shell-animal-hgnc/get-monarch-connections/monarch_connections.tsv'
+    """
 
     # build semantic groups dictionary
     # collide concepts in a concept dict
     concept_dct = dict()
-    header = 1
-    # for row in open('../monarch/1shell-animal-hgnc/get-monarch-connections/monarch_connections.tsv').readlines():
-    #csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/monarch_connections_regulation_graph.tsv'
-    csv_path = '/home/nuria/workspace/ngly1-graph/monarch/1shell-animal/get-monarch-connections/monarch_connections.tsv'
-    for row in open('{}'.format(csv_path)).readlines():
-        if header:
-            header = 0
-            continue
-        fields = row.strip('\n').split('\t')
-        sid = fields[0]
-        oid = fields[4]
+    # read edges from input file
+    #header = 1
+    ##for row in open('../monarch/1shell-animal-hgnc/get-monarch-connections/monarch_connections.tsv').readlines():
+    ##csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/monarch_connections_regulation_graph.tsv'
+    #csv_path = '/home/nuria/workspace/ngly1-graph/monarch/1shell-animal/get-monarch-connections/monarch_connections.tsv'
+    #for row in open('{}'.format(csv_path)).readlines():
+    #    if header:
+    #        header = 0
+    #        continue
+    # read edges from variable
+    for edge in edges_df.itertuples():
+        #fields = row.strip('\n').split('\t')
+        #fields = list(edge_tuple)
+        sid = edge.subject_id #fields[0]
+        oid = edge.object_id #fields[4]
         concept_dct[sid] = {}
         concept_dct[oid] = {}
     print('Number of concepts: {}'.format(len(concept_dct.keys())))
@@ -623,29 +667,50 @@ def build_nodes():
         else:
             conceptPrefix2semantic_dct[prefix] = 'CONC'
 
-    # build concept attributes dict
+    # build concept attributes dict: id integration of sub and obj IDs in a common data structure
     concept_dct = dict()
-    header = 1
-    # for row in open('../monarch/1shell-animal-hgnc/get-monarch-connections/monarch_connections.tsv').readlines():
-    for row in open('{}'.format(csv_path)).readlines():
-        if header:
-            header = 0
-            continue
-        fields = row.strip('\n').split('\t')
+    # read edges from file
+    #header = 1
+    ##for row in open('../monarch/1shell-animal-hgnc/get-monarch-connections/monarch_connections.tsv').readlines():
+    #for row in open('{}'.format(csv_path)).readlines():
+    #    if header:
+    #        header = 0
+    #        continue
+    #    fields = row.strip('\n').split('\t')
+    # read edges from variable
+    for edge in edges_df.itertuples():
+        #fields = list(edge_tuple)
         # id: integration of sub and obj IDs in a unique data structure
-        sid = fields[0]
-        slab = fields[1]
-        oid = fields[4]
-        olab = fields[5]
+        sid = edge.subject_id #fields[0]
+        slab = edge.subject_label #fields[1]
+        oid = edge.object_id #fields[4]
+        olab = edge.object_label #fields[5]
         # build the concept data structure
         concept_dct[sid] = {'preflabel': slab,
                             'semantic_groups': conceptPrefix2semantic_dct.get(sid.split(':')[0].lower(), 'CONC'),
-                            'synonyms': 'NA', 'definition': 'NA'}
+                            'synonyms': 'NA', 'description': 'NA'}
         concept_dct[oid] = {'preflabel': olab,
                             'semantic_groups': conceptPrefix2semantic_dct.get(oid.split(':')[0].lower(), 'CONC'),
-                            'synonyms': 'NA', 'definition': 'NA'}
+                            'synonyms': 'NA', 'description': 'NA'}
 
-    # build graph schema network nodes and save nodes file
+    # build graph schema network nodes data structure and save nodes file
+    # prepare data structure = [ {} ... {} ], where every {} = concept = row
+    nodes_l = list()
+    for concept in concept_dct:
+        # define nodes (rows) for the data structure
+        node = dict()
+        node['id'] = concept
+        node['semantic_groups'] = concept_dct[concept]['semantic_groups']
+        node['preflabel'] = concept_dct[concept]['preflabel']
+        #node['name'] = concept_dct[concept]['name']
+        node['synonyms'] = '|'.join(list(concept_dct[concept]['synonyms'])) if isinstance(
+            concept_dct[concept]['synonyms'], list) else concept_dct[concept]['synonyms']
+        #node['description'] = concept_dct.get(concept).get('description')
+        nodes_l.append(node)
+
+    # save nodes file
+    #TODO: abstract the print function
+    #pd.DataFrame(nodes_l).fillna('NA').to_csv('{}/monarch_nodes_v{}.tsv'.format(path,today), index=False)
     with open('{}/monarch_nodes_v{}.tsv'.format(path,today), 'w') as f:
         f.write(
             'id\tsemantic_groups\tpreflabel\tsynonyms\tdescription\n'
@@ -658,33 +723,15 @@ def build_nodes():
             # synonyms
             synonyms = concept_dct.get(concept).get('synonyms')
             # definition
-            definition = concept_dct.get(concept).get('definition')
-            f.write('{}\t{}\t{}\t{}\t{}\n'.format(concept, semantic, preflabel, synonyms, definition))
-
-    # print nodes info
-    # build a list of nodes as list of dict, i.e a df, where a dict is a node
-    nodes_l = list()
-    for concept in concept_dct:
-        # node for subject
-        node = dict()
-        node['id'] = concept
-        node['semantic_groups'] = concept_dct[concept]['semantic_groups']
-        node['preflabel'] = concept_dct[concept]['preflabel']
-        #node['name'] = concept_dct[concept]['name']
-        node['synonyms'] = '|'.join(list(concept_dct[concept]['synonyms'])) if isinstance(
-            concept_dct[concept]['synonyms'], list) else concept_dct[concept]['synonyms']
-        #node['description'] = concept_dct[concept]['description']
-        nodes_l.append(node)
-
-    # save nodes file
-    #pd.DataFrame(nodes_l).fillna('NA').to_csv('{}/monarch_nodes_v{}.tsv'.format(path,today), index=False)
+            description = concept_dct.get(concept).get('description')
+            f.write('{}\t{}\t{}\t{}\t{}\n'.format(concept, semantic, preflabel, synonyms, description))
 
     # print info
     print('\n* This is the size of the nodes file data structure: {}'.format(pd.DataFrame(nodes_l).shape))
     print('* These are the nodes attributes: {}'.format(pd.DataFrame(nodes_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(nodes_l).head(1)))
 
-    #return nodes_l
+    return nodes_l
 
 
 if __name__ == '__main__':
@@ -712,3 +759,10 @@ if __name__ == '__main__':
     # TODO: external prints
     #nodes = build_nodes()
     #print_network(nodes,'nodes_print1_prova')
+    # build monarch graph from monarch connections network
+    monarch_connections = read_connections() # OR monarch_network = read_connections()
+    print('### len of monarch_connections input:',len(monarch_connections))
+    monarch_edges = build_edges(monarch_connections)
+    print('### len of monarch_edges output:',len(monarch_edges))
+    monarch_nodes = build_nodes(monarch_connections)
+    print('### len of monarch_nodes output:',len(monarch_nodes))
