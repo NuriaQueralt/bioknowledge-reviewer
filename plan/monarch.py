@@ -708,6 +708,8 @@ def build_nodes(edges_df):
         #node['description'] = concept_dct.get(concept).get('description')
         nodes_l.append(node)
 
+    #TODO: include node annotation from graph.py: biothings name, synonyms and description to genes
+
     # save nodes file
     #TODO: abstract the print function
     #pd.DataFrame(nodes_l).fillna('NA').to_csv('{}/monarch_nodes_v{}.tsv'.format(path,today), index=False)
