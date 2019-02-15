@@ -16,6 +16,8 @@ import sys, os
 import json
 import datetime
 import pandas as pd
+from biothings_client import get_client
+
 
 # VARIABLES
 # timestamp
@@ -515,95 +517,80 @@ def build_edges(edges_df):
     # edges_df = pd.read_table('./get-monarch-connections/monarch_connections.tsv')
     # prepare dataframe = [ {} ... {} ], where every row = {} = concept
     edges_l = list()
-    with open('{}/monarch_edges_v{}.tsv'.format(path,today), 'w') as f:
-        f.write(
-            'subject_id\tproperty_id\tobject_id\treference_uri\treference_supporting_text\treference_date\tproperty_label\tproperty_description\tproperty_uri\n'
-        )
-        # read edges from file monarch_connections:
-        #header = 1
-        #for row in open('{}'.format(csv_path)).readlines():
-        #    if header:
-        #        header = 0
-        #        continue
-        #    edge = row.strip('\n').split('\t')
-        # read edges from variable
-        for edge in edges_df.itertuples():
-            # edge or row is a tuple (named and ordered attributes)
-            #print("edge_tuple:", edge)
-            # edge.reference_id_list >> can be 1) np.nan (float type) or 2) str without "|" 3) str with "|"
-            ref_s = str(edge.reference_id_list)
+    for edge in edges_df.itertuples():
+        # edge or row is a tuple (named and ordered attributes)
+        #print("edge_tuple:", edge)
+        # edge.reference_id_list >> can be 1) np.nan (float type) or 2) str without "|" 3) str with "|"
+        ref_s = str(edge.reference_id_list)
 
-            # prepare reference_uri_list attribute
-            ref_uri_l = list()
-            # expand to uri or NA
-            pmid_l = list()
-            # reference_id list iteration
-            for ref in ref_s.strip().split('|'):
-                # NA or database
-                if ':' not in ref:
+        # prepare reference_uri_list attribute
+        ref_uri_l = list()
+        # expand to uri or NA
+        pmid_l = list()
+        # reference_id list iteration
+        for ref in ref_s.strip().split('|'):
+            # NA or database
+            if ':' not in ref:
+                try:
+                    ref_uri = dbPrefixes_dct[ref.lower()]
+                except KeyError:
+                    print("Error:")
+                    print("In build_edges() method, update 'dbPrefixes_dct' variable with '{}'".format(ref))
+                    print(edge)
+                ref_uri_l.append(ref_uri)
+            # publication uri: pubmed_id or url
+            else:
+                pref, uriId = ref.split(':')
+                # separate pmid from non pmid and detect:
+                # pubmed_id
+                if ref.startswith('PMID'):
+                    pmid_l.append(uriId)
+                # url
+                else:
                     try:
-                        ref_uri = dbPrefixes_dct[ref.lower()]
+                        ref_uri = uriPrefixes_dct[pref.lower()] + uriId
                     except KeyError:
                         print("Error:")
-                        print("In build_edges() method, update 'dbPrefixes_dct' variable with '{}'".format(ref))
+                        print("In build_edges() method, update 'uriPrefixes_dct' variable with '{}'".format(pref))
                         print(edge)
                     ref_uri_l.append(ref_uri)
-                # publication uri: pubmed_id or url
-                else:
-                    pref, uriId = ref.split(':')
-                    # separate pmid from non pmid and detect:
-                    # pubmed_id
-                    if ref.startswith('PMID'):
-                        pmid_l.append(uriId)
-                    # url
-                    else:
-                        try:
-                            ref_uri = uriPrefixes_dct[pref.lower()] + uriId
-                        except KeyError:
-                            print("Error:")
-                            print("In build_edges() method, update 'uriPrefixes_dct' variable with '{}'".format(pref))
-                            print(edge)
-                        ref_uri_l.append(ref_uri)
-            # create multi-term pubmed url
-            if len(pmid_l):
-                pmid_s = ','.join(pmid_l)
-                ref_uri = uriPrefixes_dct['pmid'] + pmid_s
-                ref_uri_l.append(ref_uri)
-            ref_uri_list = '|'.join(ref_uri_l)
+        # create multi-term pubmed url
+        if len(pmid_l):
+            pmid_s = ','.join(pmid_l)
+            ref_uri = uriPrefixes_dct['pmid'] + pmid_s
+            ref_uri_l.append(ref_uri)
+        ref_uri_list = '|'.join(ref_uri_l)
 
-            # prepare edge attributes: sub_id, obj_id, rel_id, rel_label, rel_def, rel_iri
-            sub_id = 'NA' if edge.subject_id is None or str(edge.subject_id) == 'nan' else edge.subject_id
-            rel_id = 'NA' if edge.relation_id is None or str(edge.relation_id) == 'nan' else edge.relation_id
-            obj_id = 'NA' if edge.object_id is None or str(edge.object_id) == 'nan' else edge.object_id
-            rel_label = 'NA' if edge.relation_label is None or str(edge.relation_label) == 'nan' else edge.relation_label
-            rel_def = 'NA'
-            if ':' in rel_id:
-                rel_iri = 'http://purl.obolibrary.org/obo/' + rel_id.replace(':', '_')
-            else:
-                rel_iri = rel_id
+        # prepare edge attributes: sub_id, obj_id, rel_id, rel_label, rel_def, rel_iri
+        sub_id = 'NA' if edge.subject_id is None or str(edge.subject_id) == 'nan' else edge.subject_id
+        rel_id = 'NA' if edge.relation_id is None or str(edge.relation_id) == 'nan' else edge.relation_id
+        obj_id = 'NA' if edge.object_id is None or str(edge.object_id) == 'nan' else edge.object_id
+        rel_label = 'NA' if edge.relation_label is None or str(edge.relation_label) == 'nan' else edge.relation_label
+        rel_def = 'NA'
+        if ':' in rel_id:
+            rel_iri = 'http://purl.obolibrary.org/obo/' + rel_id.replace(':', '_')
+        else:
+            rel_iri = rel_id
 
-            # print edges file
-            #TODO: abstract this function
-            f.write(
-                '{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\n'.format(sub_id, rel_id, obj_id, ref_uri_list, ref_text, ref_date,
-                                                              rel_label, rel_def, rel_iri))
-            #print(sub_id, rel_id, obj_id, ref_uri_list, ref_text, ref_date, rel_label, rel_def, rel_iri)
-
-            # build the data structure = list of edges as list of dict, where a dict is an edge
-            edge = dict()
-            edge['subject_id'] = sub_id
-            edge['object_id'] = obj_id
-            edge['property_id'] = rel_id
-            edge['property_label'] = rel_label
-            edge['property_description'] = rel_def
-            edge['property_uri'] = rel_iri
-            edge['reference_uri'] = ref_uri_list
-            edge['reference_supporting_text'] = ref_text
-            edge['reference_date'] = ref_date
-            edges_l.append(edge)
+        # build the data structure = list of edges as list of dict, where a dict is an edge
+        edge = dict()
+        edge['subject_id'] = sub_id
+        edge['object_id'] = obj_id
+        edge['property_id'] = rel_id
+        edge['property_label'] = rel_label
+        edge['property_description'] = rel_def
+        edge['property_uri'] = rel_iri
+        edge['reference_uri'] = ref_uri_list
+        edge['reference_supporting_text'] = ref_text
+        edge['reference_date'] = ref_date
+        edges_l.append(edge)
 
     # save edges file
-    #pd.DataFrame(edges_l).fillna('NA').to_csv('{}/monarch_edges_v{}.tsv'.format(path,today), index=False)
+    #TODO: abstract this function
+    df = pd.DataFrame(edges_l)
+    df = df[['subject_id', 'property_id', 'object_id', 'reference_uri', 'reference_supporting_text', 'reference_date', \
+             'property_label', 'property_description', 'property_uri']]
+    df.fillna('NA').to_csv('{}/monarch_edges_v{}.tsv'.format(path,today), index=False)
 
     # print info
     print('\n* This is the size of the edges file data structure: {}'.format(pd.DataFrame(edges_l).shape))
@@ -694,39 +681,53 @@ def build_nodes(edges_df):
                             'synonyms': 'NA', 'description': 'NA'}
 
     # build graph schema network nodes data structure and save nodes file
+    # biothings: annotate name,synonyms,description to genes
+    print('\nAdding BioThings annotation: gene name, synonyms, description...')
+    # input: (preflabel) symbol,alias
+    symbols = list()
+    for concept in concept_dct:
+        if isinstance(concept_dct[concept]['semantic_groups'], list):
+            for label in concept_dct[concept]['semantic_groups']:
+                if 'GENE' in label:
+                    symbols.append(concept_dct[concept]['preflabel'])
+        else:
+            if 'GENE' in concept_dct[concept]['semantic_groups']:
+                symbols.append(concept_dct[concept]['preflabel'])
+    print('symbols:', len(symbols))
+
+    # query biothings
+    mg = get_client('gene')
+    df = mg.querymany(symbols, scopes='symbol,alias', fields='name,alias,summary', size=1, as_dataframe=True)
+
+    # dictionary: {symbol:name}
+    ids = (df.reset_index().rename(columns={'query': 'symbol'}))
+    ids['synonyms'] = ids.alias.apply(lambda x: x if str(x) != 'nan' else 'NA')
+    ids['description'] = ids.summary.apply(lambda x: x if str(x) != 'nan' else 'NA')
+    monarch_s2n = dict(zip(ids.symbol, ids.name))
+    monarch_s2s = dict(zip(ids.symbol, ids.synonyms))
+    monarch_s2d = dict(zip(ids.symbol, ids.description))
+
     # prepare data structure = [ {} ... {} ], where every {} = concept = row
     nodes_l = list()
     for concept in concept_dct:
         # define nodes (rows) for the data structure
+        preflabel = concept_dct[concept]['preflabel']
+        concept_dct[concept]['synonyms'] = monarch_s2s[preflabel] if preflabel in monarch_s2s.keys() else 'NA'
         node = dict()
         node['id'] = concept
         node['semantic_groups'] = concept_dct[concept]['semantic_groups']
-        node['preflabel'] = concept_dct[concept]['preflabel']
-        #node['name'] = concept_dct[concept]['name']
+        node['preflabel'] = preflabel
+        node['name'] = monarch_s2n[preflabel] if preflabel in monarch_s2n.keys() else preflabel
         node['synonyms'] = '|'.join(list(concept_dct[concept]['synonyms'])) if isinstance(
             concept_dct[concept]['synonyms'], list) else concept_dct[concept]['synonyms']
-        #node['description'] = concept_dct.get(concept).get('description')
+        node['description'] = monarch_s2d[preflabel] if preflabel in monarch_s2d.keys() else 'NA'
         nodes_l.append(node)
-
-    #TODO: include node annotation from graph.py: biothings name, synonyms and description to genes
 
     # save nodes file
     #TODO: abstract the print function
-    #pd.DataFrame(nodes_l).fillna('NA').to_csv('{}/monarch_nodes_v{}.tsv'.format(path,today), index=False)
-    with open('{}/monarch_nodes_v{}.tsv'.format(path,today), 'w') as f:
-        f.write(
-            'id\tsemantic_groups\tpreflabel\tsynonyms\tdescription\n'
-        )
-        for concept in concept_dct:
-            # semantic_groups
-            semantic = concept_dct.get(concept).get('semantic_groups')
-            # preflabel
-            preflabel = concept_dct.get(concept).get('preflabel')
-            # synonyms
-            synonyms = concept_dct.get(concept).get('synonyms')
-            # definition
-            description = concept_dct.get(concept).get('description')
-            f.write('{}\t{}\t{}\t{}\t{}\n'.format(concept, semantic, preflabel, synonyms, description))
+    df = pd.DataFrame(nodes_l)
+    df = df[['id', 'semantic_groups', 'preflabel', 'synonyms', 'description', 'name']]
+    df.fillna('NA').to_csv('{}/monarch_nodes_v{}.tsv'.format(path,today), index=False)
 
     # print info
     print('\n* This is the size of the nodes file data structure: {}'.format(pd.DataFrame(nodes_l).shape))
