@@ -37,6 +37,10 @@ import datetime
 # VARIABLES
 today = datetime.date.today()
 
+# path to write data
+path = os.getcwd() + "/graph"
+if not os.path.isdir(path): os.makedirs(path)
+
 
 # CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
 
@@ -87,209 +91,331 @@ def print_graph(graph, filename):
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path,filename,today))
 
 
-################ CURATION SECTION
+def graph_nodes():
+    """This function generates graph nodes."""
 
-def create_edges():
-    """This function creates edge data."""
+    ## Edges
+    #TODO: check with new files
 
-    return edges_df
+    # load networks
+    print('\nPreparing networks...')
+    # curated_df = pd.read_csv('{}/curated_graph_edges_v2019-02-14.csv'.format(path))
+    # monarch_path = os.getcwd() + "/monarch"
+    # monarch_df = pd.read_table('{}/monarch_edges_v2019-02-15.tsv'.format(monarch_path))
+    # rna = pd.read_csv('{}/rna_edges_v2019-01-25.csv'.format(path))
+    # tf = pd.read_csv('{}/regulation_edges_v2019-01-29.csv'.format(path))
+    path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
+    curated_df = pd.read_csv('{}/curated_graph_edges_v2019-01-18.csv'.format(path))
+    print(curated_df.shape)
+    print(curated_df.columns)
+    monarch_path = '/home/nuria/workspace/ngly1-graph/monarch/1shell-animal/add-connections-to-net'
+    monarch_df = pd.read_table('{}/monarch_edges_v2019-01-16.tsv'.format(monarch_path))
+    print(monarch_df.shape)
+    print(monarch_df.columns)
+    rna = pd.read_csv('{}/rna_edges_v2019-01-17.csv'.format(path))
+    print(rna.shape)
+    print(rna.columns)
+    tf = pd.read_csv('{}/regulation_edges_v2019-01-17.csv'.format(path))
+    print(tf.shape)
+    print(tf.columns)
 
-def create_nodes():
-    """This function creates nodes data."""
+    # concat 1) curated 2) monarch 3) RNA-seq edges
+    print('\nConcatenating into a graph...')
+    statements = pd.concat([curated_df, monarch_df, rna], ignore_index=True, join="inner")
+    print(statements.shape)
 
-    return nodes_df
+    # drop row duplicates
+    print('\nDrop duplicated rows...')
+    statements.drop_duplicates(keep='first', inplace=True)
+    print(statements.shape)
 
-# ################ MONARCH SECTION
-# # create monarch edges and nodes data structures
-# # Functionality from http://localhost:8889/notebooks/workspace/ngly1-graph/ngly1-graph-v20180130/build-graph/add_connections_to_net.ipynb
-#
-# # edges_df = pd.read_table('./get-monarch-connections/monarch_connections.tsv')
-#
-# def monarch_edges(edges_df):
-#     """This function creates edge data."""
-#
-#     # add attribute/columns: 'rel_term_id', 'rel_term_label', rel_term_iri to file
-#     # authoritative url
-#     uriPrefixes_dct = {
-#         'pmid': 'https://www.ncbi.nlm.nih.gov/pubmed/',  # 'http://identifiers.org/pubmed/',
-#         'react': 'http://reactome.org/content/detail/',  # 'http://identifiers.org/reactome/',
-#         'zfin': 'http://zfin.org/',
-#         'go_ref': 'http://purl.obolibrary.org/obo/go/references/',  # 'http://identifiers.org/go.ref/GO_REF:',
-#         'mgi': 'http://www.informatics.jax.org/accession/MGI:',  # 'http://identifiers.org/mgi/MGI:'
-#         'flybase': 'http://flybase.org/reports/',
-#         'wormbase': 'http://www.wormbase.org/resources/paper/',
-#         'isbn-13': 'ISBN-13:',
-#         'hpo': 'http://compbio.charite.de/hpoweb/showterm?id=HP:',
-#         'isbn-10': 'ISBN-10:'
-#     }
-#     # source/database
-#     dbPrefixes_dct = {
-#         'na': 'NA',
-#         'mgi': 'http://www.informatics.jax.org/',
-#         'fb': 'http://flybase.org/',
-#         'rgd': 'http://rgd.mcw.edu/',
-#         'zfin': 'http://zfin.org/',
-#         'sgd': 'https://www.yeastgenome.org/',
-#         'hgnc': 'https://www.genenames.org/'
-#     }
-#     # prepare dataframe = [{} ...{}], where every row = {} = concept
-#     ref_text = 'NA'
-#     ref_date = 'NA'
-#     ### temporary
-#     path = os.getcwd() + '/graph'
-#     if not os.path.isdir(path): os.makedirs(path)
-#     ###
-#     # prepare dataframe = [{} ...{}], where every row = {} = edge
-#     edges_l = list()
-#     #for edge in edge_df:
-#     for edge_tuple in edges_df:
-#         edge = list(edge_tuple)
-#         ref_uri_l = list()
-#         # expand to uri or NA
-#         pmid_l = list()
-#         for ref in edge[-1].strip().split('|'):
-#             # NA or database
-#             if ':' not in ref:
-#                 try:
-#                     ref_uri = dbPrefixes_dct[ref.lower()]
-#                 except KeyError:
-#                     print("In monarch_edges() method, update 'dbPrefixes_dct' variable with '{}'".format(ref))
-#                     print(edge)
-#                 ref_uri_l.append(ref_uri)
-#             # publications
-#             else:
-#                 pref, uriId = ref.split(':')
-#                 # separate pmid from non pmid
-#                 if ref.startswith('PMID'):
-#                     pmid_l.append(uriId)
-#                 else:
-#                     try:
-#                         ref_uri = uriPrefixes_dct[pref.lower()] + uriId
-#                     except KeyError:
-#                         print("In monarch_edges() method, update 'uriPrefixes_dct' variable with '{}'".format(pref))
-#                         print(edge)
-#                     ref_uri_l.append(ref_uri)
-#         # create multi-term pubmed url
-#         if len(pmid_l):
-#             pmid_s = ','.join(pmid_l)
-#             ref_uri = uriPrefixes_dct['pmid'] + pmid_s
-#             ref_uri_l.append(ref_uri)
-#         ref_uri_list = '|'.join(ref_uri_l)
-#         # write the associations + list of references as uri or NA
-#         sub_id = 'NA' if edge[0] is None else edge[0]
-#         rel_id = 'NA' if edge[2] is None else edge[2]
-#         obj_id = 'NA' if edge[4] is None else edge[4]
-#         rel_label = 'NA' if edge[3] is None else edge[3]
-#         rel_def = 'NA'
-#         if ':' in rel_id:
-#             rel_iri = 'http://purl.obolibrary.org/obo/' + rel_id.replace(':', '_')
-#         else:
-#             rel_iri = rel_id
-#         #print(sub_id,rel_id,obj_id, rel_iri)
-#         # define concept rows as dict for the data structure
-#         edge = dict()
-#         edge['subject_id'] = sub_id
-#         edge['property_id'] = rel_id
-#         edge['object_id'] = obj_id
-#         edge['reference_uri'] = ref_uri_list
-#         edge['reference_supporting_text'] = ref_text
-#         edge['reference_date'] = ref_date
-#         edge['property_label'] = rel_label
-#         edge['property_description'] = rel_def
-#         edge['property_uri'] = rel_iri
-#         edges_l.append(edge)
-#
-#
-#     return edges_l
-#
-#
-# def monarch_nodes(nodes_df):
-#     """This function creates node data."""
-#
-#     # semantic groups dictionary
-#     # collide concepts
-#     concept_dct = dict()
-#     for node_tuple in nodes_df:
-#         fields = list(node_tuple)
-#         sid = fields[0]
-#         oid = fields[4]
-#         concept_dct[sid] = {}
-#         concept_dct[oid] = {}
-#     #print(len(concept_dct.keys()))
-#
-#     # list of concept prefixes
-#     conceptPrefix_dct = dict()
-#     for concept in concept_dct:
-#         conceptPrefix_dct[concept.split(':')[0]] = 1
-#     #print(conceptPrefix_dct.keys())
-#
-#     # build conceptPrefix2semantic dict
-#     conceptPrefix2semantic_dct = dict()
-#     for prefix in conceptPrefix_dct:
-#         prefix = prefix.lower()
-#         if 'variant' in prefix:
-#             conceptPrefix2semantic_dct[prefix] = 'VARI'
-#         elif 'phenotype' in prefix or 'mondo' in prefix or 'omim' in prefix or 'doid' in prefix or 'mesh' in prefix or 'hp' in prefix or 'mp' in prefix or 'fbcv' in prefix or 'fbbt' in prefix or 'apo' in prefix or 'aqtltrait' in prefix or 'zp' in prefix:
-#             conceptPrefix2semantic_dct[prefix] = 'DISO'
-#         elif 'gene' in prefix or 'hgnc' in prefix or 'ensembl' in prefix or 'mgi' in prefix or 'flybase' in prefix or 'wormbase' in prefix or 'xenbase' in prefix or 'zfin' in prefix or 'sgd' in prefix or 'rgd' in prefix:
-#             conceptPrefix2semantic_dct[prefix] = 'GENE'
-#         elif 'react' in prefix or 'kegg-path' in prefix or 'go' in prefix:
-#             conceptPrefix2semantic_dct[prefix] = 'PHYS'
-#         elif 'uberon' in prefix or 'cl' in prefix:
-#             conceptPrefix2semantic_dct[prefix] = 'ANAT'
-#         elif 'geno' in prefix or 'coriell' in prefix or 'monarch' in prefix or 'mmrrc' in prefix or 'person' in prefix:
-#             conceptPrefix2semantic_dct[prefix] = 'GENO'
-#         else:
-#             conceptPrefix2semantic_dct[prefix] = 'CONC'
-#
-#     # concept attribute dictionaries: id integration of sub and obj IDs in a common data structure
-#     concept_dct = dict()
-#     for node_tuple in nodes_df:
-#         fields = list(node_tuple)
-#         # id: integration of sub and obj IDs in a unique data structure
-#         sid = fields[0]
-#         slab = fields[1]
-#         oid = fields[4]
-#         olab = fields[5]
-#         # build the concept data structure
-#         concept_dct[sid] = {'preflabel': slab,
-#                             'semantic_groups': conceptPrefix2semantic_dct.get(sid.split(':')[0].lower(), 'CONC'),
-#                             'synonyms': 'NA', 'definition': 'NA'}
-#         concept_dct[oid] = {'preflabel': olab,
-#                             'semantic_groups': conceptPrefix2semantic_dct.get(oid.split(':')[0].lower(), 'CONC'),
-#                             'synonyms': 'NA', 'definition': 'NA'}
-#
-#     # prepare dataframe = [{} ...{}], where every row = {} = concept
-#     nodes_l = list()
-#     for concept in concept_dct:
-#         # semantic_groups
-#         semantic = concept_dct.get(concept).get('semantic_groups')
-#         # preflabel
-#         preflabel = concept_dct.get(concept).get('preflabel')
-#         # synonyms
-#         synonyms = concept_dct.get(concept).get('synonyms')
-#         # definition
-#         definition = concept_dct.get(concept).get('definition')
-#         # define concept rows as dict for the data structure
-#         node = dict()
-#         node['id'] = concept
-#         node['semantic_groups'] = semantic
-#         node['preflabel'] = preflabel
-#         node['synonyms'] = synonyms
-#         node['description'] = definition
-#         nodes_l.append(node)
-#
-#     return nodes_l
+    ## merge graph & tf
+    # merge: 4 merges
+    print('\nMerging tf-gene network to the graph...')
+    # merge1: L_sub  &  tf_sub
+    merge1 = pd.merge(statements, tf, how='inner', left_on='subject_id', right_on='subject_id',
+                      suffixes=('_graph', '_tf'))
+
+    # merge2: L_obj  &  tf_sub
+    merge2 = pd.merge(statements, tf, how='inner', left_on='object_id', right_on='subject_id',
+                      suffixes=('_graph', '_tf'))
+
+    # merge3: L_sub  &  tf_obj
+    merge3 = pd.merge(statements, tf, how='inner', left_on='subject_id', right_on='object_id',
+                      suffixes=('_graph', '_tf'))
+
+    # merge4: L_obj  &  tf_obj
+    merge4 = pd.merge(statements, tf, how='inner', left_on='object_id', right_on='object_id',
+                      suffixes=('_graph', '_tf'))
+
+    # prepare merged edges: slice tf edges from merge
+    # merge1
+    merge1_clean = (merge1
+    [['subject_id', 'property_id_tf', 'object_id_tf', 'reference_uri_tf',
+      'reference_supporting_text_tf', 'reference_date_tf', 'property_label_tf',
+      'property_description_tf', 'property_uri_tf']]
+        .rename(columns={
+        'property_id_tf': 'property_id',
+        'object_id_tf': 'object_id',
+        'reference_uri_tf': 'reference_uri',
+        'reference_supporting_text_tf': 'reference_supporting_text',
+        'reference_date_tf': 'reference_date',
+        'property_label_tf': 'property_label',
+        'property_description_tf': 'property_description',
+        'property_uri_tf': 'property_uri'
+    })
+    )
+
+    # merge2
+    merge2_clean = (merge2
+    [['subject_id_tf', 'property_id_tf', 'object_id_tf', 'reference_uri_tf',
+      'reference_supporting_text_tf', 'reference_date_tf', 'property_label_tf',
+      'property_description_tf', 'property_uri_tf']]
+        .rename(columns={
+        'subject_id_tf': 'subject_id',
+        'property_id_tf': 'property_id',
+        'object_id_tf': 'object_id',
+        'reference_uri_tf': 'reference_uri',
+        'reference_supporting_text_tf': 'reference_supporting_text',
+        'reference_date_tf': 'reference_date',
+        'property_label_tf': 'property_label',
+        'property_description_tf': 'property_description',
+        'property_uri_tf': 'property_uri'
+    })
+    )
+
+    # merge3
+    merge3_clean = (merge3
+    [['subject_id_tf', 'property_id_tf', 'object_id_tf', 'reference_uri_tf',
+      'reference_supporting_text_tf', 'reference_date_tf', 'property_label_tf',
+      'property_description_tf', 'property_uri_tf']]
+        .rename(columns={
+        'subject_id_tf': 'subject_id',
+        'property_id_tf': 'property_id',
+        'object_id_tf': 'object_id',
+        'reference_uri_tf': 'reference_uri',
+        'reference_supporting_text_tf': 'reference_supporting_text',
+        'reference_date_tf': 'reference_date',
+        'property_label_tf': 'property_label',
+        'property_description_tf': 'property_description',
+        'property_uri_tf': 'property_uri'
+    })
+    )
+
+    # merge4
+    merge4_clean = (merge4
+    [['subject_id_tf', 'property_id_tf', 'object_id', 'reference_uri_tf',
+      'reference_supporting_text_tf', 'reference_date_tf', 'property_label_tf',
+      'property_description_tf', 'property_uri_tf']]
+        .rename(columns={
+        'subject_id_tf': 'subject_id',
+        'property_id_tf': 'property_id',
+        'reference_uri_tf': 'reference_uri',
+        'reference_supporting_text_tf': 'reference_supporting_text',
+        'reference_date_tf': 'reference_date',
+        'property_label_tf': 'property_label',
+        'property_description_tf': 'property_description',
+        'property_uri_tf': 'property_uri'
+    })
+    )
+
+    ## concat merged edges to statements (<= curated+monarch+rna)
+    # concat all 4 merges to merged edges
+    merged = pd.concat([merge1_clean, merge2_clean, merge3_clean, merge4_clean], ignore_index=True, join="inner")
+
+    # drop duplicates
+    merged.drop_duplicates(inplace=True)
+    print(merged.shape)
+
+    # save graph
+    print('\nSaving tf merged edges...')
+    path = os.getcwd() + "/graph"
+    merged.fillna('NA').to_csv('{}/regulation_graph_edges_v{}.csv'.format(path, today), index=False)
+
+    # concat merged to statements
+    statements = pd.concat([statements, merged], ignore_index=True, join="inner")
+    print(statements.shape)
+
+    # drop duplicates
+    print('\nDrop duplicated rows...')
+    statements.drop_duplicates(keep='first', inplace=True)
+    print(statements.shape)
+
+    ## Nodes
+    # extracting nodes in the graph
+    st_nodes_l = pd.concat([statements.subject_id, statements.object_id], ignore_index=True)
+    st_nodes_l.drop_duplicates(inplace=True)
+    st_nodes_df = pd.DataFrame({'id': st_nodes_l})
+    print(st_nodes_df.shape)
+
+    return st_nodes_df
+
+# BUILD GRAPH
+def build_edges():
+    """This function builds edges"""
+
+    ## Edges
+    #TODO: check with new files
+
+    # load networks
+    print('\nPreparing networks...')
+    # curated_df = pd.read_csv('{}/curated_graph_edges_v2019-02-14.csv'.format(path))
+    # monarch_path = os.getcwd() + "/monarch"
+    # monarch_df = pd.read_table('{}/monarch_edges_v2019-02-15.tsv'.format(monarch_path))
+    # rna = pd.read_csv('{}/rna_edges_v2019-01-25.csv'.format(path))
+    # tf = pd.read_csv('{}/regulation_edges_v2019-01-29.csv'.format(path))
+    path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
+    curated_df = pd.read_csv('{}/curated_graph_edges_v2019-01-18.csv'.format(path))
+    print(curated_df.shape)
+    print(curated_df.columns)
+    monarch_df = pd.read_table('{}/monarch_edges_v2019-01-18.tsv'.format(path))
+    print(monarch_df.shape)
+    print(monarch_df.columns)
+    rna = pd.read_csv('{}/rna_edges_v2019-01-17.csv'.format(path))
+    print(rna.shape)
+    print(rna.columns)
+    tf_merged = pd.read_csv('{}/regulation_graph_edges_v2019-01-17.csv'.format(path))
+    print(tf.shape)
+    print(tf.columns)
+
+    # concat 1) curated 2) monarch 3) RNA-seq edges
+    print('\nConcatenating into a graph...')
+    statements = pd.concat([curated_df, monarch_df, rna, tf_merged], ignore_index=True, join="inner")
+    print(statements.shape)
+
+    # drop row duplicates
+    print('\nDrop duplicated rows...')
+    statements.drop_duplicates(keep='first', inplace=True)
+    print(statements.shape)
+
+    # add property_uri for those without but with a curie property_id annotated
+    curie_dct = {
+        'ro': 'http://purl.obolibrary.org/obo/',
+        'bfo': 'http://purl.obolibrary.org/obo/',
+        'geno': 'http://purl.obolibrary.org/obo/',
+        'dc': 'http://purl.org/dc/elements/1.1/',
+        'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+        'rdfs': 'http://www.w3.org/2000/01/rdf-schema#',
+        'skos': 'http://www.w3.org/2004/02/skos/core#',
+        'pato': 'http://purl.obolibrary.org/obo/',
+        'sio': 'http://semanticscience.org/resource/',
+        'pmid': 'https://www.ncbi.nlm.nih.gov/pubmed/',
+        'encode': 'https://www.encodeproject.org/search/?searchTerm='
+    }
+    for i, row in statements.iterrows():
+        if ':' in str(row['property_uri']):
+            property_uri = row['property_uri']
+        elif ':' in str(row['property_id']):
+            try:
+                property_uri = curie_dct[row['property_id'].split(':')[0].lower()] + row['property_id'].replace(':',
+                                                                                                                '_')
+            except KeyError:
+                property_uri = None
+                print('There is a reference curie with and unrecognized namespace:', row['property_id'])
+        else:
+            property_uri = None
+        statements.at[i, 'property_uri'] = property_uri
+
+    # save graph
+    print('\nSaving final graph...')
+    path = os.getcwd() + "/graph"
+    statements = statements[['subject_id', 'property_id', 'object_id', 'reference_uri',
+                             'reference_supporting_text', 'reference_date', 'property_label',
+                             'property_description', 'property_uri']]
+    print(statements.shape)
+    print(statements.columns)
+    statements.fillna('NA').to_csv('{}/graph_edges_v{}.csv'.format(path, today), index=False)
+
+    return statements
 
 
-################ INTEGRATION
-# if there is integration with curation, i.e. with proteins, add g2p edges
-# Functionality from http://localhost:8889/notebooks/workspace/ngly1-graph/ngly1-graph-v20180130/build-graph/add_connections_g2p.ipynb
+def build_nodes(statements):
+    """This function builds graph nodes."""
+
+    # TODO: check with new files
+
+    # load networks
+    print('\nPreparing networks...')
+    # curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-02-14.csv'.format(path))
+    # monarch_path = os.getcwd() + "/monarch"
+    # monarch_df = pd.read_table('{}/monarch_nodes_v2019-02-15.tsv'.format(monarch_path))
+    # rna = pd.read_csv('{}/rna_nodes_v2019-01-25.csv'.format(path))
+    # tf = pd.read_csv('{}/regulation_nodes_v2019-01-29.csv'.format(path))
+    path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
+    curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-01-18.csv'.format(path))
+    print(curated_df.shape)
+    print(curated_df.columns)
+    monarch_df = pd.read_table('{}/monarch_nodes_v2019-01-18.tsv'.format(path))
+    print(monarch_df.shape)
+    print(monarch_df.columns)
+    rna = pd.read_csv('{}/rna_nodes_v2019-01-17.csv'.format(path))
+    print(rna.shape)
+    print(rna.columns)
+    tf = pd.read_csv('{}/regulation_nodes_v2019-01-17.csv'.format(path))
+    print(tf.shape)
+    print(tf.columns)
+
+    ## Annotating nodes in the graph
+    print('\nAnnotating nodes in the graph...')
+    # extracting nodes in the graph
+    st_nodes_l = pd.concat([statements.subject_id, statements.object_id], ignore_index=True)
+    st_nodes_l.drop_duplicates(inplace=True)
+    st_nodes_df = pd.DataFrame({'id': st_nodes_l})
+    print(st_nodes_df.shape)
+
+    # annotating nodes
+    curated_nodes = pd.merge(curated_df, st_nodes_df, how='inner', on='id')
+    monarch_nodes = pd.merge(monarch_df, st_nodes_df, how='inner', on='id')
+    rna_nodes = pd.merge(rna_df, st_nodes_df, how='inner', on='id')
+    regulation_nodes = pd.merge(tf_df, st_nodes_df, how='inner', on='id')
+
+    # concat all, (importantly, concatenate first curated concepts with extended definitions)
+    print('\nConcatenating all nodes...')
+    nodes = pd.concat([curated_nodes, monarch_nodes, rna_nodes, regulation_nodes], ignore_index=True,
+                      join="inner")
+    print(nodes.shape)
+
+    # drop duplicated rows
+    print('\nDrop duplicated rows...')
+    nodes['synonyms'] = nodes.synonyms.apply(lambda x: str('|'.join(x)) if isinstance(x, list) else x)
+    nodes.drop_duplicates(keep='first', inplace=True)
+    print(nodes.shape)
+
+    # drop duplicated nodes (keep first row (the curated), remove others (monarch))
+    print('\nDrop duplicated nodes...')
+    nodes.drop_duplicates(subset=['id'], keep='first', inplace=True)
+    print(nodes.shape)
+
+    # check
+    if len(set(st_nodes_df.id)) != len(set(nodes.id)):
+        print(
+            '\nThere is a problem in the annotation of nodes.\nThe number of annotated nodes is different than the number of nodes in the graph.')
+        print('Curated nodes not in the graph: {}'.format(set(curated_df.id) - set(curated_nodes.id)))
+        print('Monarch nodes not in the graph: {}'.format(set(monarch_df.id) - set(monarch_nodes.id)))
+        print('RNA-seq nodes not in the graph: {}'.format(set(rna_df.id) - set(rna_nodes.id)))
+        print('Regulation nodes not in the graph: {}'.format(len(set(tf_df.id) - set(regulation_nodes.id))))
+    else:
+        print('\nAll graph nodes are annotated.')
+        print('Regulation nodes not in the graph: {}'.format(len(set(tf_df.id) - set(regulation_nodes.id))))
+
+    ## biothings
+    # add attributes
+
+    # all genes/proteins => add entrez|uniprot
+
+    # save graph nodes
+    print('\nSaving final graph...')
+    path = os.getcwd() + "/graph"
+    nodes = nodes[['id', 'semantic_groups', 'preflabel', 'synonyms', 'name', 'description']]
+    nodes['synonyms'] = nodes.synonyms.apply(lambda x: str('|'.join(x)) if isinstance(x, list) else x)
+    print(nodes.shape)
+    print(nodes.columns)
+    nodes.fillna('NA').to_csv('{}/graph_nodes_v{}.csv'.format(path, today), index=False)
+
+    return nodes
 
 
-################ CONCAT
-
-################ USER FUNCTIONS
+# USER FUNCTIONS
 
 def build(network_list):
     """This function formats, integrates and concats a list of networks passed."""
