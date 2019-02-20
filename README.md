@@ -25,10 +25,16 @@ Edges from curation.
 ##### Monarch
 Edges from the Monarch Knowledge Graph.
 
+##### Transcriptomics
+Edges from RNA-seq graph.
+
+##### Regulation
+Edges from regulation graph.
+
 #### Graph
 Build the review network.
 
-#### Neo4j
+#### Neo4jlib
 Store the network in the Neo4j graph database.
 
 #### Hypothesis
