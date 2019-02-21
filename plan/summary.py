@@ -397,22 +397,31 @@ def edge_types(data):
 
 if __name__ == "__main__":
 
-    data = path_load('out/query_1_pwdl20_phdl20_paths_v2018-02-25')
-    #data = path_load('out/q1_1_in0_pwdl50_phdl20_paths')
+    #data = path_load('out/query_1_pwdl20_phdl20_paths_v2018-02-25')
+    ##data = path_load('out/q1_1_in0_pwdl50_phdl20_paths')
 
+    #data_parsed = list()
+    #funcs = [metapaths, nodes, node_types, edges, edge_types]
+    #for query in data:
+     #   query_parsed = query_parser(query)
+        ##metapath(query_parsed)
+        ##map(lambda x: x(query_parsed), funcs)
+       # data_parsed.append(query_parsed)
+    #metapaths(data_parsed)
+    ##nodes(data_parsed)
+    ##node_types(data_parsed)
+    ##edges(data_parsed)
+    ##edge_types(data_parsed)
+    ##for query in data_parsed:
+    ##    map(lambda x: x(query), funcs)
+    ## prints
+
+    # 2019
+    data = path_load('./hypothesis/query_ngly1_aqp1_paths_v2019-02-21')
     data_parsed = list()
-    funcs = [metapaths, nodes, node_types, edges, edge_types]
     for query in data:
         query_parsed = query_parser(query)
-        #metapath(query_parsed)
-        #map(lambda x: x(query_parsed), funcs)
         data_parsed.append(query_parsed)
+
     metapaths(data_parsed)
-    #nodes(data_parsed)
-    #node_types(data_parsed)
-    #edges(data_parsed)
-    #edge_types(data_parsed)
-    #for query in data_parsed:
-    #    map(lambda x: x(query), funcs)
-    # prints
 

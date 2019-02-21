@@ -590,6 +590,7 @@ def build_edges(edges_df):
     df = pd.DataFrame(edges_l)
     df = df[['subject_id', 'property_id', 'object_id', 'reference_uri', 'reference_supporting_text', 'reference_date', \
              'property_label', 'property_description', 'property_uri']]
+    #TODO: check why i am saving as csv but naming the file tsv
     df.fillna('NA').to_csv('{}/monarch_edges_v{}.tsv'.format(path,today), index=False)
 
     # print info
@@ -727,6 +728,7 @@ def build_nodes(edges_df):
     #TODO: abstract the print function
     df = pd.DataFrame(nodes_l)
     df = df[['id', 'semantic_groups', 'preflabel', 'synonyms', 'description', 'name']]
+    #TODO: check why i am saving as csv but naming the file tsv
     df.fillna('NA').to_csv('{}/monarch_nodes_v{}.tsv'.format(path,today), index=False)
 
     # print info

@@ -104,18 +104,22 @@ def graph_nodes():
     # monarch_df = pd.read_table('{}/monarch_edges_v2019-02-15.tsv'.format(monarch_path))
     # rna = pd.read_csv('{}/rna_edges_v2019-01-25.csv'.format(path))
     # tf = pd.read_csv('{}/regulation_edges_v2019-01-29.csv'.format(path))
+    print('Curated:')
     path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
     curated_df = pd.read_csv('{}/curated_graph_edges_v2019-01-18.csv'.format(path))
     print(curated_df.shape)
     print(curated_df.columns)
+    print('Monarch:')
     monarch_path = '/home/nuria/workspace/ngly1-graph/monarch/1shell-animal/add-connections-to-net'
     monarch_df = pd.read_table('{}/monarch_edges_v2019-01-16.tsv'.format(monarch_path))
     print(monarch_df.shape)
     print(monarch_df.columns)
+    print('Transcriptomics:')
     rna = pd.read_csv('{}/rna_edges_v2019-01-17.csv'.format(path))
     print(rna.shape)
     print(rna.columns)
-    tf = pd.read_csv('{}/regulation_edges_v2019-01-17.csv'.format(path))
+    print('Regulatory:')
+    tf = pd.read_csv('{}/regulation_edges_v2019-01-17.csv'.format(path), low_memory=False)
     print(tf.shape)
     print(tf.columns)
 
@@ -243,6 +247,7 @@ def graph_nodes():
 
     ## Nodes
     # extracting nodes in the graph
+    print('\nGenerating graph nodes...')
     st_nodes_l = pd.concat([statements.subject_id, statements.object_id], ignore_index=True)
     st_nodes_l.drop_duplicates(inplace=True)
     st_nodes_df = pd.DataFrame({'id': st_nodes_l})
@@ -264,19 +269,23 @@ def build_edges():
     # monarch_df = pd.read_table('{}/monarch_edges_v2019-02-15.tsv'.format(monarch_path))
     # rna = pd.read_csv('{}/rna_edges_v2019-01-25.csv'.format(path))
     # tf = pd.read_csv('{}/regulation_edges_v2019-01-29.csv'.format(path))
+    print('Curated:')
     path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
     curated_df = pd.read_csv('{}/curated_graph_edges_v2019-01-18.csv'.format(path))
     print(curated_df.shape)
     print(curated_df.columns)
+    print('Monarch:')
     monarch_df = pd.read_table('{}/monarch_edges_v2019-01-18.tsv'.format(path))
     print(monarch_df.shape)
     print(monarch_df.columns)
+    print('Transcriptomics:')
     rna = pd.read_csv('{}/rna_edges_v2019-01-17.csv'.format(path))
     print(rna.shape)
     print(rna.columns)
+    print('Regulatory:')
     tf_merged = pd.read_csv('{}/regulation_graph_edges_v2019-01-17.csv'.format(path))
-    print(tf.shape)
-    print(tf.columns)
+    print(tf_merged.shape)
+    print(tf_merged.columns)
 
     # concat 1) curated 2) monarch 3) RNA-seq edges
     print('\nConcatenating into a graph...')
@@ -335,25 +344,33 @@ def build_nodes(statements):
     # TODO: check with new files
 
     # load networks
+    # Note that i have to load the new files for curated and monarch nodes. That is because in the nb i included d2m and
+    # g2p nodes (curated) and name attribute (monarch) in the fly.
     print('\nPreparing networks...')
-    # curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-02-14.csv'.format(path))
-    # monarch_path = os.getcwd() + "/monarch"
-    # monarch_df = pd.read_table('{}/monarch_nodes_v2019-02-15.tsv'.format(monarch_path))
-    # rna = pd.read_csv('{}/rna_nodes_v2019-01-25.csv'.format(path))
-    # tf = pd.read_csv('{}/regulation_nodes_v2019-01-29.csv'.format(path))
+    path = os.getcwd() + "/graph"
+    curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-02-14.csv'.format(path))
+    monarch_path = os.getcwd() + "/monarch"
+    # TODO: monarch is saved as csv but named as tsv=> fix monarch module
+    monarch_df = pd.read_table('{}/monarch_nodes_v2019-02-15.tsv'.format(monarch_path), sep=',')
+    #rna_df = pd.read_csv('{}/rna_nodes_v2019-01-25.csv'.format(path))
+    #tf_df = pd.read_csv('{}/regulation_nodes_v2019-01-29.csv'.format(path))
+    print('Curated:')
     path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
-    curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-01-18.csv'.format(path))
+    # curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-01-18.csv'.format(path))
     print(curated_df.shape)
     print(curated_df.columns)
-    monarch_df = pd.read_table('{}/monarch_nodes_v2019-01-18.tsv'.format(path))
+    print('Monarch:')
+    # monarch_df = pd.read_table('{}/monarch_nodes_v2019-01-18.tsv'.format(path))
     print(monarch_df.shape)
     print(monarch_df.columns)
-    rna = pd.read_csv('{}/rna_nodes_v2019-01-17.csv'.format(path))
-    print(rna.shape)
-    print(rna.columns)
-    tf = pd.read_csv('{}/regulation_nodes_v2019-01-17.csv'.format(path))
-    print(tf.shape)
-    print(tf.columns)
+    print('Transcriptomics:')
+    rna_df = pd.read_csv('{}/rna_nodes_v2019-01-17.csv'.format(path))
+    print(rna_df.shape)
+    print(rna_df.columns)
+    print('Regulatory:')
+    tf_df = pd.read_csv('{}/regulation_nodes_v2019-01-17.csv'.format(path))
+    print(tf_df.shape)
+    print(tf_df.columns)
 
     ## Annotating nodes in the graph
     print('\nAnnotating nodes in the graph...')
@@ -361,19 +378,26 @@ def build_nodes(statements):
     st_nodes_l = pd.concat([statements.subject_id, statements.object_id], ignore_index=True)
     st_nodes_l.drop_duplicates(inplace=True)
     st_nodes_df = pd.DataFrame({'id': st_nodes_l})
-    print(st_nodes_df.shape)
+    print('graph from e', st_nodes_df.shape)
 
     # annotating nodes
     curated_nodes = pd.merge(curated_df, st_nodes_df, how='inner', on='id')
     monarch_nodes = pd.merge(monarch_df, st_nodes_df, how='inner', on='id')
     rna_nodes = pd.merge(rna_df, st_nodes_df, how='inner', on='id')
     regulation_nodes = pd.merge(tf_df, st_nodes_df, how='inner', on='id')
+    print('annotation check')
+    print('curated', curated_nodes.shape)
+    print('monarch', monarch_nodes.shape)
+    print('rna', rna_nodes.shape)
+    print('regulation', regulation_nodes.shape)
 
     # concat all, (importantly, concatenate first curated concepts with extended definitions)
     print('\nConcatenating all nodes...')
     nodes = pd.concat([curated_nodes, monarch_nodes, rna_nodes, regulation_nodes], ignore_index=True,
                       join="inner")
-    print(nodes.shape)
+    print('graph ann', nodes.shape)
+    diff = set(st_nodes_df.id) - set(nodes.id)
+    print('diff', diff)
 
     # drop duplicated rows
     print('\nDrop duplicated rows...')
@@ -425,9 +449,11 @@ def build(network_list):
 
     # build the graph
     graph = dict()
-    for df in network_list:
-        graph['edges'] = monarch_edges(df)
-        graph['nodes'] = monarch_nodes(df)
+    # for df in network_list:
+    #     graph['edges'] = build_edges(df)
+    #     graph['nodes'] = build_nodes(df)
+    graph['edges'] = build_edges(df)
+    graph['nodes'] = build_nodes(df)
 
     return graph
 
@@ -444,11 +470,18 @@ def nodes(graph):
 
 
 if __name__ == '__main__':
-    df = pd.read_table('./get-monarch-connections/monarch_connections.tsv')
+    #df = pd.read_table('./get-monarch-connections/monarch_connections.tsv')
     #monarch_edges(df)
     #nodes = monarch_nodes(df)
-    graph = build([df])
-    edges = edges(graph)
-    nodes = nodes(graph)
+    #graph = build([df])
+    #edges = edges(graph)
+    #nodes = nodes(graph)
     #print_graph(nodes,'monarch_nodes')
     #print_graph(edges,'monarch_edges')
+
+    # load networks and calculate graph nodes
+    #graph_nodes_df = graph_nodes()
+    edges = build_edges()
+    nodes = build_nodes(edges)
+    # check
+    # print(graph_nodes_df.columns)

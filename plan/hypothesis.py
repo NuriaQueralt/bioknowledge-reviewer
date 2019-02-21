@@ -213,4 +213,4 @@ if __name__ == '__main__':
     #query(seed,'ngly1_aqp1_port7689',port='7689')
     # seed=['NCBIGene:55768', 'NCBIGene:358']
     #query(seed, 'ngly1_aqp1_port7688', port='7688')
-    open_query(seed, queryname='ngly1_aqp1', port='7689')
+    open_query(seed, queryname='ngly1_aqp1', port='7687')

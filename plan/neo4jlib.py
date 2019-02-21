@@ -75,7 +75,7 @@ def check_format(df, file_type='statements'):
 
     if file_type == 'concepts':
         try:
-            df = df[['id', 'semantic_groups', 'preflabel', 'synonyms', 'description']]
+            df = df[['id', 'semantic_groups', 'preflabel', 'synonyms', 'name', 'description']]
         except:
             print('Concepts dataframe does not contain the expected columns. Raised error: ', sys.exc_info()[0])
             raise
@@ -96,6 +96,11 @@ def check_format(df, file_type='statements'):
 def save_neo4j_files(object, neo4j_path, file_type = 'statements'):#(graph_l, ):
     """This function save the neo4j graph files in CSV format into the neo4j import directory."""
 
+    # path to neo4j/
+    # path = os.getcwd() + "/neo4j"
+    # if not os.path.isdir(path): os.makedirs(path)
+
+    # path_to_import
     graph_version = 'v{}'.format(today)
     path_to_import = neo4j_path + '/import/ngly1'
     path_to_version = neo4j_path + '/import/ngly1/' + graph_version
@@ -107,12 +112,14 @@ def save_neo4j_files(object, neo4j_path, file_type = 'statements'):#(graph_l, ):
                           index=False, na_rep='NA')
         object.to_csv('{}/ngly1_statements.csv'.format(path_to_version),
                           index=False, na_rep='NA')
+        # object.fillna('NA').to_csv('{}/ngly1_statements_v{}.csv'.format(path,today), index=False)
         return print("\nFile '{}/ngly1_statements.csv' saved.".format(path_to_import))
     elif file_type == 'concepts':
         object.to_csv('{}/ngly1_concepts.csv'.format(path_to_import),
                         index=False, na_rep='NA')
         object.to_csv('{}/ngly1_concepts.csv'.format(path_to_version),
                     index=False, na_rep='NA')
+        # object.fillna('NA').to_csv('{}/ngly1_concepts_v{}.csv'.format(path, today), index=False)
         return print("\nFile '{}/ngly1_concepts.csv' saved.".format(path_to_import))
     else:
         return print('The user should provide the "file_type" argument with any of the [statements or concepts] value.')
@@ -195,12 +202,17 @@ if __name__ == '__main__':
     #nodes = get_dataframe('./graph/monarch_nodes_v2018-02-23')
     #statements = get_statements(edges)
     #concepts = get_concepts(nodes)
+    edges = get_dataframe_from_file('./graph/graph_edges_v2019-02-21')
+    nodes = get_dataframe_from_file('./graph/graph_nodes_v2019-02-21')
+    statements = get_statements(edges)
+    concepts = get_concepts(nodes)
 
     ## import the graph into neo4j
     # save files into neo4j import dir
-    neo4j_path = '/home/nuria/workspace/ngly1-graph/neo4j-community-3.0-animalModel-v3'
-    #save_neo4j_files(statements, neo4j_path, file_type = 'statements')
-    #save_neo4j_files(concepts, neo4j_path, file_type = 'concepts')
+    # neo4j_path = '/home/nuria/workspace/ngly1-graph/neo4j-community-3.0-animalModel-v3'
+    neo4j_path = './neo4j-community-3.0.3'
+    save_neo4j_files(statements, neo4j_path, file_type='statements')
+    save_neo4j_files(concepts, neo4j_path, file_type='concepts')
 
     # import graph into neo4j
     do_import(neo4j_path)
