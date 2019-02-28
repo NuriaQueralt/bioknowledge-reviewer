@@ -8,7 +8,8 @@
 # This module is v2.0 because it is integrated with the rest of the graph library.
 # It prints summaries in CSV format for consistency with the rest of the pipeline.
 
-# TO DO:
+# TODO:
+#   * change filename for outputs
 #   * do a function than return table objects into dataframes, sort dataframe values by columns and print a table
 #   * do a control for queries with 0 paths as result
 #   * clean metapaths functions and distinguish work with dataframes
@@ -204,7 +205,7 @@ def metapaths(data):
             #                                metapath_count2(metapath_idx, query.get('metapaths')),
             #                                metapath_label2(metapath_idx, query.get('metapaths'))))
         print_summaries(metapath_l,
-                        filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_metapaths'.format(
+                        filename='query_ngly1_aqp1_paths_v2019-02-21_source:{}_target:{}_summary_metapaths'.format(
                             query.get('source'), query.get('target')))
 
         # table 2: bioinformatic profile
@@ -235,7 +236,7 @@ def metapaths(data):
                 #print(mp.get('metapath_idx'), entity.get('metapath_idx'), entity.get('object_order'), entity.get('label'), metapath_count2(mp.get('metapath_idx'), query.get('metapaths')), len(mp.get('entities')), mp.get('length'))
 
         print_summaries(entity_l,
-                        filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_entities_in_metapaths'.format(
+                        filename='query_ngly1_aqp1_paths_v2019-02-21_source:{}_target:{}_summary_entities_in_metapaths'.format(
                             query.get('source'), query.get('target')))
 
 

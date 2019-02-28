@@ -62,7 +62,7 @@ def get_dataframe_from_file(filename):
     """This function opens a file and returns a dataframe."""
 
     try:
-        df = pd.read_csv('{}.csv'.format(filename))
+        df = pd.read_csv('{}.csv'.format(filename), low_memory=False)
     except OSError:
         print('cannot open: ', filename)
         raise

@@ -348,10 +348,10 @@ def build_nodes(statements):
     # g2p nodes (curated) and name attribute (monarch) in the fly.
     print('\nPreparing networks...')
     path = os.getcwd() + "/graph"
-    curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-02-14.csv'.format(path))
+    curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-02-22.csv'.format(path))
     monarch_path = os.getcwd() + "/monarch"
     # TODO: monarch is saved as csv but named as tsv=> fix monarch module
-    monarch_df = pd.read_table('{}/monarch_nodes_v2019-02-15.tsv'.format(monarch_path), sep=',')
+    monarch_df = pd.read_table('{}/monarch_nodes_v2019-02-22.tsv'.format(monarch_path), sep=',')
     #rna_df = pd.read_csv('{}/rna_nodes_v2019-01-25.csv'.format(path))
     #tf_df = pd.read_csv('{}/regulation_nodes_v2019-01-29.csv'.format(path))
     print('Curated:')
