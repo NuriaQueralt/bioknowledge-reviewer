@@ -17,6 +17,7 @@ import json
 import datetime
 import pandas as pd
 from biothings_client import get_client
+from tqdm import tqdm
 
 
 # VARIABLES
@@ -87,7 +88,6 @@ def hit_monarch_api(node = 'HGNC:17646', rows = 2000):
     
     # parameters
     parameters = {'fl_excludes_evidence': False, 'rows': rows}
-    
     # out edges: from/
     r_out = requests.get('{}/from/{}'.format(biolink,node),params=parameters)
 
@@ -216,7 +216,8 @@ def get_neighbours(seed):
     keepNodes = set()
     keepEdges = set()
     seedNodes = set(seed)
-    for node in seedNodes:
+    for node in tqdm(seedNodes):
+    # for node in seedNodes:
         try:
             r_out, r_in = hit_monarch_api(node)
             sub_l, rel_l, obj_l, ref_l = get_edges_objects(r_out, r_in)
@@ -229,6 +230,8 @@ def get_neighbours(seed):
         except:
             print('error: {}'.format(sys.exc_info()[0]))
             print(node)
+
+    print('Finished get_neighbours...')
 
     return keepNodes, keepEdges
 
@@ -300,7 +303,8 @@ def get_connections(nodes):
     """This function returns associations retrieved from Monarch among a list of query nodes."""
 
     keep = set()
-    for node in nodes:
+    for node in tqdm(nodes):
+    # for node in nodes:
         try:
             r_out, r_in = hit_monarch_api(node, 1000)
             sub_l, rel_l, obj_l, ref_l = get_edges_objects(r_out, r_in)
@@ -314,6 +318,8 @@ def get_connections(nodes):
         except:
             print('error: {}'.format(sys.exc_info()[0]))
             print(node)
+
+    print('Finished get_connections...')
 
     return keep
 
@@ -440,7 +446,7 @@ def expand_edges(seed_list):
     neighbours, relations = get_neighbours(seed_list)
 
     # network nodes:  seed + 1shell
-    nodes = set(seedList).union(neighbours)
+    nodes = set(seed_list).union(neighbours)
 
     # get connections for network nodes
     network = get_connections(nodes)
@@ -588,6 +594,7 @@ def build_edges(edges_df):
     # save edges file
     #TODO: abstract this function
     df = pd.DataFrame(edges_l)
+    print('df',df.shape)
     df = df[['subject_id', 'property_id', 'object_id', 'reference_uri', 'reference_supporting_text', 'reference_date', \
              'property_label', 'property_description', 'property_uri']]
     #TODO: check why i am saving as csv but naming the file tsv

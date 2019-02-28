@@ -711,7 +711,7 @@ def build_edges(edges):
     print('* These are the edges attributes: {}'.format(pd.DataFrame(edges_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(edges_l).head(1)))
 
-    #return
+    return edges_l
 
 
 # build nodes
@@ -832,7 +832,7 @@ def build_nodes(edges):
     print('* These are the nodes attributes: {}'.format(pd.DataFrame(nodes_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(nodes_l).head(1)))
 
-    #return
+    return nodes_l
 
 
 # NETWORK MANAGEMENT FUNCTIONS
@@ -849,14 +849,14 @@ if __name__ == '__main__':
     ## check TF name label format
     #data = prepare_msigdb_data()
     #check_msigdb_geneset_name_format(data)
-    ## prepare msigdb data
-    #prepare_msigdb_data()
-    ## prepare individual networks
-    #data = load_tf_gene_edges()
-    #dicts = get_gene_id_normalization_dictionaries(data)
-    #prepare_data_edges(data, dicts)
-    ## prepare regulation network
-    #network = prepare_regulation_edges()
-    ## build regulation network
-    #build_edges(network)
-    #build_nodes(network)
+    # prepare msigdb data
+    prepare_msigdb_data()
+    # prepare individual networks
+    data = load_tf_gene_edges()
+    dicts = get_gene_id_normalization_dictionaries(data)
+    prepare_data_edges(data, dicts)
+    # prepare regulation network
+    network = prepare_regulation_edges()
+    # build regulation network
+    regulation_edges = build_edges(network)
+    regulation_nodes = build_nodes(network)

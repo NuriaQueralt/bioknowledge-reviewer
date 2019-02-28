@@ -5,7 +5,8 @@
 # @author: Núria Queralt Rosinach
 # @email: nuriaqr@scripps.edu
 
-# TO DO:
+# TODO: check dir structure for input and data
+# TODO: check objects flow from one function to another or keep it as read from generated files
 
 """Module for the transcriptomics data"""
 
@@ -88,9 +89,6 @@ def prepare_data_edges():
     # read dataset
     csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/fc1.5_fdr5_transcriptome_fly.csv'
     chow = pd.read_csv('{}'.format(csv_path))
-    print('\n* This is the size of the expression data structure: {}'.format(chow.shape))
-    print('* These are the expression attributes: {}'.format(chow.columns))
-    print('* This is the first record:\n{}'.format(chow.head(1)))
 
     # prepare edges
     chow = (chow
@@ -108,6 +106,9 @@ def prepare_data_edges():
     path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out'
     if not os.path.isdir(path): os.makedirs(path)
     chow.to_csv('{}/chow_fc1.5_fdr5_transcriptome_fly_edges.csv'.format(path), index=False)
+    print('\n* This is the size of the expression data structure: {}'.format(chow.shape))
+    print('* These are the expression attributes: {}'.format(chow.columns))
+    print('* This is the first record:\n{}'.format(chow.head(1)))
 
     #return chow
 
@@ -118,9 +119,9 @@ def prepare_rna_edges():
     # read individual datasets
     csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/chow_fc1.5_fdr5_transcriptome_fly_edges.csv'
     chow = pd.read_csv('{}'.format(csv_path))
-    print('\n* This is the size of the expression data structure: {}'.format(chow.shape))
-    print('* These are the expression attributes: {}'.format(chow.columns))
-    print('* This is the first record:\n{}'.format(chow.head(1)))
+    #print('\n* This is the size of the expression data structure: {}'.format(chow.shape))
+    #print('* These are the expression attributes: {}'.format(chow.columns))
+    #print('* This is the first record:\n{}'.format(chow.head(1)))
 
     # select and rename key columns
     chow = (chow
@@ -207,7 +208,7 @@ def build_edges(edges):
     print('* These are the edges attributes: {}'.format(pd.DataFrame(edges_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(edges_l).head(1)))
 
-    #return
+    return edges_l
 
 
 def build_nodes(edges):
@@ -277,7 +278,7 @@ def build_nodes(edges):
     print('* These are the nodes attributes: {}'.format(pd.DataFrame(nodes_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(nodes_l).head(1)))
 
-    # return
+    return nodes_l
 
 # NETWORK MANAGEMENT FUNCTIONS
 
@@ -298,5 +299,5 @@ if __name__ == '__main__':
     edges = prepare_rna_edges()
 
     # build network
-    build_edges(edges)
-    build_nodes(edges)
+    transcriptomics_edges = build_edges(edges)
+    transcriptomics_nodes = build_nodes(edges)
