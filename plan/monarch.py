@@ -48,7 +48,7 @@ if not os.path.isdir(path): os.makedirs(path)
 ## from monarch/add-connections-to-net or regulation/monarch
 # TODO: build the following functions according monarch.ipynb and add-connections-to-net.ipynb notebooks
 
-def read_connections():
+def read_connections(filename):
     """This function reads monarch_connections TSV file in get-monarch-connections directory."""
 
     # read monarch_connections or get-monarch-connections/monarch_connections.[tsv|csv]
@@ -56,8 +56,11 @@ def read_connections():
     # csv_path = ''
     # monarch graph network
     #csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/monarch_connections_regulation_graph.tsv'
-    csv_path = '/home/nuria/workspace/ngly1-graph/monarch/1shell-animal/get-monarch-connections/monarch_connections.tsv'
-    network_df = pd.read_table('{}'.format(csv_path))
+    # csv_path = '/home/nuria/workspace/ngly1-graph/monarch/1shell-animal/get-monarch-connections/monarch_connections.tsv'
+    path = os.getcwd() + '/monarch'
+    csv_path = path + '/' + filename
+    #TODO: do not parse correctly labels due to commas within str labels
+    network_df = pd.read_csv('{}'.format(csv_path))
     print('\n* This is the size of the data structure: {}'.format(network_df.shape))
     print('* These are the attributes: {}'.format(network_df.columns))
     print('* This is the first record:\n{}'.format(network_df.head(1)))
@@ -368,12 +371,12 @@ def extract_edges(gene_list):
     The network variable that returns is a set of tuples (edges).
 
     Note that i changed the name of this function in v2.0 of the module. This function is named as 'expand_edges' in
-    version 1.0 of the module, and used as 'expand_edges' in the graph building notebook
+    version 1.0 of the module, and used as 'extract_edges' in the graph building notebook
     'graph_hypothesis_1shell_v11012018'.
     """
 
     # print executing function
-    print('\nThe function "expand_edges()" is running, please keep calm and have some coffee...')
+    print('\nThe function "extract_edges()" is running, please keep calm and have some coffee...')
 
     # set network nodes: gene list provided by the user
     nodes = set(gene_list)
@@ -384,7 +387,7 @@ def extract_edges(gene_list):
     return network
 
 
-def print_network(network, filename):
+def print_network2(network, filename):
     """This function saves the Monarch expanded network into a CSV file. this function save connections file format into
     get-monarch-connections/"""
     # TODO: this function only writes down the network connections format from monarch, originally stored into get-monarch-connections/
@@ -396,12 +399,12 @@ def print_network(network, filename):
         f.write(
             'subject_id,subject_label,relation_id,relation_label,object_id,object_label,reference_id_list\n')
         for edge in network:
-            edge = ['None' if t is None else t for t in edge]
+            edge = ['None' if t is None else '"{}"'.format(str(t)) for t in edge]
             f.write('{}\n'.format(','.join(edge)))
 
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
 
-def print_network2(network, filename):
+def print_network(network, filename):
     """This function saves the Monarch expanded network into a CSV file. connections file format only"""
 
     # transform set of tuples to list of dictionaries
@@ -420,9 +423,9 @@ def print_network2(network, filename):
     # print output file
     path = os.getcwd() + '/monarch'
     if not os.path.isdir(path): os.makedirs(path)
-    pd.DataFrame(edges).to_csv('{}/{}_dataframe_v{}.csv'.format(path, filename, today), index=False)
+    pd.DataFrame(edges).fillna('None').to_csv('{}/{}_v{}.csv'.format(path, filename, today), index=False)
 
-    return print("\nFile '{}/{}_dataframe_v{}.csv' saved.".format(path, filename, today))
+    return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
 
 def print_nodes(nodes, filename):
     """This function saves Monarch nodes into a CSV file."""
@@ -598,7 +601,7 @@ def build_edges(edges_df):
     df = df[['subject_id', 'property_id', 'object_id', 'reference_uri', 'reference_supporting_text', 'reference_date', \
              'property_label', 'property_description', 'property_uri']]
     #TODO: check why i am saving as csv but naming the file tsv
-    df.fillna('NA').to_csv('{}/monarch_edges_v{}.tsv'.format(path,today), index=False)
+    df.fillna('NA').to_csv('{}/monarch_edges_v{}.csv'.format(path,today), index=False)
 
     # print info
     print('\n* This is the size of the edges file data structure: {}'.format(pd.DataFrame(edges_l).shape))
@@ -736,7 +739,7 @@ def build_nodes(edges_df):
     df = pd.DataFrame(nodes_l)
     df = df[['id', 'semantic_groups', 'preflabel', 'synonyms', 'description', 'name']]
     #TODO: check why i am saving as csv but naming the file tsv
-    df.fillna('NA').to_csv('{}/monarch_nodes_v{}.tsv'.format(path,today), index=False)
+    df.fillna('NA').to_csv('{}/monarch_nodes_v{}.csv'.format(path,today), index=False)
 
     # print info
     print('\n* This is the size of the nodes file data structure: {}'.format(pd.DataFrame(nodes_l).shape))
@@ -768,13 +771,22 @@ if __name__ == '__main__':
     #build_edges()
     #build_nodes()
     #external function print
-    # TODO: external prints
+    # TODO: external prints (use print_network2() as the default)
     #nodes = build_nodes()
     #print_network(nodes,'nodes_print1_prova')
     # build monarch graph from monarch connections network
-    monarch_connections = read_connections() # OR monarch_network = read_connections()
-    print('### len of monarch_connections input:',len(monarch_connections))
-    monarch_edges = build_edges(monarch_connections)
-    print('### len of monarch_edges output:',len(monarch_edges))
-    monarch_nodes = build_nodes(monarch_connections)
-    print('### len of monarch_nodes output:',len(monarch_nodes))
+    # filepath = '/home/nuria/workspace/graph-hypothesis-generation-lib/plan/monarch/monarch_v2019-03-01.csv'
+    # monarch_connections = read_connections(filepath) # OR monarch_network = read_connections()
+    # print('### len of monarch_connections input:',len(monarch_connections))
+    # monarch_edges = build_edges(monarch_connections)
+    # print('### len of monarch_edges output:',len(monarch_edges))
+    # monarch_nodes = build_nodes(monarch_connections)
+    # print('### len of monarch_nodes output:',len(monarch_nodes))
+
+    # print network
+    # file_name = 'monarch_prova2_dataframe_v2019-03-01.csv'
+    # monarch_connections = read_connections(file_name)
+    # build_edges(monarch_connections)
+    # build_nodes(monarch_connections)
+    path = '/home/nuria/workspace/graph-hypothesis-generation-lib/plan/monarch'
+    pd.read_table('{}/monarch_v2019-03-01.csv'.format(path), sep=',')
