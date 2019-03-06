@@ -43,7 +43,7 @@ if not os.path.isdir(path): os.makedirs(path)
 
 # CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
 # check network schema
-# TODO: check functions
+# TODO: check functions and document
 
 ## from monarch/add-connections-to-net or regulation/monarch
 # TODO: build the following functions according monarch.ipynb and add-connections-to-net.ipynb notebooks
@@ -600,7 +600,6 @@ def build_edges(edges_df):
     print('df',df.shape)
     df = df[['subject_id', 'property_id', 'object_id', 'reference_uri', 'reference_supporting_text', 'reference_date', \
              'property_label', 'property_description', 'property_uri']]
-    #TODO: check why i am saving as csv but naming the file tsv
     df.fillna('NA').to_csv('{}/monarch_edges_v{}.csv'.format(path,today), index=False)
 
     # print info

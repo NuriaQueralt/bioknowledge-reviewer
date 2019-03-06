@@ -202,8 +202,8 @@ if __name__ == '__main__':
     #nodes = get_dataframe('./graph/monarch_nodes_v2018-02-23')
     #statements = get_statements(edges)
     #concepts = get_concepts(nodes)
-    edges = get_dataframe_from_file('./graph/graph_edges_v2019-02-21')
-    nodes = get_dataframe_from_file('./graph/graph_nodes_v2019-02-21')
+    edges = get_dataframe_from_file('./graph/graph_edges_v2019-03-06')
+    nodes = get_dataframe_from_file('./graph/graph_nodes_v2019-03-06')
     statements = get_statements(edges)
     concepts = get_concepts(nodes)
 

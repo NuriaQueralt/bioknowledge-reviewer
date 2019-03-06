@@ -270,26 +270,27 @@ def build_edges():
 
     # load networks
     print('\nPreparing networks...')
-    # curated_df = pd.read_csv('{}/curated_graph_edges_v2019-02-14.csv'.format(path))
-    # monarch_path = os.getcwd() + "/monarch"
-    # monarch_df = pd.read_table('{}/monarch_edges_v2019-02-15.TSV or CSV'.format(monarch_path))
-    # rna = pd.read_csv('{}/rna_edges_v2019-01-25.csv'.format(path))
-    # tf = pd.read_csv('{}/regulation_edges_v2019-01-29.csv'.format(path))
+    path = os.getcwd() + '/graph'
+    curated_df = pd.read_csv('{}/curated_graph_edges_v2019-03-04.csv'.format(path))
+    monarch_path = os.getcwd() + "/monarch"
+    monarch_df = pd.read_csv('{}/monarch_edges_v2019-03-05.csv'.format(monarch_path))
+    rna = pd.read_csv('{}/rna_edges_v2019-03-04.csv'.format(path))
+    tf_merged = pd.read_csv('{}/regulation_graph_edges_v2019-03-05.csv'.format(path))
     print('Curated:')
-    path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
-    curated_df = pd.read_csv('{}/curated_graph_edges_v2019-01-18.csv'.format(path))
+    # path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
+    # curated_df = pd.read_csv('{}/curated_graph_edges_v2019-01-18.csv'.format(path))
     print(curated_df.shape)
     print(curated_df.columns)
     print('Monarch:')
-    monarch_df = pd.read_table('{}/monarch_edges_v2019-01-18.tsv'.format(path))
+    # monarch_df = pd.read_table('{}/monarch_edges_v2019-01-18.tsv'.format(path))
     print(monarch_df.shape)
     print(monarch_df.columns)
     print('Transcriptomics:')
-    rna = pd.read_csv('{}/rna_edges_v2019-01-17.csv'.format(path))
+    # rna = pd.read_csv('{}/rna_edges_v2019-01-17.csv'.format(path))
     print(rna.shape)
     print(rna.columns)
     print('Regulatory:')
-    tf_merged = pd.read_csv('{}/regulation_graph_edges_v2019-01-17.csv'.format(path))
+    # tf_merged = pd.read_csv('{}/regulation_graph_edges_v2019-01-17.csv'.format(path))
     print(tf_merged.shape)
     print(tf_merged.columns)
 
@@ -354,12 +355,12 @@ def build_nodes(statements):
     # g2p nodes (curated) and name attribute (monarch) in the fly.
     print('\nPreparing networks...')
     path = os.getcwd() + "/graph"
-    curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-02-22.csv'.format(path))
+    curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-03-04.csv'.format(path))
     monarch_path = os.getcwd() + "/monarch"
     # TODO: monarch is saved as csv but named as tsv=> fix monarch module
-    monarch_df = pd.read_table('{}/monarch_nodes_v2019-02-22.tsv OR CSV'.format(monarch_path), sep=',')
-    #rna_df = pd.read_csv('{}/rna_nodes_v2019-01-25.csv'.format(path))
-    #tf_df = pd.read_csv('{}/regulation_nodes_v2019-01-29.csv'.format(path))
+    monarch_df = pd.read_csv('{}/monarch_nodes_v2019-03-05.csv'.format(monarch_path), sep=',')
+    rna_df = pd.read_csv('{}/rna_nodes_v2019-03-04.csv'.format(path))
+    tf_df = pd.read_csv('{}/regulation_nodes_v2019-03-04.csv'.format(path))
     print('Curated:')
     path = '/home/nuria/workspace/ngly1-graph/regulation/graph'
     # curated_df = pd.read_csv('{}/curated_graph_nodes_v2019-01-18.csv'.format(path))
@@ -370,11 +371,11 @@ def build_nodes(statements):
     print(monarch_df.shape)
     print(monarch_df.columns)
     print('Transcriptomics:')
-    rna_df = pd.read_csv('{}/rna_nodes_v2019-01-17.csv'.format(path))
+    # rna_df = pd.read_csv('{}/rna_nodes_v2019-01-17.csv'.format(path))
     print(rna_df.shape)
     print(rna_df.columns)
     print('Regulatory:')
-    tf_df = pd.read_csv('{}/regulation_nodes_v2019-01-17.csv'.format(path))
+    # tf_df = pd.read_csv('{}/regulation_nodes_v2019-01-17.csv'.format(path))
     print(tf_df.shape)
     print(tf_df.columns)
 
@@ -488,22 +489,22 @@ if __name__ == '__main__':
     # load networks and calculate graph nodes
     # graph_nodes_df = graph_nodes()
     # print('graph nodes df:', graph_nodes_df.shape)
-    curation_file = './graph/curated_graph_edges_v2019-03-04.csv'
-    monarch_file = './monarch/monarch_edges_v2019-03-04.csv'
-    rna_file = './graph/rna_edges_v2019-03-04.csv'
-    tf_file = './graph/regulation_edges_v2019-03-04.csv'
-    graph_nodes_list = graph_nodes(
-        curation_file_path=curation_file,
-        monarch_file_path=monarch_file,
-        transcriptomics_file_path=rna_file,
-        regulation_file_path=tf_file
-    )
-    print('graph nodes list len:', len(graph_nodes_list))
-    print('graph nodes set len:', len(set(graph_nodes_list)))
+    # curation_file = './graph/curated_graph_edges_v2019-03-04.csv'
+    # monarch_file = './monarch/monarch_edges_v2019-03-04.csv'
+    # rna_file = './graph/rna_edges_v2019-03-04.csv'
+    # tf_file = './graph/regulation_edges_v2019-03-04.csv'
+    # graph_nodes_list = graph_nodes(
+    #     curation_file_path=curation_file,
+    #     monarch_file_path=monarch_file,
+    #     transcriptomics_file_path=rna_file,
+    #     regulation_file_path=tf_file
+    # )
+    # print('graph nodes list len:', len(graph_nodes_list))
+    # print('graph nodes set len:', len(set(graph_nodes_list)))
 
     # build network
-    # edges = build_edges()
-    # nodes = build_nodes(edges)
+    edges = build_edges()
+    nodes = build_nodes(edges)
 
     # check
     # print(graph_nodes_df.columns)

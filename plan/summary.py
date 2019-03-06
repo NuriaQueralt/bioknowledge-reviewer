@@ -205,7 +205,7 @@ def metapaths(data):
             #                                metapath_count2(metapath_idx, query.get('metapaths')),
             #                                metapath_label2(metapath_idx, query.get('metapaths'))))
         print_summaries(metapath_l,
-                        filename='query_ngly1_aqp1_paths_v2019-02-21_source:{}_target:{}_summary_metapaths'.format(
+                        filename='query_ngly1_aqp1_paths_source:{}_target:{}_summary_metapaths'.format(
                             query.get('source'), query.get('target')))
 
         # table 2: bioinformatic profile
@@ -236,7 +236,7 @@ def metapaths(data):
                 #print(mp.get('metapath_idx'), entity.get('metapath_idx'), entity.get('object_order'), entity.get('label'), metapath_count2(mp.get('metapath_idx'), query.get('metapaths')), len(mp.get('entities')), mp.get('length'))
 
         print_summaries(entity_l,
-                        filename='query_ngly1_aqp1_paths_v2019-02-21_source:{}_target:{}_summary_entities_in_metapaths'.format(
+                        filename='query_ngly1_aqp1_paths_source:{}_target:{}_summary_entities_in_metapaths'.format(
                             query.get('source'), query.get('target')))
 
 
@@ -418,7 +418,8 @@ if __name__ == "__main__":
     ## prints
 
     # 2019
-    data = path_load('./hypothesis/query_ngly1_aqp1_paths_v2019-02-21')
+    # data = path_load('./hypothesis/query_ngly1_aqp1_paths_v2019-02-21')
+    data = path_load('./hypothesis/query_ngly1_aqp1_paths_v2019-03-06')
     data_parsed = list()
     for query in data:
         query_parsed = query_parser(query)
