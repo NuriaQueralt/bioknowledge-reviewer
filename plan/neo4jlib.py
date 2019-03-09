@@ -35,6 +35,7 @@ import pandas as pd
 import datetime
 import os, sys
 import subprocess
+from utils import *
 
 # VARIABLES
 today = datetime.date.today()
@@ -47,50 +48,6 @@ today = datetime.date.today()
 
 
 #### UTILS
-
-def get_dataframe(object):
-    """This function converts a list_of_dictionaries object into a dataframe."""
-
-    try:
-        df = pd.DataFrame(object)
-    except ValueError:
-        raise
-    else:
-        return df
-
-def get_dataframe_from_file(filename):
-    """This function opens a file and returns a dataframe."""
-
-    try:
-        df = pd.read_csv('{}.csv'.format(filename), low_memory=False)
-    except OSError:
-        print('cannot open: ', filename)
-        raise
-    else:
-        return df
-
-
-def check_format(df, file_type='statements'):
-    """This function checks if dataframe contains the expected columns before concatanation."""
-
-    if file_type == 'concepts':
-        try:
-            df = df[['id', 'semantic_groups', 'preflabel', 'synonyms', 'name', 'description']]
-        except:
-            print('Concepts dataframe does not contain the expected columns. Raised error: ', sys.exc_info()[0])
-            raise
-        else:
-            return df
-    else:
-        try:
-            df = df[['subject_id', 'property_id', 'object_id', 'reference_uri',
-                        'reference_supporting_text', 'reference_date', 'property_label',
-                        'property_description', 'property_uri']]
-        except:
-            print('Statements dataframe does not contain the expected columns. Raised error: ', sys.exc_info()[0])
-            raise
-        else:
-            return df
 
 
 def save_neo4j_files(object, neo4j_path, file_type = 'statements'):#(graph_l, ):
@@ -198,18 +155,13 @@ def do_import(neo4j_path):
 
 if __name__ == '__main__':
     ## get edges and files for neo4j
-    #edges = get_dataframe('./graph/monarch_edges_v2018-02-24')
-    #nodes = get_dataframe('./graph/monarch_nodes_v2018-02-23')
-    #statements = get_statements(edges)
-    #concepts = get_concepts(nodes)
-    edges = get_dataframe_from_file('./graph/graph_edges_v2019-03-06')
-    nodes = get_dataframe_from_file('./graph/graph_nodes_v2019-03-06')
+    edges = get_dataframe_from_file('./graph/graph_edges_v2019-03-06.csv')
+    nodes = get_dataframe_from_file('./graph/graph_nodes_v2019-03-06.csv')
     statements = get_statements(edges)
     concepts = get_concepts(nodes)
 
     ## import the graph into neo4j
     # save files into neo4j import dir
-    # neo4j_path = '/home/nuria/workspace/ngly1-graph/neo4j-community-3.0-animalModel-v3'
     neo4j_path = './neo4j-community-3.0.3'
     save_neo4j_files(statements, neo4j_path, file_type='statements')
     save_neo4j_files(concepts, neo4j_path, file_type='concepts')

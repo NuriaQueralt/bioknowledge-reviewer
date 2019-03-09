@@ -121,7 +121,7 @@ def check_msigdb_geneset_name_format(data):
     #return
 
 ## Prepare msigdb data: from regulation/msigdb/exploration.ipynb
-def prepare_msigdb_data():
+def prepare_msigdb_data(gmt_path):
     """This function prepares MSigDB data."""
 
     # path to write data
@@ -129,15 +129,15 @@ def prepare_msigdb_data():
     if not os.path.exists(path): os.makedirs(path)
 
     # load C3:TFT data
-    gmt_path = '/home/nuria/workspace/ngly1-graph/regulation/msigdb/data/c3.tft.v6.1.entrez.gmt'
+    # gmt_path = '/home/nuria/workspace/ngly1-graph/regulation/msigdb/data/c3.tft.v6.1.entrez.gmt'
     data = gs.parser.gsea_gmt_parser("{}".format(gmt_path), min_size=1, max_size=10000)
     print('\n* Number of Transcription Factor Targets (TFT) gene sets: {}'.format(len(data.keys())))
 
     ## save raw data
-    # TODO: save raw data
-    #path = os.getcwd() + '/regulation/msigdb/data'
-    #if not os.path.isdir(path): os.makedirs(path)
-    #pd.DataFrame(data).to_csv('{}/c3.tft.v6.1.entrez.gmt'.format(path), index=False)
+    # TODO: save raw data as gmt (data is of type dict())
+    # data_path = os.getcwd() + '/regulation/msigdb/data'
+    # if not os.path.isdir(data_path): os.makedirs(data_path)
+    # pd.DataFrame(data).to_csv('{}/c3.tft.v6.1.entrez.gmt'.format(data_path), index=False)
 
     ## prepare tf-gene_list dictionary: {symbol: [entrez]}: compile all gene set names into TF symbol
     # select tf:
@@ -200,8 +200,8 @@ def prepare_msigdb_data():
 
     with open('{}/tf_with_multiple_tfid_entrez.tsv'.format(path), 'w') as f:
         f.write('\n'.join(set(redundant_tf)))
-
-    return data
+    #
+    # return data
 
 
 ## Prepare regulation data: regulation/regulation.ipynb
@@ -618,16 +618,22 @@ def prepare_data_edges(data,dicts):
                     )
                 )
 
-    #return data_edges
+    tftargets = pd.read_csv('{}/tftargets/tftargets_edges.csv'.format(path), low_memory=False)
+    msigdb = pd.read_csv('{}/msigdb/msigdb_edges.csv'.format(path))
+    data_edges = (tftargets, msigdb)
+
+    return data_edges
 
 
 # prepare regulation edges to build the graph
-def prepare_regulation_edges():
+def prepare_regulation_edges(data_edges):
     """This function prepares and compiles all individual data edges into regulation edges to build the graph."""
 
     # load individual regulation networks
-    tftargets = pd.read_csv('{}/tftargets/tftargets_edges.csv'.format(path), low_memory=False)
-    msigdb = pd.read_csv('{}/msigdb/msigdb_edges.csv'.format(path))
+    tftargets = data_edges[0]
+    msigdb = data_edges[1]
+    # tftargets = pd.read_csv('{}/tftargets/tftargets_edges.csv'.format(path), low_memory=False)
+    # msigdb = pd.read_csv('{}/msigdb/msigdb_edges.csv'.format(path))
     #print('tftargets:',tftargets.shape)
     #print('msigdb:',msigdb.shape)
 
@@ -836,7 +842,7 @@ def build_nodes(edges):
 
 
 # NETWORK MANAGEMENT FUNCTIONS
-
+#TODO: prepare graph functions to get list of nodes, edges..
 
 def print_nodes(nodes, filename):
     """This function save nodes into a CSV file."""
@@ -850,13 +856,14 @@ if __name__ == '__main__':
     #data = prepare_msigdb_data()
     #check_msigdb_geneset_name_format(data)
     # prepare msigdb data
-    prepare_msigdb_data()
+    gmt_path = '/home/nuria/workspace/ngly1-graph/regulation/msigdb/data/c3.tft.v6.1.entrez.gmt'
+    prepare_msigdb_data(gmt_path)
     # prepare individual networks
     data = load_tf_gene_edges()
     dicts = get_gene_id_normalization_dictionaries(data)
-    prepare_data_edges(data, dicts)
+    data_edges = prepare_data_edges(data, dicts)
     # prepare regulation network
-    network = prepare_regulation_edges()
+    network = prepare_regulation_edges(data_edges)
     # build regulation network
     regulation_edges = build_edges(network)
     regulation_nodes = build_nodes(network)

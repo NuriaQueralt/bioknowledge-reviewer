@@ -5,7 +5,7 @@
 # @author: Núria Queralt Rosinach
 # @email: nuriaqr@scripps.edu
 
-# TO DO:
+# TODO: function for version for wikibase (data will come from wikibase dump neo4j CSV)
 
 """Module for the curation data"""
 
@@ -142,12 +142,12 @@ def prepare_data_nodes(curated_df):
 
 
 # import curated statements as edges and nodes
-def read_data():
+def read_data(csv_path):
     """This function imports curated statements as edges and nodes."""
 
     print('\n Read data from curation/data/v2018 dir...')
     # read edges
-    csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/curated_v20180118'
+    # csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/curated_v20180118'
     edges_df = pd.read_csv('{}/curated_edges_v2019-01-18.csv'.format(csv_path))
     print('\n* Number of curated edges:', len(edges_df))
 
@@ -531,7 +531,7 @@ def download_networks():
     """This function downloads curated network files (edges and nodes) from spreadsheets in Google Drive as csv files."""
 
     # create dir: curation/data
-    data_path = os.getcwd() + '/curation/data'
+    data_path = os.getcwd() + '/curation/data/' + version
     if not os.path.isdir(data_path): os.makedirs(data_path)
 
     # download to dir edges and nodes
@@ -570,7 +570,7 @@ def download_networks():
     return print('\nDownload process finished.\nFiles located at: {}.'.format(data_path))
 
 
-def read_network():
+def read_network(version=version):
     """This function concatenates and returns the curated network as a dataframe."""
 
     # concat all statements in the network
@@ -842,37 +842,56 @@ if __name__ == '__main__':
 
     # prepare curated edges for monarch network interoperability
     # download curated network (web to local csv: edges and node descriptions)
-    #download_networks()
+    download_networks()
 
     # read curated network(edges.csv)
-    #curatedNetwork_df = read_network()
+    #curatedNetwork_df, nodes_df = read_network()
 
     # get nodes
     ##curatedNetworkNodes_df = get_nodes_df(curatedNetwork_df)
     ##curatedNetworkNodes_list = get_list_of_monarch_id_nodes(curatedNetworkNodes_df)
     #curatedNodes_list = get_nodes(curatedNetwork_df)
 
+    ## build network for the graph
+    ## read network from file (already preprocessed):
+    ## prepare curated edges and nodes
+    #csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/curated_v20180118'
+    #edges_df, nodes_df = read_data(csv_path)
+    #curated_graph_df = prepare_curated_edges(edges_df)
+    #curated_graph_nodes_df = prepare_curated_nodes(nodes_df)
+
+    ## build edges and nodes files
+    #edges_l = build_edges(curated_graph_df)
+    #nodes_l = build_nodes(curated_graph_nodes_df)
+
+    ## checks
+    #print('print edges', len(edges_l), len(edges_l[0].keys()))
+    #print('print nodes', len(nodes_l), len(nodes_l[0].keys()))
+
+
     # build network for the graph
-    # read network from drive and concat all curated statements
-    #curation_edges, curation_nodes = read_network()
+    # read network from drive sp version and concat all curated statements
+    # curation_edges, curation_nodes = read_network(version='v20180118')
+
+    # OR
+    # download curated network (web to local csv: edges and node descriptions)
+    download_networks()
+    # read network from current drive version and concat all curated statements
+    curation_edges, curation_nodes = read_network()
 
     # prepare data edges and nodes
-    #data_edges = prepare_data_edges(curation_edges)
-    #data_nodes = prepare_data_nodes(curation_nodes)
+    data_edges = prepare_data_edges(curation_edges)
+    data_nodes = prepare_data_nodes(curation_nodes)
 
     # prepare curated edges and nodes
-    # from file:
-    edges_df, nodes_df = read_data()
-    curated_graph_df = prepare_curated_edges(edges_df)
-    curated_graph_nodes_df = prepare_curated_nodes(nodes_df)
+    curated_graph_df = prepare_curated_edges(data_edges)
+    curated_graph_nodes_df = prepare_curated_nodes(data_nodes)
 
-    # from data object in the workflow: - NOT TESTED -
-    #prepare_curated_edges(data_edges)
-    #prepare_curated_nodes(data_nodes)
 
     # build edges and nodes files
     edges_l = build_edges(curated_graph_df)
     nodes_l = build_nodes(curated_graph_nodes_df)
 
     # checks
-    #print()
+    print('print edges', len(edges_l), len(edges_l[0].keys()))
+    print('print nodes', len(nodes_l), len(nodes_l[0].keys()))

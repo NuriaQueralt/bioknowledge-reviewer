@@ -30,11 +30,11 @@ if not os.path.isdir(path): os.makedirs(path)
 ## from regulation/chow/exploratory.ipynb
 
 
-def read_data():
+def read_data(csv_path):
     """This function reads the raw expression data from a CSV file."""
 
     # import table S1 (dNGLY1 KO - transcriptomic profile)
-    csv_path = '~/workspace/ngly1-graph/regulation/ngly1-fly-chow-2018/data/supp_table_1.csv'
+    #csv_path = '~/workspace/ngly1-graph/regulation/ngly1-fly-chow-2018/data/supp_table_1.csv'
     data_df = pd.read_csv('{}'.format(csv_path))
     print('\n* This is the size of the raw expression data structure: {}'.format(data_df.shape))
     print('* These are the expression attributes: {}'.format(data_df.columns))
@@ -78,17 +78,17 @@ def clean_data(data_df):
     if not os.path.isdir(path): os.makedirs(path)
     subset_df.to_csv('{}/fc1.5_fdr5_transcriptome_fly.csv'.format(path), index=False)
 
-    #return subset_df
+    return subset_df
 
 
 ## from regulation/transcriptomics.ipynb
 
-def prepare_data_edges():
+def prepare_data_edges(chow):
     """This function prepares the expression dataset as edges."""
 
     # read dataset
-    csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/fc1.5_fdr5_transcriptome_fly.csv'
-    chow = pd.read_csv('{}'.format(csv_path))
+    # csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/fc1.5_fdr5_transcriptome_fly.csv'
+    # chow = pd.read_csv('{}'.format(csv_path))
 
     # prepare edges
     chow = (chow
@@ -110,18 +110,15 @@ def prepare_data_edges():
     print('* These are the expression attributes: {}'.format(chow.columns))
     print('* This is the first record:\n{}'.format(chow.head(1)))
 
-    #return chow
+    return chow
 
 
-def prepare_rna_edges():
+def prepare_rna_edges(chow):
     """This function prepares and compiles all individual data edges into RNA edges to build the graph."""
 
     # read individual datasets
-    csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/chow_fc1.5_fdr5_transcriptome_fly_edges.csv'
-    chow = pd.read_csv('{}'.format(csv_path))
-    #print('\n* This is the size of the expression data structure: {}'.format(chow.shape))
-    #print('* These are the expression attributes: {}'.format(chow.columns))
-    #print('* This is the first record:\n{}'.format(chow.head(1)))
+    # csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/chow_fc1.5_fdr5_transcriptome_fly_edges.csv'
+    # chow = pd.read_csv('{}'.format(csv_path))
 
     # select and rename key columns
     chow = (chow
@@ -293,11 +290,16 @@ def print_nodes(nodes, filename):
 if __name__ == '__main__':
 
     # prepare data to graph schema
-    data = read_data()
-    clean_data(data)
-    prepare_data_edges()
-    edges = prepare_rna_edges()
+    csv_path = '~/workspace/ngly1-graph/regulation/ngly1-fly-chow-2018/data/supp_table_1.csv'
+    data = read_data(csv_path)
+    clean_data = clean_data(data)
+    data_edges = prepare_data_edges(clean_data)
+    edges = prepare_rna_edges(data_edges)
 
     # build network
     transcriptomics_edges = build_edges(edges)
     transcriptomics_nodes = build_nodes(edges)
+    print('type of edges:', type(transcriptomics_edges))
+    print('str of edges:', transcriptomics_edges)
+    print('type of nodes:', type(transcriptomics_nodes))
+    print('str of nodes:', transcriptomics_nodes)

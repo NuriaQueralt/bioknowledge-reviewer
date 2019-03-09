@@ -486,6 +486,23 @@ def build_edges(edges_df):
     """
 
     ## variables
+    # if edges_df is not a df, it is a set of tuples, then convert to a df
+    if isinstance(edges_df, set):
+        connections_l = list()
+        for tuple in edges_df:
+            record = dict()
+            record['subject_id'] = tuple[0]
+            record['subject_label'] = tuple[1]
+            record['relation_id'] = tuple[2]
+            record['relation_label'] = tuple[3]
+            record['object_id'] = tuple[4]
+            record['object_label'] = tuple[5]
+            record['reference_id_list'] = tuple[6]
+            connections_l.append(record)
+
+        edges_df = pd.DataFrame(connections_l)
+
+
     # generate static variable: uriPrefixes_dct (url references)
     uriPrefixes_dct = {
         'pmid': 'https://www.ncbi.nlm.nih.gov/pubmed/',  # 'http://identifiers.org/pubmed/',
@@ -629,6 +646,22 @@ def build_nodes(edges_df):
     #        header = 0
     #        continue
     # read edges from variable
+    # if edges_df is not a df, it is a set of tuples, then convert to a df
+    if isinstance(edges_df, set):
+        connections_l = list()
+        for tuple in edges_df:
+            record = dict()
+            record['subject_id'] = tuple[0]
+            record['subject_label'] = tuple[1]
+            record['relation_id'] = tuple[2]
+            record['relation_label'] = tuple[3]
+            record['object_id'] = tuple[4]
+            record['object_label'] = tuple[5]
+            record['reference_id_list'] = tuple[6]
+            connections_l.append(record)
+
+        edges_df = pd.DataFrame(connections_l)
+
     for edge in edges_df.itertuples():
         #fields = row.strip('\n').split('\t')
         #fields = list(edge_tuple)
@@ -774,18 +807,18 @@ if __name__ == '__main__':
     #nodes = build_nodes()
     #print_network(nodes,'nodes_print1_prova')
     # build monarch graph from monarch connections network
-    # filepath = '/home/nuria/workspace/graph-hypothesis-generation-lib/plan/monarch/monarch_v2019-03-01.csv'
-    # monarch_connections = read_connections(filepath) # OR monarch_network = read_connections()
-    # print('### len of monarch_connections input:',len(monarch_connections))
-    # monarch_edges = build_edges(monarch_connections)
-    # print('### len of monarch_edges output:',len(monarch_edges))
-    # monarch_nodes = build_nodes(monarch_connections)
-    # print('### len of monarch_nodes output:',len(monarch_nodes))
+    filepath = '/home/nuria/workspace/graph-hypothesis-generation-lib/plan/monarch/monarch_v2019-03-01.csv'
+    monarch_connections = read_connections(filepath) # OR monarch_network = read_connections()
+    print('### len of monarch_connections input:',len(monarch_connections))
+    monarch_edges = build_edges(monarch_connections)
+    print('### len of monarch_edges output:',len(monarch_edges))
+    monarch_nodes = build_nodes(monarch_connections)
+    print('### len of monarch_nodes output:',len(monarch_nodes))
 
     # print network
     # file_name = 'monarch_prova2_dataframe_v2019-03-01.csv'
     # monarch_connections = read_connections(file_name)
     # build_edges(monarch_connections)
     # build_nodes(monarch_connections)
-    path = '/home/nuria/workspace/graph-hypothesis-generation-lib/plan/monarch'
-    pd.read_table('{}/monarch_v2019-03-01.csv'.format(path), sep=',')
+    # path = '/home/nuria/workspace/graph-hypothesis-generation-lib/plan/monarch'
+    # pd.read_table('{}/monarch_v2019-03-01.csv'.format(path), sep=',')
