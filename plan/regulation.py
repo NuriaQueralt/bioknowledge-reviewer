@@ -209,7 +209,8 @@ def load_tf_gene_edges():
     """This function loads raw networks from JSON files into dict variables."""
 
     # load json files data
-    json_tftargets_path = '/home/nuria/workspace/ngly1-graph/regulation/tftargets/data'
+    #json_tftargets_path = '/home/nuria/workspace/ngly1-graph/regulation/tftargets/data'
+    json_tftargets_path = './regulation/tftargets/data'
     json_msigdb_path = os.getcwd() + '/regulation/msigdb/out'
     tred = json.load(open('{}/tred.json'.format(json_tftargets_path)))
     encode = json.load(open('{}/encode.json'.format(json_tftargets_path)))
@@ -400,7 +401,8 @@ def prepare_data_edges(data,dicts):
     # REFERENCES: add ref_uri to trrust statements
     # build trrust dict: {'tf:gene': 'PMID:'}
     st2ref = {}
-    references_path = '/home/nuria/workspace/ngly1-graph/regulation/tftargets/data-raw/TRRUST'
+    #references_path = '/home/nuria/workspace/ngly1-graph/regulation/tftargets/data-raw/TRRUST'
+    references_path = './regulation/tftargets/data-raw/TRRUST'
     for line in gzip.open('{}/trrust_rawdata.txt.gz'.format(references_path), 'rt').readlines():
         tf, gene, mor, ref_list = line.strip().split('\t')
         st = tf + ':' + gene
@@ -537,7 +539,8 @@ def prepare_data_edges(data,dicts):
     unknown = list()
     unrecognized = list()
     st2ref = {}
-    references_path = '/home/nuria/workspace/ngly1-graph/regulation/msigdb/data'
+    #references_path = '/home/nuria/workspace/ngly1-graph/regulation/msigdb/data'
+    references_path = './regulation/msigdb/data'
     for line in open("{}/c3.tft.v6.1.entrez.gmt".format(references_path)).readlines():
         geneset_name = line.strip().split('\t')[0]
         gs_name_v = geneset_name.split('_')

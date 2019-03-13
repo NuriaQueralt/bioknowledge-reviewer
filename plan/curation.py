@@ -13,12 +13,13 @@ import os, glob, sys
 import pandas as pd
 from gsheets import Sheets
 from biothings_client import get_client
-sys.path.insert(0,'/home/nuria/soft/utils3/lib/')
-import abravo_lib as utils
+#sys.path.insert(0,'/home/nuria/soft/utils3/lib/')
+#import abravo_lib as utils
+import utils
 import datetime
 
 # mondo annotation
-sys.path.insert(0,'/home/nuria/soft/utils3/ontologies')
+#sys.path.insert(0,'/home/nuria/soft/utils3/ontologies')
 import mondo_class as mondo
 
 
@@ -372,7 +373,8 @@ def prepare_curated_nodes(curated_df):
     # build dictionary with mondo nodes'description
     print('\nAdding diseases described by the MONDO ontology...')
     # import mondo owl terms
-    owl_f = '/home/nuria/workspace/ngly1-graph/ontologies/mondo.owl'
+    # owl_f = '/home/nuria/workspace/ngly1-graph/ontologies/mondo.owl'
+    owl_f = './ontologies/mondo.owl'
     tm = mondo.term(owl_f)
 
     # extract metadata from the mondo ontology
@@ -670,7 +672,7 @@ def normalize_nodes(nodes_df):
         .rename(columns={'node_id_normalized': 'node_id', 'node_type_normalized': 'node_type', 'id_type_normalized': 'id_type'})
         .copy()
         )
-    norm_nodes_df.to_csv('{}/curation/network_nodes.tsv'.format(os.getcwd()), sep='\t', index=False, header=True)
+    norm_nodes_df.to_csv('{}/curation/network_nodes.csv'.format(os.getcwd()), sep='\t', index=False, header=True)
     #print('\nNetwork nodes file created at: {}/curation/network_nodes.tsv\n'.format(os.getcwd()))
 
     # node counts:
@@ -735,7 +737,7 @@ def map_uniprot2geneid(df, p2g_dct):
     #print('\nTotal nodes in the network: {}'.format(len(nodes_df)))
 
     # save the protein normalized to gene id
-    nodes_df.to_csv('{}/curation/network_nodes_monarch.tsv'.format(os.getcwd()), sep='\t', index=False, header=True)
+    nodes_df.to_csv('{}/curation/network_nodes_monarch.csv'.format(os.getcwd()), sep='\t', index=False, header=True)
     #print('\nNetwork nodes mapped to Monarch data model saved at: {}/curation/network_nodes_monarch.tsv\n'.format(os.getcwd()))
     return nodes_df
 

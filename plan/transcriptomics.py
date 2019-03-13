@@ -43,7 +43,8 @@ def read_data(csv_path):
     # save raw data
     path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/data'
     if not os.path.isdir(path): os.makedirs(path)
-    data_df.to_csv('{}/supp_table_1.csv'.format(path), index=False)
+    if not os.path.exists('{}/supp_table_1.csv'.format(path)):
+	data_df.to_csv('{}/supp_table_1.csv'.format(path), index=False)
 
     return data_df
 
