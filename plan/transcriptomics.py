@@ -1,12 +1,11 @@
 # @name: transcriptomics.py
-# @description: Module for RNA expression network preparation and management
+# @description: Module for RNA-seq expression network preparation and management
 # @version: 1.0
 # @date: 21-01-2019
 # @author: Núria Queralt Rosinach
 # @email: nuriaqr@scripps.edu
 
 # TODO: check dir structure for input and data
-# TODO: check objects flow from one function to another or keep it as read from generated files
 
 """Module for the transcriptomics data"""
 
@@ -44,7 +43,7 @@ def read_data(csv_path):
     path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/data'
     if not os.path.isdir(path): os.makedirs(path)
     if not os.path.exists('{}/supp_table_1.csv'.format(path)):
-	data_df.to_csv('{}/supp_table_1.csv'.format(path), index=False)
+        data_df.to_csv('{}/supp_table_1.csv'.format(path), index=False)
 
     return data_df
 
