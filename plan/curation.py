@@ -57,9 +57,14 @@ d2m = {
 # CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
 
 
-# normalize ID CURIEs and types
 def prepare_data_edges(curated_df):
-    """This function normalizes data edges."""
+    """
+    This function pre-processes data edges from curation files retrieved from the biocurator: \
+                  1) normalizes identifier CURIEs, and 2) uniformizes records attributes.
+
+    :param curated_df: edges dataframe provinent from reading curation edges files
+    :return: edges dataframe
+    """
 
     print('\nPreparing curated network...')
     # concat curation edges
@@ -87,11 +92,7 @@ def prepare_data_edges(curated_df):
                              'property_description', 'property_uri']]
 
     # drop duplicates
-    print('\nDrop duplicated rows...')
-    print('Before drop:', len(curated_df))
     curated_df = curated_df.drop_duplicates()
-    #curated_df.drop_duplicates(inplace=True)
-    print('After drop:', len(curated_df))
 
     # save curated edges file at curation/
     #TODO: abstract this function
@@ -105,9 +106,14 @@ def prepare_data_edges(curated_df):
     return curated_df
 
 
-# normalize ID CURIEs and types
 def prepare_data_nodes(curated_df):
-    """This function normalizes data nodes."""
+    """
+    This function pre-processes data nodes from curation files retrieved from the biocurator: \
+                  1) normalizes identifier CURIEs, and 2) uniformizes records attributes.
+
+    :param curated_df: nodes dataframe provinent from reading curation nodes files
+    :return: nodes dataframe
+    """
 
     print('\nPreparing curated nodes...')
     # concat curation nodes
@@ -124,11 +130,7 @@ def prepare_data_nodes(curated_df):
     curated_df = curated_df[['id', 'semantic_groups', 'preflabel', 'synonyms', 'description']]
 
     # drop duplicates
-    print('\nDrop duplicated rows...')
-    print('Before drop:', len(curated_df))
     curated_df = curated_df.drop_duplicates()
-    #curated_df.drop_duplicates(inplace=True)
-    print('After drop:', len(curated_df))
 
     # save curated nodes file at curation/
     #TODO: abstract this function
@@ -142,18 +144,22 @@ def prepare_data_nodes(curated_df):
     return curated_df
 
 
-# import curated statements as edges and nodes
-def read_data(csv_path):
-    """This function imports curated statements as edges and nodes."""
+def read_data(csv_path, version):
+    """
+    This function imports curated network from edges and nodes csv files.
+    :param csv_path: string with the path to the network files, e.g '/home/nuria/workspace/ngly1-graph/curation'
+    :param version: string with the files version, e.g. '2019-01-18'
+    :return: edges and nodes dataframes read from files
+    """
 
-    print('\n Read data from curation/data/v2018 dir...')
+    print('\n Read data from curation/data/v2018 directory...')
     # read edges
     # csv_path = '/home/nuria/workspace/ngly1-graph/regulation/graph/curated_v20180118'
-    edges_df = pd.read_csv('{}/curated_edges_v2019-01-18.csv'.format(csv_path))
+    edges_df = pd.read_csv('{}/curated_edges_v{}.csv'.format(csv_path, version))
     print('\n* Number of curated edges:', len(edges_df))
 
     # read nodes
-    nodes_df = pd.read_csv('{}/curated_nodes_v2019-01-18.csv'.format(csv_path))
+    nodes_df = pd.read_csv('{}/curated_nodes_v{}.csv'.format(csv_path, version))
     print('\n* Number of curated nodes:', len(nodes_df))
 
     return edges_df, nodes_df
@@ -312,11 +318,16 @@ def normalize_genes_to_proteins_to_graph(curated_df,concept_dct):
     return curated_df
 
 
-# add d2m and g2p edges
 def prepare_curated_edges(edges_df):
-    """This function prepares curated edges to build the graph."""
+    """
+    This function prepares curated edges to the graph schema: 1) normalizes gene identifiers, 2) normalizes disease \
+    identifiers, and 3) normalizes proteins to genes.
+    :param edges_df: edges dataframe provinent from the prepare_data_edges() function
+    :return: edges dataframe
+    """
 
-    print('\nID conversion: from ngly1 curated network to graph schema...')
+    print('\nPreparing curated edges to graph schema...')
+    print('\nMapping genes to HGNC ID...')
     ## Normalize GENES: NCBI to HGNC
     edges, concept_dct = normalize_genes_to_graph(edges_df)
 
@@ -330,8 +341,14 @@ def prepare_curated_edges(edges_df):
 
 
 def prepare_curated_nodes(curated_df):
-    """This function prepares curated nodes to build the graph."""
+    """
+    This function prepares curated nodes to the graph schema: 1) normalizes gene identifiers, 2) normalizes disease \
+    identifiers, and 3) normalizes proteins to genes.
+    :param curated_df: nodes dataframe provinent from the prepare_data_nodes() function
+    :return: nodes dataframe
+    """
 
+    print('\nPreparing curated nodes to graph schema...')
     ## GENES: id normalization
     print('\nMapping genes to HGNC ID...')
     # biothings api + dictionaries
@@ -457,10 +474,12 @@ def prepare_curated_nodes(curated_df):
 
 
 # BUILD NETWORK
-# Build edges and nodes files
-# build edges
 def build_edges(edges_df):
-    """This function builds the edges network file."""
+    """
+    This function builds the edges network with the graph schema."
+    :param edges_df: network dataframe provinent from the prepare_curated_edges() function
+    :return: graph edges object as a list of dictionaries, where every dictionary is a record
+    """
 
     # give graph format
     edges_l = list()
@@ -497,7 +516,11 @@ def build_edges(edges_df):
 
 
 def build_nodes(nodes_df):
-    """This function builds the nodes network file."""
+    """
+    This function builds the nodes network with the graph schema."
+    :param nodes_df: nodes dataframe provinent from the prepare_curated_nodes() function
+    :return: graph nodes object as a list of dictionaries, where every dictionary is a record
+    """
 
     # give graph format
     nodes_l = list()
@@ -844,7 +867,7 @@ if __name__ == '__main__':
 
     # prepare curated edges for monarch network interoperability
     # download curated network (web to local csv: edges and node descriptions)
-    download_networks()
+    #download_networks()
 
     # read curated network(edges.csv)
     #curatedNetwork_df, nodes_df = read_network()
