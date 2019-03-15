@@ -1,0 +1,87 @@
+<style type="text/css" media="screen">
+/*
+.nodes-image {
+	margin:-100;
+}
+*/	
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
+
+.imageblock .content img, .image img {max-width: 900px;max-height: 300px;}
+.deck h3, .deck h4 {display: block !important;margin-bottom:8px;margin-top:5px;}
+.listingblock {margin:8px;}
+.pull-bottom {position:relative;bottom:1em;}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning:before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution:before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important:before{content:"\f06a";color:#bf0000}
+.admonitionblock.note.speaker { display:none; }
+</style>
+<style type="text/css" media="screen">
+/* #editor.maximize-editor .CodeMirror-code { font-size:24px; line-height:26px; } */
+</style>
+<article class="guide" ng-controller="AdLibDataController">
+  <carousel class="deck container-fluid">
+    <!--slide class="row-fluid">
+      <div class="col-sm-3">
+        <h3>NGLY1 Deficiency hypotheses</h3>
+        <p class="lead">Information</p>
+			<!dl>
+				
+				
+				<dt>author"</dt><dd>Núria Queralt Rosinach</dd>
+				
+				
+			</dl>
+		</div>
+      <div class="col-sm-9">
+        <figure>
+          <img style="width:300px" src=""/>
+        </figure>
+      </div>
+    </slide-->
+    
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>NGLY1 - AQP1</h3>
+    <br/>
+    <div>
+      <div class="paragraph">
+<p>We query the knowledge graph asking for paths (hypotheses) connecting the NGLY1 human gene and the AQP1 human gene.
+=== Inspect hypotheses</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH (source { qid: 'Q18042037', preflabel: 'NGLY1'}), (target { qid: 'Q14905238', preflabel: 'AQP1'}), path=(source)-[*..3]-(target)
+RETURN source.preflabel AS Source, target.preflabel AS Target, LENGTH(path) AS pathLength, path AS Path<!--/code--></pre>
+</div>
+</div>
+	</div>
+  </div>
+</slide>
+
+
+
+<slide class="row-fluid">
+  <div class="col-sm-12">
+    <h3>NGLY1 - GlcNAc</h3>
+    <br/>
+    <div>
+      <div class="paragraph">
+<p>We query the knowledge graph asking for paths (hypotheses) connecting the NGLY1 human gene and the GlcNAc metabolite.
+=== Inspect hypotheses</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre mode="cypher"  class="highlight pre-scrollable programlisting cm-s-neo code runnable standalone-example ng-binding" data-lang="cypher" lang="cypher"><!--code class="cypher language-cypher"-->MATCH (source { qid: 'Q18042037', preflabel: 'NGLY1'}), (target { qid: 'Q27225758', preflabel: 'N-acetyl-D-glucosamine'}), path=(source)-[*..3]-(target)
+RETURN source.preflabel AS Source, target.preflabel AS Target, LENGTH(path) AS pathLength, path AS Path<!--/code--></pre>
+</div>
+</div>
+	</div>
+  </div>
+</slide>
+  </carousel>
+</article>

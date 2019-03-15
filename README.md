@@ -3,6 +3,7 @@ This is a Python library to create structured reviews integrating knowledge and 
 
 ##### Prerequisites
 Python 3
+Java 8
 
 ### Input / Output
 #### Input
