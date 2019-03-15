@@ -1,0 +1,11 @@
+2019-02-22 22:05:20.179+0000 INFO  [o.n.u.i.b.ParallelBatchImporter] Import starting
+2019-02-22 22:05:20.663+0000 WARN  [o.n.k.i.s.MetaDataStore] Missing counts store, rebuilding it.
+2019-02-22 22:05:20.895+0000 INFO  [o.n.k.a.i.l.LuceneLabelScanStore] No lucene scan store index found, this might just be first use. Preparing to rebuild.
+2019-02-22 22:05:21.043+0000 INFO  [o.n.k.a.i.l.LuceneLabelScanStore] Rebuilding lucene scan store, this may take a while
+2019-02-22 22:05:21.050+0000 INFO  [o.n.k.a.i.l.LuceneLabelScanStore] Lucene scan store rebuilt (roughly 0 nodes)
+2019-02-22 22:05:25.068+0000 INFO  [o.n.u.i.b.ParallelBatchImporter] Import completed, took 4s 887ms. Imported:
+  9365 nodes
+  189022 relationships
+  982570 properties
+2019-02-22 22:05:25.074+0000 INFO  [o.n.k.i.s.c.CountsTracker] About to rotate counts store at transaction 1 to [./neo4j-community-3.0.3/data/databases/graph.db/neostore.counts.db.b], from [./neo4j-community-3.0.3/data/databases/graph.db/neostore.counts.db.a].
+2019-02-22 22:05:25.078+0000 INFO  [o.n.k.i.s.c.CountsTracker] Successfully rotated counts store at transaction 1 to [./neo4j-community-3.0.3/data/databases/graph.db/neostore.counts.db.b], from [./neo4j-community-3.0.3/data/databases/graph.db/neostore.counts.db.a].
