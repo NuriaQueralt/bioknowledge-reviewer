@@ -1026,3 +1026,950 @@
 2019-03-15 00:14:48.563+0000 INFO [o.n.k.i.t.l.p.LogPruningImpl] No log version pruned, last checkpoint was made in version 0
 2019-03-15 00:14:48.584+0000 INFO [o.n.i.d.DiagnosticsManager] --- STOPPING diagnostics START ---
 2019-03-15 00:14:48.584+0000 INFO [o.n.i.d.DiagnosticsManager] --- STOPPING diagnostics END ---
+2019-03-19 17:44:41.639+0000 WARN [o.n.i.p.PageCache] The dbms.memory.pagecache.size setting has not been configured. It is recommended that this setting is always explicitly configured, to ensure the system has a balanced configuration. Until then, a computed heuristic value of 21474836480 bytes will be used instead. Run `neo4j-admin memrec` for memory configuration suggestions.
+2019-03-19 17:44:41.983+0000 INFO [o.n.g.f.m.e.CommunityEditionModule] No locking implementation specified, defaulting to 'community'
+2019-03-19 17:44:42.141+0000 WARN [o.n.k.i.p.Procedures] The function 'randomUUID' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:42.189+0000 INFO [o.n.g.f.GraphDatabaseFacadeFactory] Creating 'graph.db' database.
+2019-03-19 17:44:42.229+0000 INFO [o.n.k.a.DatabaseAvailabilityGuard] Requirement `Database available` makes database graph.db unavailable.
+2019-03-19 17:44:42.231+0000 INFO [o.n.k.a.DatabaseAvailabilityGuard] Database graph.db is unavailable.
+2019-03-19 17:44:42.291+0000 INFO [o.n.i.d.DiagnosticsManager] --- INITIALIZED diagnostics START ---
+2019-03-19 17:44:42.292+0000 INFO [o.n.i.d.DiagnosticsManager] Neo4j Kernel properties:
+2019-03-19 17:44:42.292+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.connector.http.enabled=true
+2019-03-19 17:44:42.292+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.security.auth_enabled=true
+2019-03-19 17:44:42.292+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.windows_service_name=neo4j
+2019-03-19 17:44:42.293+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.connector.http.listen_address=:1111
+2019-03-19 17:44:42.293+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.connector.https.listen_address=:3333
+2019-03-19 17:44:42.293+0000 INFO [o.n.i.d.DiagnosticsManager] unsupported.dbms.directories.neo4j_home=/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3
+2019-03-19 17:44:42.293+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.connector.bolt.listen_address=:2222
+2019-03-19 17:44:42.293+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.directories.import=import
+2019-03-19 17:44:42.293+0000 INFO [o.n.i.d.DiagnosticsManager] browser.remote_content_hostname_whitelist=*
+2019-03-19 17:44:42.293+0000 INFO [o.n.i.d.DiagnosticsManager] unsupported.dbms.edition=community
+2019-03-19 17:44:42.293+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.connector.bolt.enabled=true
+2019-03-19 17:44:42.294+0000 INFO [o.n.i.d.DiagnosticsManager] browser.post_connect_cmd=play https://172.29.48.53:8009/guides/index.html
+2019-03-19 17:44:42.294+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.connector.https.enabled=true
+2019-03-19 17:44:42.294+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.jvm.additional=-XX:+UseG1GC
+2019-03-19 17:44:42.294+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.connectors.default_listen_address=0.0.0.0
+2019-03-19 17:44:42.294+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.tx_log.rotation.retention_policy=1 days
+2019-03-19 17:44:42.294+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.security.procedures.whitelist=apoc.coll.*,apoc.load.*
+2019-03-19 17:44:42.294+0000 INFO [o.n.i.d.DiagnosticsManager] dbms.security.procedures.unrestricted=apoc.*
+2019-03-19 17:44:42.294+0000 INFO [o.n.i.d.DiagnosticsManager] Diagnostics providers:
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] org.neo4j.kernel.configuration.Config
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] org.neo4j.internal.diagnostics.DiagnosticsManager
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] SYSTEM_MEMORY
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] JAVA_MEMORY
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] OPERATING_SYSTEM
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] JAVA_VIRTUAL_MACHINE
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] CLASSPATH
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] LIBRARY_PATH
+2019-03-19 17:44:42.295+0000 INFO [o.n.i.d.DiagnosticsManager] SYSTEM_PROPERTIES
+2019-03-19 17:44:42.296+0000 INFO [o.n.i.d.DiagnosticsManager] TIMEZONE_DATABASE
+2019-03-19 17:44:42.296+0000 INFO [o.n.i.d.DiagnosticsManager] LINUX_SCHEDULERS
+2019-03-19 17:44:42.296+0000 INFO [o.n.i.d.DiagnosticsManager] NETWORK
+2019-03-19 17:44:42.296+0000 INFO [o.n.i.d.DiagnosticsManager] System memory information:
+2019-03-19 17:44:42.305+0000 INFO [o.n.i.d.DiagnosticsManager] Total Physical memory: 62.86 GB
+2019-03-19 17:44:42.305+0000 INFO [o.n.i.d.DiagnosticsManager] Free Physical memory: 15.70 GB
+2019-03-19 17:44:42.305+0000 INFO [o.n.i.d.DiagnosticsManager] Committed virtual memory: 19.31 GB
+2019-03-19 17:44:42.306+0000 INFO [o.n.i.d.DiagnosticsManager] Total swap space: 63.95 GB
+2019-03-19 17:44:42.306+0000 INFO [o.n.i.d.DiagnosticsManager] Free swap space: 63.95 GB
+2019-03-19 17:44:42.306+0000 INFO [o.n.i.d.DiagnosticsManager] JVM memory information:
+2019-03-19 17:44:42.306+0000 INFO [o.n.i.d.DiagnosticsManager] Free  memory: 985.18 MB
+2019-03-19 17:44:42.306+0000 INFO [o.n.i.d.DiagnosticsManager] Total memory: 1008.00 MB
+2019-03-19 17:44:42.306+0000 INFO [o.n.i.d.DiagnosticsManager] Max   memory: 15.72 GB
+2019-03-19 17:44:42.308+0000 INFO [o.n.i.d.DiagnosticsManager] Garbage Collector: G1 Young Generation: [G1 Eden Space, G1 Survivor Space]
+2019-03-19 17:44:42.308+0000 INFO [o.n.i.d.DiagnosticsManager] Garbage Collector: G1 Old Generation: [G1 Eden Space, G1 Survivor Space, G1 Old Gen]
+2019-03-19 17:44:42.309+0000 INFO [o.n.i.d.DiagnosticsManager] Memory Pool: Code Cache (Non-heap memory): committed=6.19 MB, used=6.15 MB, max=240.00 MB, threshold=0.00 B
+2019-03-19 17:44:42.309+0000 INFO [o.n.i.d.DiagnosticsManager] Memory Pool: Metaspace (Non-heap memory): committed=21.37 MB, used=20.38 MB, max=-1.00 B, threshold=0.00 B
+2019-03-19 17:44:42.310+0000 INFO [o.n.i.d.DiagnosticsManager] Memory Pool: Compressed Class Space (Non-heap memory): committed=2.62 MB, used=2.37 MB, max=1.00 GB, threshold=0.00 B
+2019-03-19 17:44:42.310+0000 INFO [o.n.i.d.DiagnosticsManager] Memory Pool: G1 Eden Space (Heap memory): committed=212.00 MB, used=4.00 MB, max=-1.00 B, threshold=?
+2019-03-19 17:44:42.310+0000 INFO [o.n.i.d.DiagnosticsManager] Memory Pool: G1 Survivor Space (Heap memory): committed=12.00 MB, used=12.00 MB, max=-1.00 B, threshold=?
+2019-03-19 17:44:42.310+0000 INFO [o.n.i.d.DiagnosticsManager] Memory Pool: G1 Old Gen (Heap memory): committed=784.00 MB, used=3.98 MB, max=15.72 GB, threshold=0.00 B
+2019-03-19 17:44:42.310+0000 INFO [o.n.i.d.DiagnosticsManager] Operating system information:
+2019-03-19 17:44:42.311+0000 INFO [o.n.i.d.DiagnosticsManager] Operating System: Linux; version: 4.15.0-39-generic; arch: amd64; cpus: 4
+2019-03-19 17:44:42.311+0000 INFO [o.n.i.d.DiagnosticsManager] Max number of file descriptors: 1048576
+2019-03-19 17:44:42.311+0000 INFO [o.n.i.d.DiagnosticsManager] Number of open file descriptors: 138
+2019-03-19 17:44:42.313+0000 INFO [o.n.i.d.DiagnosticsManager] Process id: 26516@kylo
+2019-03-19 17:44:42.313+0000 INFO [o.n.i.d.DiagnosticsManager] Byte order: LITTLE_ENDIAN
+2019-03-19 17:44:42.317+0000 INFO [o.n.i.d.DiagnosticsManager] Local timezone: America/Los_Angeles
+2019-03-19 17:44:42.317+0000 INFO [o.n.i.d.DiagnosticsManager] JVM information:
+2019-03-19 17:44:42.317+0000 INFO [o.n.i.d.DiagnosticsManager] VM Name: OpenJDK 64-Bit Server VM
+2019-03-19 17:44:42.317+0000 INFO [o.n.i.d.DiagnosticsManager] VM Vendor: Oracle Corporation
+2019-03-19 17:44:42.317+0000 INFO [o.n.i.d.DiagnosticsManager] VM Version: 25.191-b12
+2019-03-19 17:44:42.318+0000 INFO [o.n.i.d.DiagnosticsManager] JIT compiler: HotSpot 64-Bit Tiered Compilers
+2019-03-19 17:44:42.318+0000 INFO [o.n.i.d.DiagnosticsManager] VM Arguments: [-XX:+UseG1GC, -XX:-OmitStackTraceInFastThrow, -XX:+AlwaysPreTouch, -XX:+UnlockExperimentalVMOptions, -XX:+TrustFinalNonStaticFields, -XX:+DisableExplicitGC, -Djdk.tls.ephemeralDHKeySize=2048, -Djdk.tls.rejectClientInitiatedRenegotiation=true, -Dunsupported.dbms.udc.source=tarball, -Dfile.encoding=UTF-8]
+2019-03-19 17:44:42.318+0000 INFO [o.n.i.d.DiagnosticsManager] Java classpath:
+2019-03-19 17:44:42.320+0000 INFO [o.n.i.d.DiagnosticsManager]  [bootstrap] /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/istack-commons-runtime-3.0.5.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/concurrentlinkedhashmap-lru-1.4.2.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/FastInfoset-1.2.13.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-unsafe-3.5.3.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-bolt-3.5.3.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/lucene-core-5.5.5.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/nashorn.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-jmx-3.5.3.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jetty-servlet-9.4.11.v20180605.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-expressions-3.5-3.5.3.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/parboiled-scala_2.11-1.1.7.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-parser-3.5-3.5.3.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/commons-lang-2.6.jar
+2019-03-19 17:44:42.321+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-ir-3.5-3.5.3.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/caffeine-2.6.2.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [bootstrap] /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-logical-plans-3.5-3.5.3.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jackson-core-asl-1.9.13.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/activation-1.1.1.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/localedata.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-front-end-3.5-3.5.3.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/libatk-wrapper.so
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/stax-ex-1.7.8.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-frontend-2.3-2.3.12.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jaxb-api-2.3.0.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/server-api-3.5.3.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-fulltext-index-3.5.3.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/cldrdata.jar
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [bootstrap] /usr/lib/jvm/java-8-openjdk-amd64/jre/classes
+2019-03-19 17:44:42.322+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jaxb-runtime-2.3.0.1.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-procedure-api-3.5.3.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-planner-spi-3.5-3.5.3.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-kernel-api-3.5.3.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jackson-mapper-asl-1.9.13.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-index-3.5.3.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-lucene-upgrade-3.5.3.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jsr311-api-1.1.2.r612.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/lucene-queryparser-5.5.5.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-logical-plans-3.4-3.4.12.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jetty-util-9.4.11.v20180605.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jetty-server-9.4.11.v20180605.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jetty-http-9.4.11.v20180605.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-3.5.3.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-legacy-3.5.3.jar
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/conf/
+2019-03-19 17:44:42.323+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jPowerShell-1.9.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-values-3.5.3.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-codegen-3.5.3.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-kernel-3.5.3.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/commons-configuration-1.10.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-ssl-3.5.3.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-ir-3.4-3.4.12.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jetty-xml-9.4.11.v20180605.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jetty-security-9.4.11.v20180605.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-planner-3.5-3.5.3.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jetty-io-9.4.11.v20180605.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-resource-3.5.3.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-runtime-util-3.5.3.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-import-tool-3.5.3.jar
+2019-03-19 17:44:42.324+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-configuration-3.5.3.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/netty-all-4.1.32.Final.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-browser-3.2.16.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/commons-logging-1.1.1.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-common-3.5.3.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jersey-core-1.19.3.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/java-atk-wrapper.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/javax.servlet-api-3.1.0.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jersey-server-1.19.3.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/icedtea-sound.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-interpreted-runtime-3.5.3.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-io-3.5.3.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/lucene-codecs-5.5.5.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-spatial-index-3.5.3.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jackson-jaxrs-1.9.13.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-util-3.4-3.4.12.jar
+2019-03-19 17:44:42.325+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/lucene-analyzers-common-5.5.5.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-frontend-3.1-3.1.9.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-compiler-3.1-3.1.9.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-graph-algo-3.5.3.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [bootstrap] /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/sunrsasign.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-consistency-check-3.5.3.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-command-line-3.5.3.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jetty-webapp-9.4.11.v20180605.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-graphdb-api-3.5.3.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-compiler-2.3-2.3.12.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-csv-3.5.3.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/opencsv-2.3.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/commons-text-1.4.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/commons-io-2.6.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-data-collector-3.5.3.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-graph-matching-3.1.9.jar
+2019-03-19 17:44:42.326+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-util-3.5-3.5.3.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-security-3.5.3.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/scala-library-2.11.12.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jaccess.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/eclipse-collections-9.2.0.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunpkcs11.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/eclipse-collections-api-9.2.0.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunec.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [bootstrap] /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jfr.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/commons-lang3-3.8.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-dbms-3.5.3.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-diagnostics-3.5.3.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jProcesses-1.6.4.jar
+2019-03-19 17:44:42.327+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/bcprov-jdk15on-1.60.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-udc-3.5.3.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/zipfs.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jersey-servlet-1.19.3.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [bootstrap] /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/resources.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-ast-3.5-3.5.3.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-concurrent-3.5.3.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-lucene-index-3.5.3.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/txw2-2.3.0.1.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/WMI4Java-1.6.1.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-3.5.3.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-logging-3.5.3.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/bcpkix-jdk15on-1.60.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/parboiled-core-1.1.7.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-planner-3.4-3.4.12.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [loader.1] file:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/dnsns.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-expression-3.4-3.4.12.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/scala-reflect-2.11.12.jar
+2019-03-19 17:44:42.328+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-server-3.5.3.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-cypher-planner-spi-3.4-3.4.12.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/openCypher-frontend-1-3.4.12.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager]  [bootstrap] /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/charsets.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-collections-3.5.3.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/commons-compress-1.18.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager]  [bootstrap] /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/neo4j-rewriting-3.5-3.5.3.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager]  [classpath + loader.0] file:/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/lib/jaxb-core-2.3.0.1.jar
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager] Library path:
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager] /usr/java/packages/lib/amd64
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager] /usr/lib/x86_64-linux-gnu/jni
+2019-03-19 17:44:42.329+0000 INFO [o.n.i.d.DiagnosticsManager] /lib/x86_64-linux-gnu
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] /usr/lib/x86_64-linux-gnu
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] /usr/lib/jni
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] /lib
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] /usr/lib
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] System.properties:
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] sun.boot.library.path = /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] jdk.tls.rejectClientInitiatedRenegotiation = true
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] path.separator = :
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] file.encoding.pkg = sun.io
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] user.country = US
+2019-03-19 17:44:42.330+0000 INFO [o.n.i.d.DiagnosticsManager] sun.java.launcher = SUN_STANDARD
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] sun.os.patch.level = unknown
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] user.dir = /home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] sun.jnu.encoding = UTF-8
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] unsupported.dbms.udc.source = tarball
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] user.home = /home/nuria
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] user.timezone = America/Los_Angeles
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] file.encoding = UTF-8
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] user.name = nuria
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] sun.java.command = org.neo4j.server.CommunityEntryPoint --home-dir=/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3 --config-dir=/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/conf
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] sun.arch.data.model = 64
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] user.language = en
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] awt.toolkit = sun.awt.X11.XToolkit
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] jdk.tls.ephemeralDHKeySize = 2048
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] file.separator = /
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] sun.io.unicode.encoding = UnicodeLittle
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] sun.cpu.endian = little
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] sun.cpu.isalist = 
+2019-03-19 17:44:42.331+0000 INFO [o.n.i.d.DiagnosticsManager] (IANA) TimeZone Database Version:
+2019-03-19 17:44:42.362+0000 INFO [o.n.i.d.DiagnosticsManager]   TimeZone version: 2018e (available for 599 zone identifiers)
+2019-03-19 17:44:42.362+0000 INFO [o.n.i.d.DiagnosticsManager] Linux scheduler information:
+2019-03-19 17:44:42.368+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.369+0000 INFO [o.n.i.d.DiagnosticsManager] none
+2019-03-19 17:44:42.369+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.369+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.369+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.369+0000 INFO [o.n.i.d.DiagnosticsManager] noop deadline [cfq] 
+2019-03-19 17:44:42.370+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.370+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.370+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.370+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.370+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.371+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.371+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.371+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.371+0000 INFO [o.n.i.d.DiagnosticsManager] none
+2019-03-19 17:44:42.371+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.372+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.372+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.372+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.372+0000 INFO [o.n.i.d.DiagnosticsManager] noop deadline [cfq] 
+2019-03-19 17:44:42.372+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.373+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.373+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.373+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.373+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.373+0000 INFO [o.n.i.d.DiagnosticsManager] [none] 
+2019-03-19 17:44:42.373+0000 INFO [o.n.i.d.DiagnosticsManager] Network information:
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager] Interface veth5b4011e:
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:6cf1:eff:fe4b:2b6c%veth5b4011e
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager] Interface veth78b03f5:
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:34d9:42ff:fe5b:a875%veth78b03f5
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager] Interface veth19801a5:
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:dcae:dff:feb7:e27f%veth19801a5
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager] Interface veth8e607a6:
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:4c05:a4ff:fe97:7ed8%veth8e607a6
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager] Interface veth6919ca2:
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:501a:baff:fe0f:cd81%veth6919ca2
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager] Interface veth9fa9a98:
+2019-03-19 17:44:42.375+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:d031:33ff:fee9:d789%veth9fa9a98
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager] Interface veth8ebc5a3:
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:1405:92ff:fe4d:2507%veth8ebc5a3
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager] Interface vethff0ccb7:
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:6c4b:c5ff:fe76:e86e%vethff0ccb7
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager] Interface br-a97186bfd661:
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:42:81ff:fe89:61d6%br-a97186bfd661
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: 172.19.0.1
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager] Interface docker0:
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:42:39ff:fe0c:cd8%docker0
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: 172.17.0.1
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager] Interface vmnet8:
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:250:56ff:fec0:8%vmnet8
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: 192.168.244.1
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager] Interface vmnet1:
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:250:56ff:fec0:1%vmnet1
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager]     address: 192.168.106.1
+2019-03-19 17:44:42.376+0000 INFO [o.n.i.d.DiagnosticsManager] Interface enp0s25:
+2019-03-19 17:44:42.377+0000 INFO [o.n.i.d.DiagnosticsManager]     address: fe80:0:0:0:3617:ebff:fe9a:9a44%enp0s25
+2019-03-19 17:44:42.377+0000 INFO [o.n.i.d.DiagnosticsManager]     address: 172.29.48.54
+2019-03-19 17:44:42.377+0000 INFO [o.n.i.d.DiagnosticsManager] Interface lo:
+2019-03-19 17:44:42.377+0000 INFO [o.n.i.d.DiagnosticsManager]     address: 0:0:0:0:0:0:0:1%lo
+2019-03-19 17:44:42.377+0000 INFO [o.n.i.d.DiagnosticsManager]     address: 127.0.0.1
+2019-03-19 17:44:42.377+0000 INFO [o.n.i.d.DiagnosticsManager] --- INITIALIZED diagnostics END ---
+2019-03-19 17:44:42.519+0000 INFO [o.n.k.i.s.f.RecordFormatSelector] Selected format 'RecordFormat:StandardV3_4[v0.A.9]' for the new store
+2019-03-19 17:44:43.191+0000 INFO [o.n.k.i.i.l.NativeLabelScanStore] No label index found, this might just be first use. Preparing to rebuild.
+2019-03-19 17:44:43.237+0000 INFO [o.n.k.NeoStoreDataSource] Rotated to transaction log [/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/data/databases/graph.db/neostore.transaction.db.0] version=0, last transaction in previous log=1
+2019-03-19 17:44:43.238+0000 INFO [o.n.k.NeoStoreDataSource] No commits found after last check point (which is at <no log position given>)
+2019-03-19 17:44:43.274+0000 WARN [o.n.k.i.s.MetaDataStore] Missing counts store, rebuilding it.
+2019-03-19 17:44:43.280+0000 WARN [o.n.k.i.s.MetaDataStore] Counts store rebuild completed.
+2019-03-19 17:44:43.301+0000 INFO [o.n.k.i.i.l.NativeLabelScanStore] Rebuilding label index, this may take a while
+2019-03-19 17:44:43.320+0000 INFO [o.n.k.i.i.l.NativeLabelScanStore] Label index rebuilt (roughly 0 nodes)
+2019-03-19 17:44:43.324+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for KernelDiagnostics:Versions START ---
+2019-03-19 17:44:43.325+0000 INFO [o.n.i.d.DiagnosticsManager] Graph Database: community single StoreId{creationTime=1553017482833, randomId=-7540924892739390393, storeVersion=16094931155187206, upgradeTime=1553017482833, upgradeId=1}
+2019-03-19 17:44:43.325+0000 INFO [o.n.i.d.DiagnosticsManager] Kernel version: 3.5.3,352576e6bd75ad8c1a0a8a43b3f5f7a0b3882410
+2019-03-19 17:44:43.325+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for KernelDiagnostics:Versions END ---
+2019-03-19 17:44:43.327+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for NEO_STORE_VERSIONS START ---
+2019-03-19 17:44:43.327+0000 INFO [o.n.i.d.DiagnosticsManager] Store versions:
+2019-03-19 17:44:43.327+0000 INFO [o.n.i.d.DiagnosticsManager]   ArrayPropertyStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   NodeStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   StringPropertyStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   PropertyIndexStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   StringPropertyStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   ArrayPropertyStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   PropertyStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   RelationshipStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   StringPropertyStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   RelationshipTypeStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   StringPropertyStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   LabelTokenStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   SchemaStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   RelationshipGroupStore v0.A.9
+2019-03-19 17:44:43.328+0000 INFO [o.n.i.d.DiagnosticsManager]   NeoStore v0.A.9
+2019-03-19 17:44:43.329+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for NEO_STORE_VERSIONS END ---
+2019-03-19 17:44:43.329+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for NEO_STORE_ID_USAGE START ---
+2019-03-19 17:44:43.329+0000 INFO [o.n.i.d.DiagnosticsManager] Id usage:
+2019-03-19 17:44:43.329+0000 INFO [o.n.i.d.DiagnosticsManager]   ArrayPropertyStore: used=1 high=0
+2019-03-19 17:44:43.329+0000 INFO [o.n.i.d.DiagnosticsManager]   NodeStore: used=0 high=-1
+2019-03-19 17:44:43.329+0000 INFO [o.n.i.d.DiagnosticsManager]   StringPropertyStore: used=1 high=0
+2019-03-19 17:44:43.329+0000 INFO [o.n.i.d.DiagnosticsManager]   PropertyIndexStore: used=0 high=-1
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   StringPropertyStore: used=1 high=0
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   ArrayPropertyStore: used=1 high=0
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   PropertyStore: used=0 high=-1
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   RelationshipStore: used=0 high=-1
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   StringPropertyStore: used=1 high=0
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   RelationshipTypeStore: used=0 high=-1
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   StringPropertyStore: used=1 high=0
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   LabelTokenStore: used=0 high=-1
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   SchemaStore: used=1 high=0
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   RelationshipGroupStore: used=1 high=0
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager]   NeoStore: used=15 high=14
+2019-03-19 17:44:43.330+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for NEO_STORE_ID_USAGE END ---
+2019-03-19 17:44:43.331+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for NEO_STORE_RECORDS START ---
+2019-03-19 17:44:43.331+0000 INFO [o.n.i.d.DiagnosticsManager] Neostore records:
+2019-03-19 17:44:43.331+0000 INFO [o.n.i.d.DiagnosticsManager] TIME (Creation time): 1553017482833
+2019-03-19 17:44:43.331+0000 INFO [o.n.i.d.DiagnosticsManager] RANDOM_NUMBER (Random number for store id): -7540924892739390393
+2019-03-19 17:44:43.331+0000 INFO [o.n.i.d.DiagnosticsManager] LOG_VERSION (Current log version): 0
+2019-03-19 17:44:43.331+0000 INFO [o.n.i.d.DiagnosticsManager] LAST_TRANSACTION_ID (Last committed transaction): 1
+2019-03-19 17:44:43.331+0000 INFO [o.n.i.d.DiagnosticsManager] STORE_VERSION (Store format version): 16094931155187206
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] FIRST_GRAPH_PROPERTY (First property record containing graph properties): -1
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] LAST_CONSTRAINT_TRANSACTION (Last committed transaction containing constraint changes): 0
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] UPGRADE_TRANSACTION_ID (Transaction id most recent upgrade was performed at): 1
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] UPGRADE_TIME (Time of last upgrade): 1553017482833
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] LAST_TRANSACTION_CHECKSUM (Checksum of last committed transaction): 0
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] UPGRADE_TRANSACTION_CHECKSUM (Checksum of transaction id the most recent upgrade was performed at): 0
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] LAST_CLOSED_TRANSACTION_LOG_VERSION (Log version where the last transaction commit entry has been written into): 0
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] LAST_CLOSED_TRANSACTION_LOG_BYTE_OFFSET (Byte offset in the log file where the last transaction commit entry has been written into): 16
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] LAST_TRANSACTION_COMMIT_TIMESTAMP (Commit time timestamp for last committed transaction): 0
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] UPGRADE_TRANSACTION_COMMIT_TIMESTAMP (Commit timestamp of transaction the most recent upgrade was performed at): 0
+2019-03-19 17:44:43.332+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for NEO_STORE_RECORDS END ---
+2019-03-19 17:44:43.333+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for TRANSACTION_RANGE START ---
+2019-03-19 17:44:43.333+0000 INFO [o.n.i.d.DiagnosticsManager] Transaction log:
+2019-03-19 17:44:43.334+0000 INFO [o.n.i.d.DiagnosticsManager] No transactions found in any log
+2019-03-19 17:44:43.334+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for TRANSACTION_RANGE END ---
+2019-03-19 17:44:43.339+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for KernelDiagnostics:StoreFiles START ---
+2019-03-19 17:44:43.339+0000 INFO [o.n.i.d.DiagnosticsManager] Disk space on partition (Total / Free / Free %): 183276871680 / 34247995392 / 18
+2019-03-19 17:44:43.339+0000 INFO [o.n.i.d.DiagnosticsManager] Storage files: (filename : modification date - size)
+2019-03-19 17:44:43.342+0000 INFO [o.n.i.d.DiagnosticsManager]   index:
+2019-03-19 17:44:43.343+0000 INFO [o.n.i.d.DiagnosticsManager]   - Total: 2019-03-19T10:44:43-0700 - 0.00 B
+2019-03-19 17:44:43.343+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.344+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.counts.db.a: 2019-03-19T10:44:43-0700 - 96.00 B
+2019-03-19 17:44:43.344+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.344+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.labelscanstore.db: 2019-03-19T10:44:43-0700 - 40.00 kB
+2019-03-19 17:44:43.344+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.labeltokenstore.db: 2019-03-19T10:44:42-0700 - 0.00 B
+2019-03-19 17:44:43.345+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.labeltokenstore.db.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.345+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.labeltokenstore.db.names: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.345+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.labeltokenstore.db.names.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.345+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.nodestore.db: 2019-03-19T10:44:42-0700 - 0.00 B
+2019-03-19 17:44:43.345+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.nodestore.db.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.345+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.nodestore.db.labels: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.346+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.nodestore.db.labels.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.346+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db: 2019-03-19T10:44:42-0700 - 0.00 B
+2019-03-19 17:44:43.346+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.arrays: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.346+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.arrays.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.346+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.347+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.index: 2019-03-19T10:44:42-0700 - 0.00 B
+2019-03-19 17:44:43.347+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.index.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.347+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.index.keys: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.347+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.index.keys.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.347+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.strings: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.348+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.propertystore.db.strings.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.348+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.relationshipgroupstore.db: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.348+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.relationshipgroupstore.db.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.348+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.relationshipstore.db: 2019-03-19T10:44:42-0700 - 0.00 B
+2019-03-19 17:44:43.348+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.relationshipstore.db.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.349+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.relationshiptypestore.db: 2019-03-19T10:44:42-0700 - 0.00 B
+2019-03-19 17:44:43.349+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.relationshiptypestore.db.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.349+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.relationshiptypestore.db.names: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.349+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.relationshiptypestore.db.names.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.349+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.schemastore.db: 2019-03-19T10:44:42-0700 - 8.00 kB
+2019-03-19 17:44:43.349+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.schemastore.db.id: 2019-03-19T10:44:42-0700 - 9.00 B
+2019-03-19 17:44:43.350+0000 INFO [o.n.i.d.DiagnosticsManager]   neostore.transaction.db.0: 2019-03-19T10:44:43-0700 - 16.00 B
+2019-03-19 17:44:43.350+0000 INFO [o.n.i.d.DiagnosticsManager] Storage summary: 
+2019-03-19 17:44:43.350+0000 INFO [o.n.i.d.DiagnosticsManager]   Total size of store: 112.24 kB
+2019-03-19 17:44:43.350+0000 INFO [o.n.i.d.DiagnosticsManager]   Total size of mapped files: 112.00 kB
+2019-03-19 17:44:43.350+0000 INFO [o.n.i.d.DiagnosticsManager] --- STARTED diagnostics for KernelDiagnostics:StoreFiles END ---
+2019-03-19 17:44:43.350+0000 INFO [o.n.k.a.DatabaseAvailabilityGuard] Fulfilling of requirement 'Database available' makes database graph.db available.
+2019-03-19 17:44:43.351+0000 INFO [o.n.k.a.DatabaseAvailabilityGuard] Database graph.db is ready.
+2019-03-19 17:44:43.613+0000 INFO [o.n.k.i.DatabaseHealth] Database health set to OK
+2019-03-19 17:44:43.622+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.statistics' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.629+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.graph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.629+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.first' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.630+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.slice' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.630+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.last' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.630+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.nth' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.630+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.median' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.632+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.product' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.633+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.agg.percentiles' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.633+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.temporal.format' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.634+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.temporal.formatDuration' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.636+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.metrics.get' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.636+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.metrics.list' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.636+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.metrics.getClusterTimerMetric' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.636+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.metrics.storage' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.642+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.iterate' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.642+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.list' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.642+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.submit' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.642+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.cancel' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.642+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.repeat' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.642+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.commit' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.642+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.countdown' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.643+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.rock_n_roll_while' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.643+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.periodic.rock_n_roll' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.645+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cluster.graph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.646+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.monitor.kernel' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.647+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.monitor.tx' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.648+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.monitor.store' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.649+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.monitor.ids' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.650+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.monitor.locks' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.667+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.trigger.add' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.667+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.trigger.remove' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.667+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.trigger.resume' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.667+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.trigger.list' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.667+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.trigger.removeAll' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.667+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.trigger.pause' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.668+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.trigger.propertiesByKey' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.668+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.trigger.nodesByLabel' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.670+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.static.getAll' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.670+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.static.get' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.670+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.static.list' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.670+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.static.set' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.671+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.util.s3.S3URLConnection` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/amazonaws/ClientConfiguration
+2019-03-19 17:44:43.672+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.util.s3.S3Aws` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/amazonaws/auth/AWSCredentials
+2019-03-19 17:44:43.672+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.util.s3.S3Aws$1` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/amazonaws/services/s3/model/S3ObjectInputStream
+2019-03-19 17:44:43.680+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.util.hdfs.HDFSUtils$1` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/hadoop/fs/FSDataInputStream
+2019-03-19 17:44:43.681+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.util.hdfs.HDFSUtils` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/hadoop/fs/FSDataOutputStream
+2019-03-19 17:44:43.683+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.util.sleep' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.684+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.util.validate' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.684+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.util.md5' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.684+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.util.sha1' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.684+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.util.sha256' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.684+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.util.sha384' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.684+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.util.sha512' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.688+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.merge.node' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.688+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.merge.relationship' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.693+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.bolt.load' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.693+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.bolt.execute' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.694+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.config.list' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.694+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.config.map' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.697+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.nodes.group' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.701+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.nodes.link' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.701+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.nodes.get' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.702+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.nodes.delete' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.702+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.nodes.rels' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.702+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.nodes.collapse' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.702+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.node.labels' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.702+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.any.properties' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.702+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.rel.type' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.702+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.node.id' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.702+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.nodes.connected' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.703+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.nodes.isDense' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.703+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.rel.id' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.703+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.node.relationship.types' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.703+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.any.property' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.703+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.node.relationship.exists' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.703+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.node.degree' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.703+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.node.degree.in' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.703+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.node.degree.out' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.705+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.example.movies' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.709+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.path.expandConfig' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.709+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.path.subgraphNodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.709+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.path.subgraphAll' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.709+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.path.spanningTree' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.709+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.path.expand' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.714+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.path.elements' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.715+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.path.combine' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.715+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.path.create' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.715+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.path.slice' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.718+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.date.expire' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.718+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.date.expireIn' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.719+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.add' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.719+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.format' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.719+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.field' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.719+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.parse' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.719+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.convert' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.719+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.fields' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.719+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.toYears' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.720+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.currentTimestamp' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.720+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.toISO8601' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.720+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.fromISO8601' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.720+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.date.systemTimezone' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.722+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.graph.from' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.722+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.graph.fromDB' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.722+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.graph.fromCypher' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.722+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.graph.fromData' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.722+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.graph.fromPath' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.722+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.graph.fromPaths' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.723+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.lock.all' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.723+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.lock.nodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.723+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.lock.rels' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.724+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.lock.read.rels' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.724+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.lock.read.nodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.724+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.cover' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.728+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.wcc' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.733+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.aStarConfig' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.733+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.dijkstra' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.734+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.aStar' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.734+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.allSimplePaths' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.734+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.dijkstraWithDefaultWeight' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.735+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.community' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.744+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.algo.euclideanDistance' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.744+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.algo.euclideanSimilarity' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.744+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.algo.cosineSimilarity' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.745+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.cliques' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.745+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.cliquesWithNode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.747+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.pageRank' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.747+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.pageRankStats' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.747+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.pageRankWithConfig' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.747+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.algo.pageRankWithCypher' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.748+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.label.exists' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.754+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.meta.data' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.755+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.meta.stats' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.755+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.meta.schema' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.755+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.meta.graph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.755+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.meta.graphSample' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.755+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.meta.subGraph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.755+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.meta.typeName' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.755+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.meta.type' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.755+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.meta.isType' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.756+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.meta.types' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.756+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.meta.cypher.type' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.756+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.meta.cypher.types' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.756+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.meta.cypher.isType' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.759+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.get.nodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.759+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.get.rels' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.760+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.diff.nodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.761+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.cypher.runFirstColumnMany' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.761+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.cypher.runFirstColumnSingle' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.761+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.cypher.runFirstColumn' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.765+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.run' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.765+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.parallel' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.765+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.when' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.765+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.runFile' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.765+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.runFiles' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.765+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.runSchemaFile' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.runSchemaFiles' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.runMany' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.mapParallel' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.mapParallel2' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.parallel2' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.doIt' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.do.when' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.case' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.766+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.do.case' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.768+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.cypher.runTimeboxed' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.770+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.gephi.add' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.772+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.hashing.fingerprint' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.772+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.hashing.fingerprintGraph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.774+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.atomic.subtract' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.774+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.atomic.add' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.775+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.atomic.remove' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.775+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.atomic.update' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.775+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.atomic.concat' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.775+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.atomic.insert' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.776+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.round' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.776+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.maxLong' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.777+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.maxDouble' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.777+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.maxByte' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.777+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.minByte' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.777+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.minLong' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.777+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.maxInt' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.777+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.minDouble' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.777+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.math.minInt' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.778+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.math.regr' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.798+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.mongodb.MongoDBColl` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/bson/conversions/Bson
+2019-03-19 17:44:43.800+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.mongodb.get' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.800+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.mongodb.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.800+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.mongodb.update' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.800+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.mongodb.find' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.800+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.mongodb.delete' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.801+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.mongodb.first' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.801+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.mongodb.insert' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.803+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.search.nodeAllReduced' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.804+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.search.nodeReduced' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.804+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.search.node' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.804+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.search.multiSearchReduced' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.804+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.search.nodeAll' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.805+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.arabicToRoman' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.805+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.romanToArabic' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.807+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.exact.mul' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.807+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.exact.sub' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.808+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.exact.add' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.808+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.exact.toInteger' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.808+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.exact.div' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.809+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.exact.toFloat' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.809+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.exact.toExact' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.810+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.format' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.810+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.parseFloat' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.810+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.number.parseInt' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.815+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.schema.nodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.815+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.schema.relationships' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.815+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.schema.assert' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.815+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.schema.node.indexExists' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.816+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.schema.node.constraintExists' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.816+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.schema.relationship.constraintExists' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.883+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.xml.import' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.890+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.load.LoadXls` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/poi/ss/usermodel/Cell
+2019-03-19 17:44:43.892+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.setKey' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.values' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.clean' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.merge' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.setEntry' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.fromNodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.groupByMulti' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.sortedProperties' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.fromPairs' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.893+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.fromLists' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.fromValues' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.mergeList' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.setPairs' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.setLists' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.setValues' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.updateTree' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.groupBy' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.removeKey' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.flatten' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.894+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.map.removeKeys' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.895+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.version' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.899+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.model.jdbc' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.910+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.generate.complete' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.910+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.generate.simple' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.910+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.generate.ws' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.910+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.generate.ba' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.910+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.generate.er' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.911+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.scoring.pareto' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.911+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.scoring.existence' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.914+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.between' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.914+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.remove' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.in' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.out' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.list' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addNodeMap' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addNodeMapByName' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addNodeByLabel' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addNodeByName' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addRelationshipMap' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addRelationshipMapByName' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addRelationshipByName' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.915+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.removeNodeByName' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.removeRelationshipByName' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.forNodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.forRelationships' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.nodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.relationships' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addNode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addRelationship' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.index.relationships.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.index.in.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.916+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.index.nodes.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.917+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.index.between.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.917+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.index.out.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.930+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.orderedRange' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.930+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.related' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.930+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.orderedByText' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.930+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.schema.properties.distinct' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.930+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.schema.properties.distinctCount' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.932+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.search' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.932+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addAllNodesExtended' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.933+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.index.addAllNodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.938+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.log.debug' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.938+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.log.error' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.938+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.log.warn' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.939+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.log.info' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.940+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.log.stream' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.943+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.capitalize' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.943+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.code' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.943+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.indexOf' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.943+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.charAt' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.943+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.replace' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.943+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.split' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.join' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.toUpperCase' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.format' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.clean' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.random' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.bytes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.distance' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.camelCase' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.swapCase' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.hammingDistance' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.jaroWinklerDistance' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.944+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.regreplace' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.byteCount' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.indexesOf' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.levenshteinDistance' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.regexGroups' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.compareCleaned' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.levenshteinSimilarity' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.sorensenDiceSimilarity' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.fuzzyMatch' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.urlencode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.urldecode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.lpad' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.945+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.rpad' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.slug' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.capitalizeAll' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.decapitalize' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.decapitalizeAll' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.upperCamelCase' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.snakeCase' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.base64Encode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.base64Decode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.base64UrlEncode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.base64UrlDecode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.hexValue' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.hexCharAt' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.946+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.text.toCypher' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.948+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.text.phonetic' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.948+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.text.doubleMetaphone' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.948+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.text.phoneticDelta' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.950+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.es.get' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.951+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.es.put' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.951+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.es.query' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.951+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.es.stats' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.951+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.es.getRaw' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.951+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.es.post' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.951+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.es.postRaw' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.959+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypherAll' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.959+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypherData' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.959+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypherQuery' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.959+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypherGraph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.966+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypher.data' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.966+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypher.query' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.966+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypher.all' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.967+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypher.schema' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.967+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.cypher.graph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.971+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.json.data' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.971+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.json.query' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.971+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.json.all' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.972+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.json.graph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.972+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.import.csv' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.977+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.csv.data' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.977+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.csv.query' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.977+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.csv.all' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.978+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.csv.graph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.985+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.graphml.data' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.985+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.import.graphml' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.985+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.graphml.query' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.985+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.graphml.all' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.985+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.export.graphml.graph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.987+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.bitwise.op' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.988+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.spatial.sortByDistance' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.990+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.spatial.geocodeOnce' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.990+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.spatial.geocode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.990+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.spatial.reverseGeocode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.994+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.custom.asProcedure' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.994+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.custom.asFunction' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.995+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.data.url' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.996+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.data.domain' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.997+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.data.email.ExtractEmail` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: javax/mail/internet/AddressException
+2019-03-19 17:44:43.999+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.setProperty' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.999+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.setProperties' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.999+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.node' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.999+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.relationship' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.999+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.nodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.999+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.addLabels' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.999+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.vNodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:43.999+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.vNode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.removeRelProperties' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.removeLabels' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.vRelationship' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.setRelProperty' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.setLabels' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.removeProperties' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.setRelProperties' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.vPattern' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.vPatternFull' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.create.uuids' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.create.uuid' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.000+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.create.vNode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.001+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.create.vRelationship' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.003+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.warmup.run' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.004+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.stats.degrees' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.005+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.help' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.010+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.from' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.010+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.to' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.010+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.setType' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.010+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.invert' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.010+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.cloneNodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.010+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.collapseNode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.010+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.extractNode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.010+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.cloneNodesWithRelationships' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.011+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.cloneSubgraphFromPaths' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.011+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.cloneSubgraph' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.011+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.mergeNodes' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.011+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.mergeRelationships' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.011+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.normalizeAsBoolean' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.011+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.categorize' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.013+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.rename.type' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.013+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.rename.nodeProperty' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.013+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.rename.label' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.013+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.refactor.rename.typeProperty' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.015+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toBoolean' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.015+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toString' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.015+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toMap' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.015+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toList' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.015+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toSet' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toInteger' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toFloat' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toNode' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toRelationship' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toNodeList' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toIntList' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toStringList' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toBooleanList' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.016+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toRelationshipList' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.convert.setJsonProperty' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.convert.toTree' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.json.path' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toJson' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.getJsonProperty' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.fromJsonList' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.fromJsonMap' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.getJsonPropertyMap' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.018+0000 WARN [o.n.k.i.p.Procedures] The function 'apoc.convert.toSortedJsonMap' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.021+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.neighbors.tohop.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.021+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.neighbors.athop' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.021+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.neighbors.tohop' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.021+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.neighbors.byhop' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.021+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.neighbors.byhop.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.021+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.neighbors.athop.count' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.022+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.couchbase.CouchbaseManager` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/couchbase/client/java/env/CouchbaseEnvironment
+2019-03-19 17:44:44.023+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.couchbase.CouchbaseConnection` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/couchbase/client/java/Cluster
+2019-03-19 17:44:44.025+0000 WARN [o.n.k.i.p.Procedures] Failed to load `apoc.couchbase.document.CouchbaseUtils` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/couchbase/client/core/message/kv/MutationToken
+2019-03-19 17:44:44.026+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.remove' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.026+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.get' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.026+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.append' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.026+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.replace' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.026+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.insert' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.026+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.exists' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.026+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.query' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.027+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.prepend' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.027+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.posParamsQuery' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.027+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.namedParamsQuery' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.027+0000 WARN [o.n.k.i.p.Procedures] The procedure 'apoc.couchbase.upsert' is not on the whitelist and won't be loaded.
+2019-03-19 17:44:44.124+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.jayway.jsonpath.spi.json.GsonJsonProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/google/gson/JsonElement
+2019-03-19 17:44:44.125+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.jayway.jsonpath.spi.json.JsonOrgJsonProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/json/JSONException
+2019-03-19 17:44:44.128+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.jayway.jsonpath.spi.mapper.GsonMappingProvider$1` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/google/gson/Gson
+2019-03-19 17:44:44.128+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.jayway.jsonpath.spi.mapper.GsonMappingProvider$2` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/google/gson/Gson
+2019-03-19 17:44:44.313+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ConscryptAlpnSslEngine` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/conscrypt/BufferAllocator
+2019-03-19 17:44:44.314+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslServerContext$TrustManagerVerifyCallback` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateVerifier
+2019-03-19 17:44:44.327+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslClientContext$ExtendedTrustManagerVerifyCallback` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateVerifier
+2019-03-19 17:44:44.328+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.JettyNpnSslEngine` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/eclipse/jetty/npn/NextProtoNego$Provider
+2019-03-19 17:44:44.328+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.JettyAlpnSslEngine$ClientEngine$1` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/eclipse/jetty/alpn/ALPN$ClientProvider
+2019-03-19 17:44:44.332+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.JettyAlpnSslEngine$ClientEngine` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/eclipse/jetty/alpn/ALPN$Provider
+2019-03-19 17:44:44.332+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.OpenSslKeyMaterialManager` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateRequestedCallback$KeyMaterial
+2019-03-19 17:44:44.335+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.JettyAlpnSslEngine$ServerEngine` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/eclipse/jetty/alpn/ALPN$Provider
+2019-03-19 17:44:44.335+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslClientContext$OpenSslCertificateRequestedCallback` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateRequestedCallback
+2019-03-19 17:44:44.354+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ConscryptAlpnSslEngine$ClientEngine$1` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/conscrypt/HandshakeListener
+2019-03-19 17:44:44.355+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslClientContext$TrustManagerVerifyCallback` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateVerifier
+2019-03-19 17:44:44.357+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslServerContext` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateVerifier
+2019-03-19 17:44:44.361+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.JettyNpnSslEngine$1` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/eclipse/jetty/npn/NextProtoNego$ServerProvider
+2019-03-19 17:44:44.365+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ConscryptAlpnSslEngine$ServerEngine$1` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/conscrypt/HandshakeListener
+2019-03-19 17:44:44.371+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.JettyNpnSslEngine$2` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/eclipse/jetty/npn/NextProtoNego$ClientProvider
+2019-03-19 17:44:44.376+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ConscryptAlpnSslEngine$BufferAllocatorAdapter` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/conscrypt/BufferAllocator
+2019-03-19 17:44:44.378+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ConscryptAlpnSslEngine$ClientEngine` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/conscrypt/BufferAllocator
+2019-03-19 17:44:44.394+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslServerContext$OpenSslSniHostnameMatcher` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/SniHostNameMatcher
+2019-03-19 17:44:44.396+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslServerContext$ExtendedTrustManagerVerifyCallback` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateVerifier
+2019-03-19 17:44:44.396+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ConscryptAlpnSslEngine$ServerEngine` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/conscrypt/BufferAllocator
+2019-03-19 17:44:44.406+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslClientContext` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateRequestedCallback
+2019-03-19 17:44:44.408+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ConscryptAlpnSslEngine$BufferAdapter` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/conscrypt/AllocatedBuffer
+2019-03-19 17:44:44.416+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.ReferenceCountedOpenSslContext$AbstractCertificateVerifier` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/neo4j/driver/internal/shaded/io/netty/internal/tcnative/CertificateVerifier
+2019-03-19 17:44:44.426+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.ssl.JettyAlpnSslEngine$ServerEngine$1` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/eclipse/jetty/alpn/ALPN$ServerProvider
+2019-03-19 17:44:44.522+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.util.internal.logging.Log4JLogger` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/log4j/Priority
+2019-03-19 17:44:44.616+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.util.internal.logging.Log4J2Logger` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/logging/log4j/spi/ExtendedLoggerWrapper
+2019-03-19 17:44:44.858+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.MarshallerProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/Marshaller
+2019-03-19 17:44:44.868+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: net/jpountz/lz4/LZ4Exception
+2019-03-19 17:44:44.872+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: net/jpountz/lz4/LZ4Exception
+2019-03-19 17:44:44.886+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/ByteOutput
+2019-03-19 17:44:44.886+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.protobuf.ProtobufEncoderNano` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/google/protobuf/nano/MessageNano
+2019-03-19 17:44:44.887+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/ByteOutput
+2019-03-19 17:44:44.887+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.UnmarshallerProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/Unmarshaller
+2019-03-19 17:44:44.888+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.ContextBoundUnmarshallerProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/Unmarshaller
+2019-03-19 17:44:44.888+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.DefaultUnmarshallerProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/Unmarshaller
+2019-03-19 17:44:44.889+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.ThreadLocalUnmarshallerProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/Unmarshaller
+2019-03-19 17:44:44.909+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.compression.ZlibUtil` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/jcraft/jzlib/Inflater
+2019-03-19 17:44:44.915+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.LimitingByteInput` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/ByteInput
+2019-03-19 17:44:44.915+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/ByteInput
+2019-03-19 17:44:44.916+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.ChannelBufferByteInput` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/ByteInput
+2019-03-19 17:44:44.937+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.protobuf.ProtobufDecoder` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/google/protobuf/ExtensionRegistryLite
+2019-03-19 17:44:44.938+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.ChannelBufferByteOutput` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/ByteOutput
+2019-03-19 17:44:44.938+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.protobuf.ProtobufEncoder` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/google/protobuf/MessageLiteOrBuilder
+2019-03-19 17:44:44.940+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/ByteInput
+2019-03-19 17:44:44.940+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.ThreadLocalMarshallerProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/Marshaller
+2019-03-19 17:44:44.941+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.neo4j.driver.internal.shaded.io.netty.handler.codec.marshalling.DefaultMarshallerProvider` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/jboss/marshalling/Marshaller
+2019-03-19 17:44:45.021+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.ldap.DsmlConnection` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/commons/httpclient/HttpException
+2019-03-19 17:44:45.093+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.ldap.LDAPSecureSocketFactory` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/novell/service/security/net/SecureSocket
+2019-03-19 17:44:45.113+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.ldap.spml.NoAuthImpl` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/openspml/client/SpmlClient
+2019-03-19 17:44:45.113+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.ldap.spml.SPMLImpl` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/openspml/client/SpmlClient
+2019-03-19 17:44:45.113+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.ldap.spml.SunIdm` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/openspml/client/SpmlClient
+2019-03-19 17:44:45.115+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.ldap.SPMLConnection` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/openspml/util/SpmlException
+2019-03-19 17:44:45.127+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.ldap.util.HttpRequestCallback` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/commons/httpclient/methods/PostMethod
+2019-03-19 17:44:45.136+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.sasl.client.NMASSaslClient$NmasLdapTransport` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/novell/security/nmas/transport/NMASTransport
+2019-03-19 17:44:45.137+0000 WARN [o.n.k.i.p.Procedures] Failed to load `com.novell.sasl.client.NMASSaslClient` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/novell/security/nmas/transport/MAFTransportException
+2019-03-19 17:44:45.704+0000 WARN [o.n.k.i.p.Procedures] Failed to load `schemacrawler.tools.integration.graph.GraphvizJavaExecutorUtility` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: guru/nidi/graphviz/engine/Format
+2019-03-19 17:44:45.711+0000 WARN [o.n.k.i.p.Procedures] Failed to load `schemacrawler.tools.integration.freemarker.FreeMarkerRenderer` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: freemarker/cache/TemplateLoader
+2019-03-19 17:44:45.714+0000 WARN [o.n.k.i.p.Procedures] Failed to load `schemacrawler.tools.integration.mustache.MustacheRenderer` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: com/github/mustachejava/MustacheFactory
+2019-03-19 17:44:45.715+0000 WARN [o.n.k.i.p.Procedures] Failed to load `schemacrawler.tools.integration.thymeleaf.ThymeleafRenderer` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/thymeleaf/templateresolver/AbstractConfigurableTemplateResolver
+2019-03-19 17:44:45.717+0000 WARN [o.n.k.i.p.Procedures] Failed to load `schemacrawler.tools.integration.velocity.VelocityRenderer` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/velocity/exception/ResourceNotFoundException
+2019-03-19 17:44:47.214+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.apache.commons.logging.impl.AvalonLogger` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/avalon/framework/logger/Logger
+2019-03-19 17:44:47.216+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.apache.commons.logging.impl.Log4JLogger` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/log4j/Category
+2019-03-19 17:44:47.221+0000 WARN [o.n.k.i.p.Procedures] Failed to load `org.apache.commons.logging.impl.LogKitLogger` from plugin jar `/home/nuria/workspace/graph-hypothesis-generation-lib/plan/neo4j-community-3.5.3/plugins/apoc-3.5.0.2-all.jar`: org/apache/log/Logger
+2019-03-19 17:44:47.689+0000 INFO [o.n.b.BoltServer] Bolt server loaded
+2019-03-19 17:44:47.852+0000 INFO [o.n.b.BoltServer] Bolt enabled on 0.0.0.0:2222.
+2019-03-19 17:44:49.387+0000 INFO [o.n.i.d.DiagnosticsManager] --- SERVER STARTED START ---
+2019-03-19 17:44:50.383+0000 INFO [o.n.i.d.DiagnosticsManager] --- SERVER STARTED END ---
+2019-03-19 17:45:08.477+0000 WARN [o.n.b.r.DefaultBoltConnection] The client is unauthorized due to authentication failure.
