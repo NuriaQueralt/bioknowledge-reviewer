@@ -62,8 +62,8 @@ def prepare_data_edges(curated_df):
     This function pre-processes data edges from curation files retrieved from the biocurator: \
                   1) normalizes identifier CURIEs, and 2) uniformizes records attributes.
 
-    :param curated_df: edges dataframe provinent from reading curation edges files
-    :return: edges dataframe
+    :param curated_df: edges dataframe from curation edges files
+    :return: pre-processed edges dataframe
     """
 
     print('\nPreparing curated network...')
@@ -111,8 +111,8 @@ def prepare_data_nodes(curated_df):
     This function pre-processes data nodes from curation files retrieved from the biocurator: \
                   1) normalizes identifier CURIEs, and 2) uniformizes records attributes.
 
-    :param curated_df: nodes dataframe provinent from reading curation nodes files
-    :return: nodes dataframe
+    :param curated_df: nodes dataframe from curation nodes files
+    :return: pre-processed nodes dataframe
     """
 
     print('\nPreparing curated nodes...')
@@ -146,7 +146,7 @@ def prepare_data_nodes(curated_df):
 
 def read_data(csv_path, version):
     """
-    This function imports curated network from edges and nodes csv files.
+    This function imports curated network from edges and nodes csv files into dataframes.
     :param csv_path: string with the path to the network files, e.g '/home/nuria/workspace/ngly1-graph/curation'
     :param version: string with the files version, e.g. '2019-01-18'
     :return: edges and nodes dataframes read from files
@@ -165,9 +165,14 @@ def read_data(csv_path, version):
     return edges_df, nodes_df
 
 
-# normalize human genes id scheme to hgnc
 def normalize_genes_to_graph(edges_df):
-    """Gene ID conversion from curated to graph scheme. This function replaces gene IDs: human (entrez by HGNC), ..."""
+    """
+    This function normalizes gene ID scheme. It performs Gene ID conversion \
+    from curated to graph scheme. It replaces human entrez by HGNC ID, mouse entrez by MGI ID, worm entrez \
+    by WormBase ID.
+    :param edges_df: pre-processed curation edges dataframe
+    :return: normalized edges dataframe, concept dictionary (where keys are all curated nodes)
+    """
 
     print('\nMapping genes to HGNC ID...')
     ## GENES: normalize to HGNC
@@ -232,9 +237,15 @@ def normalize_genes_to_graph(edges_df):
 
     return edges, concept_dct
 
-# normalize diseases
+
 def normalize_diseases_to_graph(edges_df):
-    """Disease ID map from curated to graph scheme. This function adds disease_id to mondo_id edges."""
+    """
+    This function normalizes disease ID scheme. It performs Disease ID mapping \
+    from curated to graph scheme. It adds disease ID to MONDO ID edges.
+    :param edges_df: pre-processed edges dataframe
+    :return: normalized edges dataframe
+    """
+
 
     ## DISEASES:
     print('\nAdding diseases to MONDO ID network...')
@@ -259,9 +270,15 @@ def normalize_diseases_to_graph(edges_df):
 
     return edges
 
-# normalize genes2proteins
+
 def normalize_genes_to_proteins_to_graph(curated_df,concept_dct):
-    """Gene to protein map from curated to graph scheme. This function adds gene_id to protein_id edges."""
+    """
+    This function normalizes genes to protein IDs. It performs Gene to Protein ID mapping \
+    from curated to graph scheme. It adds gene ID to protein ID edges.
+    :param curated_df: pre-processed edges dataframe
+    :param concept_dct: concept dictionary
+    :return: normalized edges dataframe
+    """
 
     ## PROTEINS2GENES
     print('\nAdding gene to protein network...')
@@ -322,7 +339,7 @@ def prepare_curated_edges(edges_df):
     """
     This function prepares curated edges to the graph schema: 1) normalizes gene identifiers, 2) normalizes disease \
     identifiers, and 3) normalizes proteins to genes.
-    :param edges_df: edges dataframe provinent from the prepare_data_edges() function
+    :param edges_df: edges dataframe from the prepare_data_edges() function
     :return: edges dataframe
     """
 
@@ -344,7 +361,7 @@ def prepare_curated_nodes(curated_df):
     """
     This function prepares curated nodes to the graph schema: 1) normalizes gene identifiers, 2) normalizes disease \
     identifiers, and 3) normalizes proteins to genes.
-    :param curated_df: nodes dataframe provinent from the prepare_data_nodes() function
+    :param curated_df: nodes dataframe from the prepare_data_nodes() function
     :return: nodes dataframe
     """
 
@@ -472,12 +489,11 @@ def prepare_curated_nodes(curated_df):
     return curated_df
 
 
-
 # BUILD NETWORK
 def build_edges(edges_df):
     """
     This function builds the edges network with the graph schema."
-    :param edges_df: network dataframe provinent from the prepare_curated_edges() function
+    :param edges_df: network dataframe from the prepare_curated_edges() function
     :return: graph edges object as a list of dictionaries, where every dictionary is a record
     """
 
@@ -518,7 +534,7 @@ def build_edges(edges_df):
 def build_nodes(nodes_df):
     """
     This function builds the nodes network with the graph schema."
-    :param nodes_df: nodes dataframe provinent from the prepare_curated_nodes() function
+    :param nodes_df: nodes dataframe from the prepare_curated_nodes() function
     :return: graph nodes object as a list of dictionaries, where every dictionary is a record
     """
 
@@ -553,7 +569,9 @@ def build_nodes(nodes_df):
 # NETWORK MANAGEMENT FUNCTIONS
 
 def download_networks():
-    """This function downloads curated network files (edges and nodes) from spreadsheets in Google Drive as csv files."""
+    """
+    This function downloads curated network files (edges and nodes) from spreadsheets in Google Drive as csv files.
+    """
 
     # create dir: curation/data
     data_path = os.getcwd() + '/curation/data/' + version
@@ -576,13 +594,13 @@ def download_networks():
 
     # create a list for curated network files spreadsheets (with Google Drive API?)
     spreadsheetsIds_dct = {
-        '1pS3rT1hFShsCalu9bLGpAjQWp4y3_mgDxCtcHMAk2I8': 'ngly1-deficiency',
+        '1pS3rT1hFShsCalu9bLGpAjQWp4y3_mgDxCtcHMAk2I8': 'ngly1_deficiency',
         '1z4PrO8AuNqyAOY3UMYxaMQ1JUcL5z-IbWsw54yQ8sYA': 'ngly1_human',
         '1thcKRGY1TnXepI8BJ6MYDhOgCayt3gEdPkOkFO4Nd4M': 'aqp1_human',
         '17kpta304URAxgd0NN4Uvyyu_qC1n2KObOrNAkFCQzRU': 'aqp1_mouse',
         '1ZF0cLyAN2_LPXbWNVss2yg2de7fvmHi21Zs7r1vFP54': 'glcnac_human',
-        '17jXa5f_B74JaT8yuhExRNIozDRRNnPdcfM7yiV4BRtk': 'enns_etal',
-        '1ZCfOdYtXn2mda2ybov8ibk0aXOtIBYDNw0RIoqkHldk': 'lam_etal'
+        '17jXa5f_B74JaT8yuhExRNIozDRRNnPdcfM7yiV4BRtk': 'enns_2014',
+        '1ZCfOdYtXn2mda2ybov8ibk0aXOtIBYDNw0RIoqkHldk': 'lam_2016'
     }
     spreadsheetIds_list = spreadsheetsIds_dct.keys()
 
@@ -596,7 +614,11 @@ def download_networks():
 
 
 def read_network(version=version):
-    """This function concatenates and returns the curated network as a dataframe."""
+    """
+    This function concatenates and returns the curated network tsv files from drive as edges and nodes dataframes.
+    :param version: string with data version
+    :return: curated edges dataframe, curated nodes dataframe
+    """
 
     # concat all statements in the network
     print('\nReading and concatenating all curated statements in the network...')
@@ -623,8 +645,12 @@ def read_network(version=version):
     return network_df, nodes_df
 
 
-def get_nodes_df(network_df):
-    """This function extracts the network nodes."""
+def _get_nodes_df(network_df):
+    """
+    This function extracts the network nodes from curated edges.
+    :param network_df: curated edges dataframe
+    :return: nodes dataframe
+    """
 
     # optimize network dataframe
     net_df = (network_df
@@ -657,8 +683,12 @@ def get_nodes_df(network_df):
     return nodes_df
 
 
-def normalize_nodes(nodes_df):
-    """This function normalizes IDs to Monarch scheme."""
+def _normalize_nodes(nodes_df):
+    """
+    This function normalizes node IDs to Monarch scheme.
+    :param nodes_df: nodes dataframe
+    :return: normalized nodes dataframe
+    """
 
     # get node types
     #print(nodes_df.node_type.value_counts())
@@ -706,8 +736,12 @@ def normalize_nodes(nodes_df):
 
     ## First, get proteins as NCBIGene ID:
     # 1. get uniprot_id list in my network
-def get_uniprot_list(df):
-        """This function returns a UniProt ID list in the network."""
+def _get_uniprot_list(df):
+        """
+        This function returns the UniProt ID list in the network.
+        :param df: normalized nodes dataframe
+        :return: uniprot list
+        """
 
         uniprot_df = df[df.id_type == 'UniProt'].copy()
         uniprot_df['uniprot_id'] = (uniprot_df
@@ -720,8 +754,12 @@ def get_uniprot_list(df):
 
 
     # 2. get {'uniprot_id':'gene_id'} dictionary from biothings
-def get_uniprot2geneid_dict(uniprot_list):
-    """This function returns the UniProt to NCBI gene ID dictionary from BioThings."""
+def _get_uniprot2geneid_dict(uniprot_list):
+    """
+    This function returns the UniProt to NCBI gene ID dictionary from BioThings.
+    :param uniprot_list: uniprot list
+    :return: UniProt to Entrez ID dictionary
+    """
 
     mg = get_client('gene')
     r_df = mg.querymany(uniprot_list, scopes='uniprot', fields='entrezgene', as_dataframe=True)
@@ -746,8 +784,13 @@ def get_uniprot2geneid_dict(uniprot_list):
 
     # 3. map network nodes from uniprot (node_id) to ncbigene (monarch_id) and
     # add df column 'monarch_id', which will be the nodes_list to input monarch apis
-def map_uniprot2geneid(df, p2g_dct):
-    """This function maps proteins (as UniProt ID) to genes (as NCBI gene IDs)."""
+def _map_uniprot2geneid(df, p2g_dct):
+    """
+    This function maps proteins (as UniProt ID) to genes (as NCBI Gene IDs).
+    :param df: normalized nodes dataframe
+    :param p2g_dct: UniProt to Entrez dictionary
+    :return: nodes dataframe
+    """
 
     nodes_df = df.reset_index(drop=True)
     nodes_df['monarch_id'] = (nodes_df
@@ -767,8 +810,13 @@ def map_uniprot2geneid(df, p2g_dct):
 
     ## Second, create the list of network nodes to query monarch from 'monarch_id' column:
     # 1. values in 'monarch_id': None, str(), list() -> normalize to str():
-def get_nodes_as_monarch(df):
-    """This function retuns nodes identified as Monarch can recognize: no protein IDs and all identified using vocabularies used in Monarch."""
+def _get_nodes_as_monarch(df):
+    """
+    This function returns nodes identified as Monarch can recognize: \
+    no protein IDs and all identified using vocabularies used in Monarch.
+    :param df: nodes dataframe
+    :return: monarch nodes dataframe
+    """
 
     # get rid of None values:
     nodes_monarch_df = df[['monarch_id']].copy()
@@ -778,8 +826,12 @@ def get_nodes_as_monarch(df):
     return nodes_monarch_df
 
 
-def get_monarch_list(df):
-    """This function returns a list of network nodes as Monarch expects from a dataframe to a list data structure."""
+def _get_monarch_list(df):
+    """
+    This function returns a list of network nodes as Monarch expects from a dataframe to a list data structure.
+    :param df: monarch nodes dataframe
+    :return: monarch nodes list
+    """
 
     # normalize all types to str():
     nodes_l = []
@@ -806,59 +858,77 @@ def get_monarch_list(df):
     return list(nodes_s)
 
 
-def get_normalized_nodes(net_df):
-    """This function returns a dataframe of all the nodes in the curated network normalized to the ID schemes used in Monarch."""
+def _get_normalized_nodes(net_df):
+    """
+    This function returns a dataframe of all the nodes in the curated network \
+    normalized to the ID schemes used in Monarch.
+    :param net_df: curated edges dataframe
+    :return: normalized nodes dataframe
+    """
 
     # get the network dataframe
     # net_df = read_network()
 
     # get all network nodes as a dataframe
-    nodes_df = get_nodes_df(net_df)
+    nodes_df = _get_nodes_df(net_df)
 
     # normalize node ids to Monarch ID schemes
-    norm_df = normalize_nodes(nodes_df)
+    norm_df = _normalize_nodes(nodes_df)
 
     return norm_df
 
 
-def get_proteins_as_ncbigenes(df):
-    """This function returns all network proteins identified by their genes using ncbi gene ids as in Monarch."""
+def _get_proteins_as_ncbigenes(df):
+    """
+    This function returns all network proteins identified by their genes using NCBI Gene IDs as in Monarch.
+    :param df: normalized nodes dataframe
+    :return: nodes dataframe
+    """
 
     # get uniprot list
-    uniprot_id_list = get_uniprot_list(df)
+    uniprot_id_list = _get_uniprot_list(df)
 
     # get uniprot2ncbigene dict from biothings
-    uniprot2ncbigene_dict = get_uniprot2geneid_dict(uniprot_id_list)
+    uniprot2ncbigene_dict = _get_uniprot2geneid_dict(uniprot_id_list)
 
     # map protein ids to gene ids
-    nodes_df = map_uniprot2geneid(df, uniprot2ncbigene_dict)
+    nodes_df = _map_uniprot2geneid(df, uniprot2ncbigene_dict)
 
     return nodes_df
 
 
-def get_list_of_monarch_id_nodes(df):
-    """This function returns a list of nodes under Monarch ID schemes and all proteins/genes identified by NCBI gene ID."""
+def _get_list_of_monarch_id_nodes(df):
+    """
+    This function returns a list of nodes under Monarch ID scheme and all proteins/genes identified by NCBI Gene ID.
+    :param df: nodes dataframe
+    :return: nodes list
+    """
 
     # get monarch id values
-    monarch_df = get_nodes_as_monarch(df)
+    monarch_df = _get_nodes_as_monarch(df)
 
     # normalize to string type
-    nodes_list = get_monarch_list(monarch_df)
+    nodes_list = _get_monarch_list(monarch_df)
 
     return nodes_list
 
 
 def get_nodes(network_df):
-    """This function get nodes list to query Monarch API."""
+    """
+    This function gets nodes list to query Monarch API. It prepares all nodes from curation and normalizes \
+    to Monarch ID scheme and translates all proteins to genes.
+    :param network_df: curated edges dataframe
+    :return: curated Monarch scheme nodes list
+    """
 
     # get all network nodes normalized to ID schemes used in Monarch
-    nodes_df = get_normalized_nodes(network_df)
+    nodes_df = _get_normalized_nodes(network_df)
 
     # map all network proteins to their genes
-    monarch_nodes_df = get_proteins_as_ncbigenes(nodes_df)
+    monarch_nodes_df = _get_proteins_as_ncbigenes(nodes_df)
 
     # get list of all network nodes in Monarch IDs
-    node_list = get_list_of_monarch_id_nodes(monarch_nodes_df)
+    node_list = _get_list_of_monarch_id_nodes(monarch_nodes_df)
 
     return node_list
 
