@@ -28,7 +28,6 @@ today = datetime.date.today()
 #sys.path.insert(0, './graph')
 
 # path to write data
-# TODO: work with variables
 # TODO: write on one path or the other, monarch/ or graph/. name different monarch and monarch_graph networks
 # TODO: use the function print to print networks
 # TODO: save read data into a 'data/' dir
@@ -45,11 +44,12 @@ if not os.path.isdir(path): os.makedirs(path)
 # check network schema
 # TODO: check functions and document
 
-## from monarch/add-connections-to-net or regulation/monarch
-# TODO: build the following functions according monarch.ipynb and add-connections-to-net.ipynb notebooks
-
 def read_connections(filename):
-    """This function reads monarch_connections TSV file in get-monarch-connections directory."""
+    """
+    This function reads monarch_connections CSV file.
+    :param filename: complete path to the monarch connections csv file string
+    :return: monarch edges dataframe
+    """
 
     # read monarch_connections or get-monarch-connections/monarch_connections.[tsv|csv]
     # monarch network
@@ -81,7 +81,7 @@ def hit_monarch_api(node = 'HGNC:17646', rows = 2000):
         * association/to - for in edges
     It returns out and in edges.
 
-    :param node: node id to query (string). Default: 'NCBIGene:55768'.
+    :param node: node id to query (string). Default: 'HGNC:17646'.
     :param rows: the maximum number of results to return (integer). Default: 2000.
     :return: two api response objects: 'out' and 'in' response objects, in this order.
     """
@@ -107,9 +107,9 @@ def get_edges_objects(r_out, r_in):
     Subjects, relations and objects are lists of dictionaries, where each dictionary is a node.
     References list lists strings, where each string is a chain of references for each edge.
 
-    :param r_out:
-    :param r_in:
-    :return:
+    :param r_out: BioLink API 'out' response object
+    :param r_in: BioLink API 'in' response object
+    :return: subjects, relations, objects and references lists (in this order)
     """
 
     # variables
@@ -138,15 +138,15 @@ def get_edges_objects(r_out, r_in):
 
 def get_edges(sub_l, rel_l, obj_l, ref_l, attribute='id'):
     """
-    This function builds edges with an attribute for each node.
+    This function builds edges using a user-specified attribute for each node.
     It returns a set of edges, where edges are tuples.
 
-    :param sub_l:
-    :param rel_l:
-    :param obj_l:
-    :param ref_l:
-    :param attribute:
-    :return:
+    :param sub_l: subjects (objects) list from the get_edges_objects() function
+    :param rel_l: relations (objects) list from the get_edges_objects() function
+    :param obj_l: objects (objects) list from the get_edges_objects() function
+    :param ref_l: references (strings) list from the get_edges_objects() function
+    :param attribute: object attribute, default 'id'
+    :return: edges (as tuples) set
     """
     edges = set()
     # compose tuple
@@ -161,7 +161,12 @@ def get_edges(sub_l, rel_l, obj_l, ref_l, attribute='id'):
 
 
 def keep_edges(keep, new):
-    """This function adds edges in a set."""
+    """
+    This function adds edges from a new set to a keep set.
+    :param keep: edges set
+    :param new: edges set
+    :return: updated edges set
+    """
 
     for edge in new:
         keep.add(edge)
@@ -171,7 +176,7 @@ def keep_edges(keep, new):
 
 def keep_nodes(keep, edges, seed):
     """
-    This function collects nodes from the edges.
+    This function collects nodes from the edges that are not in the nodes query list to keep nodes set.
     It filters out: PMID nodes, and nodes related by provenance:
         * None
         * 'dc:source'
@@ -180,10 +185,10 @@ def keep_nodes(keep, edges, seed):
     i.e., not biologically related
     It returns a set of nodes.
 
-    :param keep:
-    :param edges:
-    :param seed:
-    :return:
+    :param keep: nodes set
+    :param edges: edges set
+    :param seed: query nodes list
+    :return: updated nodes set
     """
 
     for (sub, rel, obj, ref) in edges:
@@ -214,7 +219,11 @@ def keep_nodes(keep, edges, seed):
 
 
 def get_neighbours(seed):
-    """This function gets the first layer of neighbours and relations."""
+    """
+    This function gets the first layer of neighbours and relations.
+    :param seed: query nodes list
+    :return: nodes set, edges set (in this order)
+    """
 
     keepNodes = set()
     keepEdges = set()
@@ -241,11 +250,11 @@ def get_neighbours(seed):
 
 def filter_edges(nodes, edges):
     """
-    This function filters down edges with both nodes in the nodes set.
+    This function filters down edges with both nodes in a nodes list.
 
-    :param nodes:
-    :param edges:
-    :return:
+    :param nodes: nodes list
+    :param edges: edges set
+    :return: filtered edges set
     """
     nodes = set(nodes)
     keep = set()
@@ -257,7 +266,14 @@ def filter_edges(nodes, edges):
 
 
 def add_attributes(sub_l, rel_l, obj_l, edges):
-    """ This function adds attributes to each entity in the edge."""
+    """
+    This function adds 'label' attribute to each entity in the edge.
+    :param sub_l: subjects (object) list
+    :param rel_l: relations (object) list
+    :param obj_l: objects (object) list
+    :param edges: edges set
+    :return: metaedges set
+    """
 
     metaedges = set()
     for (sub_id, rel_id, obj_id, refs) in edges:
@@ -279,10 +295,11 @@ def keep_node_type(edges, seed, nodeType='ortho'):
     """
     This function keeps specific node types for objects in edges.
 
-    :param edges:
-    :param seed:
-    :param nodeType: Introduce node type to keep (string): 'ortho' or 'pheno' (orthologs or phenotypes/diseases, respectively).
-    :return:
+    :param edges: edges set
+    :param seed: the query nodes list
+    :param nodeType: Introduce node type to keep (string): 'ortho' for orthologs or 'pheno' \
+    for phenotypes/diseases, default is 'ortho'
+    :return: nodes set
     """
 
     propertyList = ['RO:HOM0000017', 'RO:HOM0000020']
@@ -303,7 +320,11 @@ def keep_node_type(edges, seed, nodeType='ortho'):
 
 
 def get_connections(nodes):
-    """This function returns associations retrieved from Monarch among a list of query nodes."""
+    """
+    This function returns associations retrieved from Monarch among a list of query nodes."
+    :param nodes: the query nodes list
+    :return: edges set
+    """""
 
     keep = set()
     for node in tqdm(nodes):
@@ -331,7 +352,11 @@ def get_connections(nodes):
 # NETWORK MANAGEMENT FUNCTIONS
 
 def get_neighbours_list(seed_list):
-    """This function returns the 1st layer of neighbours from a list of nodes."""
+    """
+    This function returns the first explicit layer of neighbours from a list of query nodes.
+    :param seed_list: biomedical entities list, where each entity is the identifier string like 'HGNC:17646'
+    :return: neighbours list
+    """
 
     # print executing function
     print('\nThe function "get_neighbours_list()" is running, please keep calm and have some coffee...')
@@ -343,7 +368,11 @@ def get_neighbours_list(seed_list):
 
 
 def get_orthopheno_list(seed_list):
-    """This function returns ortho-pheno nodes for a list of nodes."""
+    """
+    This function returns orthologs-phenotypes nodes in ortho-pheno relationships for a list of query genes.
+    :param seed_list: gene list, where each gene is the identifier string like 'HGNC:17646'
+    :return: orthopheno list
+    """
 
     # print executing function
     print('\nThe function "get_orthopheno_list()" is running, please keep calm and have some coffee...')
@@ -367,12 +396,11 @@ def get_orthopheno_list(seed_list):
 
 
 def extract_edges(gene_list):
-    """This function returns the Monarch network from a list of query nodes. It retrieves connectivity from Monarch.
-    The network variable that returns is a set of tuples (edges).
-
-    Note that i changed the name of this function in v2.0 of the module. This function is named as 'expand_edges' in
-    version 1.0 of the module, and used as 'extract_edges' in the graph building notebook
-    'graph_hypothesis_1shell_v11012018'.
+    """
+    This function returns the Monarch network from a list of query nodes. It retrieves connectivity from Monarch, i.e. \
+    edges from Monarch between query nodes.
+    :param gene_list: gene list
+    :return: edges (as tuples) set
     """
 
     # print executing function
@@ -387,7 +415,7 @@ def extract_edges(gene_list):
     return network
 
 
-def print_network2(network, filename):
+def _print_network2(network, filename):
     """This function saves the Monarch expanded network into a CSV file. this function save connections file format into
     get-monarch-connections/"""
     # TODO: this function only writes down the network connections format from monarch, originally stored into get-monarch-connections/
@@ -405,7 +433,12 @@ def print_network2(network, filename):
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
 
 def print_network(network, filename):
-    """This function saves the Monarch expanded network into a CSV file. connections file format only"""
+    """
+    This function saves the Monarch network into a CSV file. It only prints connections file format only.
+    :param network: monarch edges dataframe
+    :param filename: file name without extension string, e.g. 'monarch_connections'
+    :return: None object
+    """
 
     # transform set of tuples to list of dictionaries
     edges = list()
@@ -428,7 +461,12 @@ def print_network(network, filename):
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
 
 def print_nodes(nodes, filename):
-    """This function saves Monarch nodes into a CSV file."""
+    """
+    This function saves Monarch nodes into a CSV file.
+    :param nodes: nodes list
+    :param filename: file name without path and extension, e.g. 'monarch_nodes'
+    :return: None object
+    """
 
     # print output file
     path = os.getcwd() + '/monarch'
@@ -441,9 +479,14 @@ def print_nodes(nodes, filename):
 # New functions to debug.
 
 def expand_edges(seed_list):
-    """This function returns the Monarch network expanded with the first layer of neighbors from a list of query nodes.
+    """
+    This function returns the Monarch network expanded with the first layer of neighbors from a list of query nodes.
     This function builds monarch 1shell network.
-    This function receives a list of nodes and returns a network or edges from Monarch."""
+    This function receives a list of nodes and returns a network or edges from Monarch.
+
+    :param seed_list: the query nodes list
+    :return: edges set
+    """
 
     # get 1shell list of nodes or neighbors
     neighbours, relations = get_neighbours(seed_list)
@@ -457,10 +500,15 @@ def expand_edges(seed_list):
     return network
 
 def orthopheno_expand_edges(seed_list):
-    """This function returns the Monarch network expanded with the orthologs and the ortholog associated phenotypes from
+    """
+    This function returns the Monarch network expanded with the orthologs and the ortholog associated phenotypes from
      a list of query nodes.
     This function builds monarch 1shell-animal network.
-    This function receives a list of nodes and returns a network or edges from Monarch."""
+    This function receives a list of nodes and returns a network or edges from Monarch.
+
+    :param seed_list: the query nodes list
+    :return: edges set
+    """
 
     # get ortholog-phenotypes list
     orthophenoList = get_orthopheno_list(seed_list)
@@ -474,15 +522,12 @@ def orthopheno_expand_edges(seed_list):
     return network
 
 
-# generate statement file/monarch network edges file with graph schema: add-connections-to-net/monarch_edges_v{}.[tsv|csv]
+# BUILD NETWORK
 def build_edges(edges_df):
-    """This function builds the edges network data structure and file.
-       edges_df = pd.read_table('./get-monarch-connections/monarch_connections.tsv')
-       Input: data from monarch_connections at
-              /home/nuria/workspace/ngly1-graph/monarch/1shell-animal/get-monarch-connections/monarch_connections.tsv
-              or
-              /home/nuria/workspace/ngly1-graph/regulation/graph/monarch _connections_regulation_graph.tsv
-       Output: data structure for graph edges
+    """
+    This function builds the edges network with the graph schema.
+    :param edges_df: network dataframe from the extract_edges() function
+    :return: graph edges object as a list of dictionaries, where every dictionary is a record
     """
 
     ## variables
@@ -627,10 +672,11 @@ def build_edges(edges_df):
     return edges_l
 
 
-# generate concept file/monarch network nodes file with graph schema: add-connections-to-net/monarch_nodes_v{}.[tsv|csv]
 def build_nodes(edges_df):
-    """This function builds the nodes network file.
-    edges_df = .../monarch/1shell-animal-hgnc/get-monarch-connections/monarch_connections.tsv'
+    """
+    This function builds the nodes network with the graph schema.
+    :param edges_df: network dataframe from the extract_edges() function
+    :return: graph nodes object as a list of dictionaries, where every dictionary is a record
     """
 
     # build semantic groups dictionary
@@ -784,9 +830,6 @@ def build_nodes(edges_df):
 if __name__ == '__main__':
     #geneList = ['OMIM:615273']  # NGLY1 deficiency
     #network = monarch_expand(geneList)
-    # control 1: one gene --> makes sense? what are the results?
-    # control 2: one disease --> makes sense? what are the results?
-    # control 3: node list --> makes sense? what are the results?
     # build monarch network
     #seedList = ['HGNC:17646','HGNC:633']
     #neighbourList = get_neighbours_list(seedList)
