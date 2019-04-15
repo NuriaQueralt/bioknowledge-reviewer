@@ -492,7 +492,7 @@ def prepare_curated_nodes(curated_df):
 # BUILD NETWORK
 def build_edges(edges_df):
     """
-    This function builds the edges network with the graph schema."
+    This function builds the edges network with the graph schema.
     :param edges_df: network dataframe from the prepare_curated_edges() function
     :return: graph edges object as a list of dictionaries, where every dictionary is a record
     """
@@ -533,7 +533,7 @@ def build_edges(edges_df):
 
 def build_nodes(nodes_df):
     """
-    This function builds the nodes network with the graph schema."
+    This function builds the nodes network with the graph schema.
     :param nodes_df: nodes dataframe from the prepare_curated_nodes() function
     :return: graph nodes object as a list of dictionaries, where every dictionary is a record
     """
