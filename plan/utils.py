@@ -17,6 +17,8 @@ import pandas as pd
 today = datetime.date.today()
 
 
+# FUNCTIONS
+
 def get_dataframe(object):
     """
     This function converts a list_of_dictionaries object into a dataframe.
@@ -115,6 +117,7 @@ def add_one_dictionary2(dictionary, key):
     else:
         dictionary[key] = 1 
     return dictionary
+
     
 def add_elem_with_dictionary(dictionary, key, elem, repeat = False):
     """
@@ -136,6 +139,7 @@ def add_elem_with_dictionary(dictionary, key, elem, repeat = False):
     aux.append(elem)
     dictionary[key] = aux 
     return dictionary
+
 
 def add_one_dictionary(dictionary, key):
     """

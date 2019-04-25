@@ -27,7 +27,6 @@ if not os.path.isdir(path): os.makedirs(path)
 # TODO: check functions
 
 
-
 def read_data(csv_path):
     """
     This function reads the raw differential gene expression data from a CSV file.
@@ -159,7 +158,6 @@ def prepare_rna_edges(chow):
     print('* This is the first record:\n{}'.format(edges.head(1)))
 
     return edges
-
 
 
 # BUILD NETWORK
@@ -299,6 +297,7 @@ def build_nodes(edges):
 
     return nodes_l
 
+
 # NETWORK MANAGEMENT FUNCTIONS
 
 
@@ -309,6 +308,7 @@ def _print_nodes(nodes, filename):
     # print output file
 
     #return
+
 
 if __name__ == '__main__':
 

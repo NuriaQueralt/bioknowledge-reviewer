@@ -9,7 +9,7 @@
 
 """Module for the curation data"""
 
-import os, glob, sys
+import os,glob
 import pandas as pd
 from gsheets import Sheets
 from biothings_client import get_client
@@ -566,6 +566,7 @@ def build_nodes(nodes_df):
 
     return nodes_l
 
+
 # NETWORK MANAGEMENT FUNCTIONS
 
 def download_networks():
@@ -734,8 +735,8 @@ def _normalize_nodes(nodes_df):
     return norm_nodes_df
 
 
-    ## First, get proteins as NCBIGene ID:
-    # 1. get uniprot_id list in my network
+## First, get proteins as NCBIGene ID:
+# 1. get uniprot_id list in my network
 def _get_uniprot_list(df):
         """
         This function returns the UniProt ID list in the network.
@@ -753,7 +754,7 @@ def _get_uniprot_list(df):
         return uniprot_id_l
 
 
-    # 2. get {'uniprot_id':'gene_id'} dictionary from biothings
+# 2. get {'uniprot_id':'gene_id'} dictionary from biothings
 def _get_uniprot2geneid_dict(uniprot_list):
     """
     This function returns the UniProt to NCBI gene ID dictionary from BioThings.
@@ -782,8 +783,8 @@ def _get_uniprot2geneid_dict(uniprot_list):
     return p2g_dict
 
 
-    # 3. map network nodes from uniprot (node_id) to ncbigene (monarch_id) and
-    # add df column 'monarch_id', which will be the nodes_list to input monarch apis
+# 3. map network nodes from uniprot (node_id) to ncbigene (monarch_id) and
+# add df column 'monarch_id', which will be the nodes_list to input monarch apis
 def _map_uniprot2geneid(df, p2g_dct):
     """
     This function maps proteins (as UniProt ID) to genes (as NCBI Gene IDs).
@@ -808,8 +809,8 @@ def _map_uniprot2geneid(df, p2g_dct):
     return nodes_df
 
 
-    ## Second, create the list of network nodes to query monarch from 'monarch_id' column:
-    # 1. values in 'monarch_id': None, str(), list() -> normalize to str():
+## Second, create the list of network nodes to query monarch from 'monarch_id' column:
+# 1. values in 'monarch_id': None, str(), list() -> normalize to str():
 def _get_nodes_as_monarch(df):
     """
     This function returns nodes identified as Monarch can recognize: \

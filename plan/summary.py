@@ -14,7 +14,6 @@
 #   * do a control for queries with 0 paths as result
 #   * clean metapaths functions and distinguish work with dataframes
 #   * do a execution block with the reduce function
-#   * document the module
 """Module for path summarization"""
 
 import json
@@ -23,11 +22,11 @@ import os
 import datetime
 
 
-######## VARIABLES
+# VARIABLES
 today = datetime.date.today()
 
 
-
+# MANAGEMENT FUNCTIONS
 
 def print_summaries(summary, filename):
     """
@@ -137,6 +136,7 @@ def path_load(filename):
     """
     return json.load(open('{}.json'.format(filename),'r'))
 
+
 def path_count(query):
     """
     This function returns the total number of paths per query passed.
@@ -189,7 +189,6 @@ def metapath_label(metapath_idx, metapaths_l):
     for mp in metapaths_l:
         if mp.get('metapath_idx') == metapath_idx:
             return mp.get('metapath_label')
-
 
 
 def metapath_count2(metapath_idx, metapaths_l):
@@ -286,7 +285,6 @@ def metapaths(data):
         print_summaries(entity_l,
                         filename='query_ngly1_aqp1_paths_source:{}_target:{}_summary_entities_in_metapaths'.format(
                             query.get('source'), query.get('target')))
-
 
 
 def node(idx, nodes_l):
@@ -473,7 +471,6 @@ def edge_types(data):
         print_summaries(edges_sum_l, filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_edge_types'.format(query.get('source'),query.get('target')))
 
     #return edges_sum_l
-
 
 
 if __name__ == "__main__":

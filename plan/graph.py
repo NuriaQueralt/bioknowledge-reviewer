@@ -31,7 +31,7 @@
 """Module for functions to build the graph"""
 
 import pandas as pd
-import sys, os
+import os
 import datetime
 from utils import *
 
@@ -45,13 +45,8 @@ if not os.path.isdir(path): os.makedirs(path)
 
 # CHECK NETWORK SCHEMA AND NORMALIZE TO GRAPH SCHEMA
 
-# BUILD NETWORK
 
 # NETWORK MANAGEMENT FUNCTIONS
-
-
-################ UTILS SECTION
-
 
 def print_graph(graph, filename):
     """
@@ -256,6 +251,7 @@ def graph_nodes(curation,monarch,transcriptomics,regulation,input_from_file=Fals
 
 
 # BUILD GRAPH
+
 def build_edges(curation,monarch,transcriptomics,regulation,input_from_file=False):
     """
     This function builds the edges graph. The user can choose to input individual networks from file or \
@@ -486,6 +482,7 @@ def _build(network_list):
     graph['nodes'] = build_nodes(df)
 
     return graph
+
 
 def _edges(graph):
     """This function retrieves graph edges."""

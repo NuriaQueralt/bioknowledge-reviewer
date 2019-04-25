@@ -9,7 +9,6 @@
 
 """Module for the regulation data"""
 
-
 import datetime
 import json
 import os
@@ -717,8 +716,6 @@ def prepare_regulation_edges(data_edges):
 
 # BUILD NETWORK
 
-## build edges and nodes files
-# build edges
 def build_edges(edges):
     """
     This function builds the edges network with the graph schema.
@@ -782,7 +779,6 @@ def build_edges(edges):
     return edges_l
 
 
-# build nodes
 def build_nodes(edges):
     """
     This function builds the nodes network with the graph schema.
@@ -916,6 +912,7 @@ def _print_nodes(nodes, filename):
     # print output file
 
     #return
+
 
 if __name__ == '__main__':
     ## check TF name label format

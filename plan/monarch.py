@@ -6,13 +6,10 @@
 # @email: nuriaqr@scripps.edu
 
 # TODO: Add printings for starting execution of functions
-# TODO: Debugg: Why json.decoder.JSONDecodeError?,t
-# TODO: add documentation
 """Module for Monarch data"""
 
-
 import requests
-import sys, os
+import sys,os
 import json
 import datetime
 import pandas as pd
@@ -68,9 +65,7 @@ def read_connections(filename):
     return network_df
 
 
-
-# BUILD NETWORK
-# preamble functions in notebook
+# retrieve subnetwork from Monarch knowledge graph
 
 def hit_monarch_api(node = 'HGNC:17646', rows = 2000):
     """
@@ -348,7 +343,6 @@ def get_connections(nodes):
     return keep
 
 
-# From here, lib new functions...
 # NETWORK MANAGEMENT FUNCTIONS
 
 def get_neighbours_list(seed_list):
@@ -432,6 +426,7 @@ def _print_network2(network, filename):
 
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
 
+
 def print_network(network, filename):
     """
     This function saves the Monarch network into a CSV file. It only prints connections file format only.
@@ -460,6 +455,7 @@ def print_network(network, filename):
 
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
 
+
 def print_nodes(nodes, filename):
     """
     This function saves Monarch nodes into a CSV file.
@@ -476,7 +472,6 @@ def print_nodes(nodes, filename):
 
     return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
 
-# New functions to debug.
 
 def expand_edges(seed_list):
     """
@@ -498,6 +493,7 @@ def expand_edges(seed_list):
     network = get_connections(nodes)
 
     return network
+
 
 def orthopheno_expand_edges(seed_list):
     """
@@ -523,6 +519,7 @@ def orthopheno_expand_edges(seed_list):
 
 
 # BUILD NETWORK
+
 def build_edges(edges_df):
     """
     This function builds the edges network with the graph schema.

@@ -24,14 +24,11 @@
 # synonyms:IGNORE,
 # description
 
-# TO DO:
-# code
-# modularize
-# debugging
-# documentation
+
+#TODO: update import function for Neo4j v3.5
+
 """Module for Neo4j"""
 
-import pandas as pd
 import datetime
 import os, sys
 import subprocess
@@ -40,17 +37,10 @@ from utils import *
 # VARIABLES
 today = datetime.date.today()
 
-# CHECK GRAPH SCHEMA AND NORMALIZE TO NEO4J FORMAT
-
-# BUILD NETWORK
-
 # NETWORK MANAGEMENT FUNCTIONS
 
 
-#### UTILS
-
-
-def save_neo4j_files(object, neo4j_path, file_type = 'statements'):#(graph_l, ):
+def save_neo4j_files(object, neo4j_path, file_type = 'statements'):
     """
     This function saves the neo4j graph files in CSV format into the neo4j import directory.
     :param object: graph nodes or edges dataframe
@@ -88,7 +78,7 @@ def save_neo4j_files(object, neo4j_path, file_type = 'statements'):#(graph_l, ):
         return print('The user should provide the "file_type" argument with any of the [statements or concepts] value.')
 
 
-### FORMAT NEO4J
+# CHECK GRAPH SCHEMA AND NORMALIZE TO NEO4J FORMAT
 
 def get_statements(edges):
     """
@@ -136,6 +126,8 @@ def get_concepts(nodes):
 
     return concepts
 
+
+# LOAD GRAPH
 
 def do_import(neo4j_path):
     """

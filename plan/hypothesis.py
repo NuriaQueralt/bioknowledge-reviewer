@@ -14,11 +14,11 @@
 #      PROBLEM: concept type
 #      Sanity check:
 
-# TO DO:
+#TODO:
 #   * add check function to ensure that neo4j is up after import
 #   * add check function to ensure that a query does not kill neo4j and that is up
 #   * clean query (eliminate g1, ..)
-#   * document the module
+#   * open query topology can be more open...
 """Module for hypothesis generation"""
 
 from neo4j.v1 import GraphDatabase, basic_auth
@@ -32,6 +32,9 @@ import neo4j.exceptions
 
 # VARIABLES
 today = datetime.date.today()
+
+
+# QUERY MANAGEMENT FUNCTIONS
 
 
 def parse_path( path ):
@@ -150,6 +153,7 @@ def query(genelist, queryname='', pwdegree='50', phdegree='20', format='json', p
                     sys.stderr.write("Error.\n")
 
     return sys.stderr.write("\nHypothesis generator has finished. {} QUERIES completed.\n".format(len(outputAll)))
+
 
 def open_query(genelist, queryname='', format='json', port='7687'):
     """
