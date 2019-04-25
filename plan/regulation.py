@@ -6,7 +6,6 @@
 # @email: nuriaqr@scripps.edu
 
 # TODO: run R inside python to prepare tftargets data https://stackoverflow.com/questions/49922118/running-r-script-in-python
-
 """Module for the regulation data"""
 
 import datetime

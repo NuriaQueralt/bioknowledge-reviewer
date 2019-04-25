@@ -56,10 +56,10 @@ Compute review-based explanations.
 Summarize extracted explanations.
 
 #### Utils
-Utils.py
+Useful functions for the library.
 
 #### Ontologies
-mondo_class.py
+mondo_class module contains functions to manage the MONDO ontology.
 
 ### Usage
 This sections showcase examples of use.
@@ -67,11 +67,221 @@ This sections showcase examples of use.
 To run the library to reproduce the generation of the NGLY1 Deficiency Knowledge Graph v3.2, the user can use either the jupyter notebook or the python script provided in this repository. To run the jupyter notebook, the user should have installed the Jupyter framework and the ipython 3 kernel.
 
 
-#### 1. Build a review network
+#### 1. Build a review knowledge graph
 Build the network by compiling edges.
 
-
+##### 1.1 Decompress the MONDO OWL file:
+~~~~ 
 bzip2 -d ontologies/mondo.owl.bz2
+~~~~
+
+##### 1.2 Prepare edges or individual networks
+First, prepare individual networks with graph schema to build the graph.
+
+###### CURATION EDGES
+Preparing curated network.
+
+~~~~
+# read network from drive and concat all curated statements
+curation_edges, curation_nodes = curation.read_network(version='v20180118')
+
+# prepare data edges and nodes
+data_edges = curation.prepare_data_edges(curation_edges)
+data_nodes = curation.prepare_data_nodes(curation_nodes)
+
+# prepare curated edges and nodes
+curated_network = curation.prepare_curated_edges(data_edges)
+curated_concepts = curation.prepare_curated_nodes(data_nodes)
+
+
+# build edges and nodes files
+curation_edges = curation.build_edges(curated_network)
+curation_nodes = curation.build_nodes(curated_concepts)
+~~~~
+
+###### MONARCH EDGES
+Preparing Monarch network.
+
+~~~~
+# prepare data to graph schema
+# seed nodes
+seedList = [ 
+    'MONDO:0014109', # NGLY1 deficiency
+    'HGNC:17646', # NGLY1 human gene
+    'HGNC:633', # AQP1 human gene
+    'MGI:103201', # AQP1 mouse gene
+    'HGNC:7781', # NRF1 human gene* Ginger: known as NFE2L1. http://biogps.org/#goto=genereport&id=4779
+    'HGNC:24622', # ENGASE human gene
+    'HGNC:636', # AQP3 human gene
+    'HGNC:19940' # AQP11 human gene
+] 
+
+# get first shell of neighbours
+neighboursList = monarch.get_neighbours_list(seedList)
+print(len(neighboursList))
+
+# introduce animal model ortho-phenotypes for seed and 1st shell neighbors
+seed_orthophenoList = monarch.get_orthopheno_list(seedList)
+print(len(seed_orthophenoList))
+neighbours_orthophenoList = monarch.get_orthopheno_list(neighboursList)
+print(len(neighbours_orthophenoList))
+
+# network nodes: seed + 1shell + ortholog-phentoype
+geneList = sum([seedList,
+                neighboursList,
+                seed_orthophenoList,
+                neighbours_orthophenoList], 
+               [])
+print('genelist: ',len(geneList))
+
+# get Monarch network
+monarch_network = monarch.extract_edges(geneList)
+print('network: ',len(monarch_network))
+
+# save edges
+monarch.print_network(monarch_network, 'monarch_connections')
+
+# build network with graph schema #!!!#
+monarch_edges = monarch.build_edges(monarch_network)
+monarch_nodes = monarch.build_nodes(monarch_network)
+~~~~
+
+###### TRANSCRIPTOMICS EDGES
+Preparing transcriptomics network.
+
+~~~~
+# prepare data to graph schema
+csv_path = './transcriptomics/ngly1-fly-chow-2018/data/supp_table_1.csv'
+data = transcriptomics.read_data(csv_path)
+clean_data = transcriptomics.clean_data(data)
+data_edges = transcriptomics.prepare_data_edges(clean_data)
+rna_network = transcriptomics.prepare_rna_edges(data_edges)
+
+# build network with graph schema
+rna_edges = transcriptomics.build_edges(rna_network)
+rna_nodes = transcriptomics.build_nodes(rna_network)
+~~~~
+
+###### REGULATION EDGES
+Preparing regulation network.
+
+~~~~
+# prepare msigdb data
+gmt_path = './regulation/msigdb/data/c3.tft.v6.1.entrez.gmt'
+regulation.prepare_msigdb_data(gmt_path)
+
+# prepare individual networks
+data = regulation.load_tf_gene_edges()
+dicts = regulation.get_gene_id_normalization_dictionaries(data)
+data_edges = regulation.prepare_data_edges(data, dicts)
+
+# prepare regulation network
+reg_network = regulation.prepare_regulation_edges(data_edges)
+
+# build network with graph schema
+reg_edges = regulation.build_edges(reg_network)
+reg_nodes = regulation.build_nodes(reg_network)
+~~~~
+
+##### 1.3 Build the review knowledge graph 
+Then, compile individual networks and build the graph.
+For graph v3.2 we concatenated curation, monarch and transcriptomics networks. Then, the regulation network was merged with this aggregated network. The resulting merged or also called graph regulation network was concatenated to the aggregated network to build the graph.Finally, extra connectivity from Monarch was retrieved and added to the graph.
+
+~~~~
+# load networks and calculate graph nodes
+graph_nodes_list, reg_graph_edges = graph.graph_nodes(
+    curation=curation_edges,
+    monarch=monarch_edges,
+    transcriptomics=rna_edges,
+    regulation=reg_edges
+)
+
+# monarch graph connectivity
+# get Monarch edges
+monarch_network_graph = monarch.extract_edges(graph_nodes_list)
+print('network: ',len(monarch_network_graph))
+
+# save network
+monarch.print_network(monarch_network_graph, 'monarch_connections_graph')
+
+# build Monarch graph network
+monarch_graph_edges = monarch.build_edges(monarch_network_graph)
+monarch_graph_nodes = monarch.build_nodes(monarch_network_graph)
+
+# build graph
+edges = graph.build_edges(
+    curation=curation_edges,
+    monarch=monarch_graph_edges,
+    transcriptomics=rna_edges,
+    regulation=reg_graph_edges
+)
+nodes = graph.build_nodes(
+    statements=edges,
+    curation=curation_nodes,
+    monarch=monarch_graph_nodes,
+    transcriptomics=rna_nodes,
+    regulation=reg_nodes
+)
+~~~~
+
+#### 2. Store into a Neo4j graph database instance
+Set up a Neo4j server instance and load the review knowledge graph into the database.
+
+~~~~
+# import to Neo4j graph interface
+## get edges/nodes and files for Neo4j
+edges_df = utils.get_dataframe(edges)
+nodes_df = utils.get_dataframe(nodes)
+statements = neo4jlib.get_statements(edges_df)
+concepts = neo4jlib.get_concepts(nodes_df)
+print('statements: ', len(statements))
+print('concepts: ',len(concepts))
+
+## import the graph into Neo4j
+# save files into Neo4j import dir
+neo4j_path = './neo4j-community-3.0.3'
+neo4jlib.save_neo4j_files(statements, neo4j_path, file_type = 'statements')
+neo4jlib.save_neo4j_files(concepts, neo4j_path, file_type = 'concepts')
+
+# import graph into Neo4j
+neo4jlib.do_import(neo4j_path)
+~~~~
+
+#### 3. Generate hypotheses and summarize them
+Generate and summarize hypotheses by querying the graph in Neo4j using the Cypher query language.
+
+##### 3.1 Get hypotheses
+Query for hypotheses (or paths) between two nodes in the graph that retrives mechanistic explanations based on ortho-phenotype information from model organisms. The following example will query for paths between the NGLY1 human gene and the AQP1 human gene in the current review. 
+
+~~~~
+# get orthopheno paths
+seed = list([
+        'HGNC:17646',  # NGLY1 human gene
+        'HGNC:633'  # AQP1 human gene
+])
+hypothesis.query(seed, queryname='ngly1_aqp1', pwdegree='1000', phdegree='1000', port='7687')
+~~~~
+
+##### 3.2 Get hypotheses summaries
+Get summaries from the resulting paths. These functions store tabular results in output files.
+
+~~~~
+# get summary
+data = summary.path_load('./hypothesis/query_ngly1_aqp1_paths_v2019-03-10')
+
+#parse data for summarization
+data_parsed = list()
+for query in data:
+    query_parsed = summary.query_parser(query)
+    data_parsed.append(query_parsed)
+summary.metapaths(data_parsed)
+summary.nodes(data_parsed)
+summary.node_types(data_parsed)
+summary.edges(data_parsed)
+summary.edge_types(data_parsed)
+~~~~
+
+
 #### License
 GPL v3.0
 

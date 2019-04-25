@@ -6,6 +6,7 @@
 # @email: nuriaqr@scripps.edu
 
 # TODO: Add printings for starting execution of functions
+# TODO: add private functions
 """Module for Monarch data"""
 
 import requests

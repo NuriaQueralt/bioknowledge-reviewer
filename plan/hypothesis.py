@@ -19,6 +19,7 @@
 #   * add check function to ensure that a query does not kill neo4j and that is up
 #   * clean query (eliminate g1, ..)
 #   * open query topology can be more open...
+#   * add specific query topology as a function parameter
 """Module for hypothesis generation"""
 
 from neo4j.v1 import GraphDatabase, basic_auth

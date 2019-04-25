@@ -26,7 +26,6 @@
 
 
 #TODO: update import function for Neo4j v3.5
-
 """Module for Neo4j"""
 
 import datetime

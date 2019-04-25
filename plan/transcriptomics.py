@@ -6,7 +6,6 @@
 # @email: nuriaqr@scripps.edu
 
 # TODO: check dir structure for input and data
-
 """Module for the transcriptomics data"""
 
 import datetime

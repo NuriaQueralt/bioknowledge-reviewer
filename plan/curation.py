@@ -6,7 +6,6 @@
 # @email: nuriaqr@scripps.edu
 
 # TODO: function for version for wikibase (data will come from wikibase dump neo4j CSV)
-
 """Module for the curation data"""
 
 import os,glob

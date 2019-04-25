@@ -14,6 +14,7 @@
 #   * do a control for queries with 0 paths as result
 #   * clean metapaths functions and distinguish work with dataframes
 #   * do a execution block with the reduce function
+#   * do private functions
 """Module for path summarization"""
 
 import json

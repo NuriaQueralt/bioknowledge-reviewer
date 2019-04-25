@@ -27,7 +27,6 @@
 # TODO: modularize from: http://localhost:8888/notebooks/workspace/ngly1-graph/curation/kylo/neo4j/networks/concatenate_network_files.ipynb
 # TODO: each network type should be a class, then class methods: .get_nodes(), .get_edges(),...
 # TODO: improve provenance, e.g.: adding to ref_supporting_text for monarch year, msigdb version, mondo version...
-
 """Module for functions to build the graph"""
 
 import pandas as pd

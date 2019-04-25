@@ -5,8 +5,7 @@
 # @author: Núria Queralt Rosinach
 # @email: nuriaqr@scripps.edu
 
-# TO DO:
-
+# TODO: add print functions
 """Module for utils"""
 
 
