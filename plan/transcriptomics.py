@@ -26,11 +26,15 @@ if not os.path.isdir(path): os.makedirs(path)
 # check network schema
 # TODO: check functions
 
-## from regulation/chow/exploratory.ipynb
 
 
 def read_data(csv_path):
-    """This function reads the raw expression data from a CSV file."""
+    """
+    This function reads the raw differential gene expression data from a CSV file.
+    :param csv_path: path to gene expression CSV file string, \
+     e.g. 'home/rna-seq/ngly1-fly-chow-2018/data/supp_table_1.csv'
+    :return: rna dataframe
+    """
 
     # import table S1 (dNGLY1 KO - transcriptomic profile)
     #csv_path = '~/workspace/ngly1-graph/regulation/ngly1-fly-chow-2018/data/supp_table_1.csv'
@@ -49,7 +53,11 @@ def read_data(csv_path):
 
 
 def clean_data(data_df):
-    """This function cleans the raw data structure to the expression attributes of interest to build the graph."""
+    """
+    This function cleans the raw data structure to the expression attributes of interest to build the graph.
+    :param data_df: rna dataframe from the read_data() function
+    :return: expression dataframe
+    """
 
     # subset [FC 1.5, FDR 5%] (386 = sum(96,290))
     up = data_df.query('log2FoldChange >= 0.57 and padj <= 0.05')
@@ -81,10 +89,12 @@ def clean_data(data_df):
     return subset_df
 
 
-## from regulation/transcriptomics.ipynb
-
 def prepare_data_edges(chow):
-    """This function prepares the expression dataset as edges."""
+    """
+    This function prepares the expression dataset as edges.
+    :param chow: expression dataframe from the clean_data() function
+    :return: edges dataframe
+    """
 
     # read dataset
     # csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/fc1.5_fdr5_transcriptome_fly.csv'
@@ -114,7 +124,11 @@ def prepare_data_edges(chow):
 
 
 def prepare_rna_edges(chow):
-    """This function prepares and compiles all individual data edges into RNA edges to build the graph."""
+    """
+    This function prepares and compiles all individual data edges into RNA edges to build the graph.
+    :param chow: edges dataframe from the prepare_data_edges() function
+    :return: network dataframe
+    """
 
     # read individual datasets
     # csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/chow_fc1.5_fdr5_transcriptome_fly_edges.csv'
@@ -151,7 +165,11 @@ def prepare_rna_edges(chow):
 # BUILD NETWORK
 
 def build_edges(edges):
-    """This function builds the edges network file."""
+    """
+    This function builds the edges network with the graph schema.
+    :param edges: network dataframe from the prepare_rna_edges() function
+    :return: graph edges object as a list of dictionaries, where every dictionary is a record
+    """
 
     # give graph format
     curie_dct = {
@@ -209,7 +227,11 @@ def build_edges(edges):
 
 
 def build_nodes(edges):
-    """This function builds the nodes network file."""
+    """
+    This function builds the nodes network with the graph schema.
+    :param edges: network dataframe from the prepare_rna_edges() function
+    :return: graph nodes object as a list of dictionaries, where every dictionary is a record
+    """
 
     # retrieve node attributes from biothings and build dictionary
     # from biothings we retrieve: name (new attribute for short description), alias (synonyms), summary (description).
@@ -280,7 +302,8 @@ def build_nodes(edges):
 # NETWORK MANAGEMENT FUNCTIONS
 
 
-def print_nodes(nodes, filename):
+def _print_nodes(nodes, filename):
+    #TODO: develop this function, also in other edges modules
     """This function save nodes into a CSV file."""
 
     # print output file

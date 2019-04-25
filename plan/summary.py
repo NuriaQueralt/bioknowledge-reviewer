@@ -30,7 +30,12 @@ today = datetime.date.today()
 
 
 def print_summaries(summary, filename):
-    """This function save the graph into a CSV file."""
+    """
+    This function saves the graph into a CSV file.
+    :param summary: summary object list
+    :param filename: filename string
+    :return: None object
+    """
 
     # print output file
     path = os.getcwd() + '/summaries'
@@ -41,6 +46,11 @@ def print_summaries(summary, filename):
 
 
 def query_parser(query):
+    """
+    This function parses the query result object.
+    :param query: result query object
+    :return: parsed query object
+    """
     source = query.get('source')
     target = query.get('target')
     #print('The query is {}-{}'.format(source, target))
@@ -120,16 +130,28 @@ def query_parser(query):
 
 
 def path_load(filename):
-    """This function load paths from a json file to a digital object."""
+    """
+    This function loads paths from a json file to a digital object.
+    :param filename: path to filename (without json extension) string
+    :return: loaded json object
+    """
     return json.load(open('{}.json'.format(filename),'r'))
 
 def path_count(query):
-    """This function returns the total number of paths per query passed."""
+    """
+    This function returns the total number of paths per query passed.
+    :param query: query object
+    :return: number of paths integer
+    """
     return len(query.get('paths'))
 
 
 def metapath_summarization(query):
-    """This function returns metapath count"""
+    """
+    This function returns metapaht summary objects.
+    :param query: query object
+    :return: metapath summary object, metapath label summary object
+    """
 
     # functions from entities
     df = pd.DataFrame(query.get('entities'))
@@ -139,7 +161,14 @@ def metapath_summarization(query):
 
 
 def metapath_count(metapath_idx, metapaths_l, attribute='count'):
-    """This function returns metapath_count"""
+    """
+    This function returns two metapath counts depending on the attribute setting: \
+    the total number of metapaths ( attribute = 'count' ) or the metapath length ( attribute = 'length' )
+    :param metapath_idx: metapath index integer
+    :param metapaths_l: metapaths list
+    :param attribute: 'count' (as default value) or 'length'
+    :return: count integer
+    """
 
     for mp in metapaths_l:
         if mp.get('metapath_idx') == metapath_idx:
@@ -150,7 +179,12 @@ def metapath_count(metapath_idx, metapaths_l, attribute='count'):
 
 
 def metapath_label(metapath_idx, metapaths_l):
-    """This function returns metapath_label"""
+    """
+    This function returns the metapath_label
+    :param metapath_idx: metapath index integer
+    :param metapaths_l: metapaths list
+    :return: metapath label string
+    """
 
     for mp in metapaths_l:
         if mp.get('metapath_idx') == metapath_idx:
@@ -159,14 +193,24 @@ def metapath_label(metapath_idx, metapaths_l):
 
 
 def metapath_count2(metapath_idx, metapaths_l):
-        """This function returns metapath_count"""
+        """
+        This function returns the metapath_count.
+        :param metapath_idx: metapath index integer
+        :param metapaths_l: metapaths list
+        :return: count integer
+        """
 
     #for mp in metapaths_l:
         return len(list(filter(lambda x: x.get('metapath_idx') == metapath_idx, metapaths_l)))
 
 
 def metapath_label2(metapath_idx, metapaths_l):
-    """This function returns metapath_label"""
+    """
+    This function returns the metapath_label.
+    :param metapath_idx: metapath index integer
+    :param metapaths_l: metapaths list
+    :return: metapath label string
+    """
 
     for mp in metapaths_l:
         if mp.get('metapath_idx') == metapath_idx:
@@ -174,7 +218,11 @@ def metapath_label2(metapath_idx, metapaths_l):
 
 
 def metapaths(data):
-    """This function prepare metapath summary table."""
+    """
+    This function prepares metapath summary table.
+    :param data: parsed queries list
+    :return: None object
+    """
 
     for query in data:
         #print()
@@ -242,7 +290,12 @@ def metapaths(data):
 
 
 def node(idx, nodes_l):
-    """This function returns the node/edge dictionary data object."""
+    """
+    This function returns the node/edge dictionary data object.
+    :param idx: node/edge index integer
+    :param nodes_l: nodes/edges list
+    :return: node/edge dictionary
+    """
 
     for nodus in nodes_l:
         if nodus.get('idx') == idx:
@@ -250,8 +303,12 @@ def node(idx, nodes_l):
 
 
 def edges_count(paths):
-    """This function returns edge patterns such as 'start-edge-end' in path results as a list of tuples.
-    It also returns the map between the tuple {start, edge, end} and the pattern."""
+    """
+    This function returns edge patterns such as 'start-edge-end' in path results as a list of tuples.
+    It also returns the map between the tuple {start, edge, end} and the pattern.
+    :param paths: paths query object
+    :return: edges count dictionary
+    """
 
     edges_l = list()
     edge_pattern_dct = dict()
@@ -275,7 +332,14 @@ def edges_count(paths):
 
 
 def nodes_count(idx, nodes_l, attribute = 'idx'):
-        """This function returns node/edge counts."""
+        """
+        This function returns node/edge counts. With the attribute parameter, it counts by index setting 'idx' \
+        or by label setting 'label'.
+        :param idx: node/edge index integer
+        :param nodes_l: nodes/edges list
+        :param attribute: 'idx' (as default value) or 'label'
+        :return: count integer
+        """
 
         if attribute == 'idx':
             return len(list(filter(lambda x: x.get('idx') == idx, nodes_l)))
@@ -284,7 +348,11 @@ def nodes_count(idx, nodes_l, attribute = 'idx'):
 
 
 def nodes(data):
-    """This function prepares nodes summary table."""
+    """
+    This function prepares nodes summary table.
+    :param data: parsed queries list
+    :return: None object
+    """
 
     for query in data:
         #print()
@@ -313,7 +381,11 @@ def nodes(data):
 
 
 def node_types(data):
-    """This function prepares node types summary table."""
+    """
+    This function prepares node types summary table.
+    :param data: parsed queries list
+    :return: None object
+    """
 
     for query in data:
         #print()
@@ -339,7 +411,11 @@ def node_types(data):
 
 
 def edges(data):
-    """This function prepares edges summary table."""
+    """
+    This function prepares edges summary table."
+    :param data: parsed queries list
+    :return: None object
+    """
 
     for query in data:
         #print()
@@ -371,7 +447,11 @@ def edges(data):
 
 
 def edge_types(data):
-    """This function prepares edge types summary table."""
+    """
+    This function prepares edge types summary table.
+    :param data: parsed queries list
+    :return: None object
+    """
 
     for query in data:
         #print()

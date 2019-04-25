@@ -18,7 +18,11 @@ today = datetime.date.today()
 
 
 def get_dataframe(object):
-    """This function converts a list_of_dictionaries object into a dataframe."""
+    """
+    This function converts a list_of_dictionaries object into a dataframe.
+    :param object: graph object list
+    :return: dataframe
+    """
 
     try:
         df = pd.DataFrame(object)
@@ -29,7 +33,11 @@ def get_dataframe(object):
 
 
 def get_dataframe_from_file(filename):
-    """This function opens a file and returns a dataframe."""
+    """
+    This function opens a file and returns a dataframe.
+    :param filename: CSV path_to_file_name string
+    :return: dataframe
+    """
 
     try:
         df = pd.read_csv('{}'.format(filename), low_memory=False)
@@ -42,7 +50,12 @@ def get_dataframe_from_file(filename):
 
 
 def check_format(df, file_type='statements'):
-    """This function checks if dataframe contains the expected columns before concatanation."""
+    """
+    This function checks if dataframe contains the expected columns before concatenation.
+    :param df: dataframe
+    :param file_type: concepts or statements (default value) string
+    :return:
+    """
 
     if file_type == 'concepts':
         try:
@@ -65,6 +78,16 @@ def check_format(df, file_type='statements'):
 
 
 def add_elem_dictionary2(dictionary, key, elem, repet = False):
+    """
+    This functions adds an element to a passed key and dictionary. \
+    With the repet paramenter the user can set if value elements can be redundant in the value list ( repet = True )\
+    or not ( repet = False ).
+    :param dictionary: dictionary to update
+    :param key: key string
+    :param elem: new element string
+    :param repet: False (as default value) or True
+    :return: updated dictionary
+    """
     if key in dictionary:
         aux = dictionary.get(key)
         if repet:
@@ -80,6 +103,12 @@ def add_elem_dictionary2(dictionary, key, elem, repet = False):
 
 
 def add_one_dictionary2(dictionary, key):
+    """
+    This functions increases by one the counter value in the passed key and dictionary.
+    :param dictionary: dictionary to update
+    :param key: key string
+    :return: updated dictionary
+    """
     if key in dictionary:
         aux = dictionary.get(key)
         dictionary[key] = aux + 1 
@@ -88,6 +117,16 @@ def add_one_dictionary2(dictionary, key):
     return dictionary
     
 def add_elem_with_dictionary(dictionary, key, elem, repeat = False):
+    """
+    This functions adds an element to a passed key and dictionary. \
+    With the repet paramenter the user can set if value elements can be redundant in the value list ( repeat = True )\
+    or not ( repeat = False ). This is a more efficient function than add_elem_dictionary2().
+    :param dictionary: dictionary to update
+    :param key: key string
+    :param elem: new element string
+    :param repeat: False (as default value) or True
+    :return: updated dictionary
+    """
     if not repeat:
         aux = dictionary.get(key, {}) 
         aux[elem] = 1 
@@ -99,6 +138,13 @@ def add_elem_with_dictionary(dictionary, key, elem, repeat = False):
     return dictionary
 
 def add_one_dictionary(dictionary, key):
+    """
+    This functions increases by one the counter value in the passed key and dictionary. \
+    This is a more efficient function than add_one_dictionary2().
+    :param dictionary: dictionary to update
+    :param key: key string
+    :return: updated dictionary
+    """
     aux = dictionary.get(key, 0)
     dictionary[key] = aux + 1 
     return dictionary

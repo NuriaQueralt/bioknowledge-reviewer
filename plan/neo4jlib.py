@@ -51,7 +51,13 @@ today = datetime.date.today()
 
 
 def save_neo4j_files(object, neo4j_path, file_type = 'statements'):#(graph_l, ):
-    """This function save the neo4j graph files in CSV format into the neo4j import directory."""
+    """
+    This function saves the neo4j graph files in CSV format into the neo4j import directory.
+    :param object: graph nodes or edges dataframe
+    :param neo4j_path: path to neo4j directory string
+    :param file_type: statements (default value) or concepts string
+    :return: None object
+    """
 
     # path to neo4j/
     # path = os.getcwd() + "/neo4j"
@@ -85,7 +91,11 @@ def save_neo4j_files(object, neo4j_path, file_type = 'statements'):#(graph_l, ):
 ### FORMAT NEO4J
 
 def get_statements(edges):
-    """This function returns the statements neo4j file format."""
+    """
+    This function returns the statements neo4j file format.
+    :param edges: edges dataframe
+    :return: neo4j statements dataframe
+    """
 
     # check header
     statements = check_format(edges)
@@ -105,7 +115,11 @@ def get_statements(edges):
 
 
 def get_concepts(nodes):
-    """This function returns the concepts neo4j file format."""
+    """
+    This function returns the concepts neo4j file format.
+    :param nodes: nodes dataframe
+    :return: neo4j concepts dataframe
+    """
 
     # check header
     concepts = check_format(nodes, file_type='concepts')
@@ -124,7 +138,11 @@ def get_concepts(nodes):
 
 
 def do_import(neo4j_path):
-    """This function executes the import of the graph into the neo4j server instance."""
+    """
+    This function executes the import of the graph into the neo4j server v3.0 instance.
+    :param neo4j_path: path to neo4j directory string
+    :return: None object
+    """
 
     try:
         #graph_version = 'v{}'.format(today)

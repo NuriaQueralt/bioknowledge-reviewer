@@ -54,7 +54,12 @@ if not os.path.isdir(path): os.makedirs(path)
 
 
 def print_graph(graph, filename):
-    """This function save the graph into a CSV file."""
+    """
+    This function saves the graph into a CSV file.
+    :param graph: graph dictionary
+    :param filename: file_name string
+    :return: None object
+    """
 
     # print output file
     path = os.getcwd() + '/graph'
@@ -71,7 +76,16 @@ def print_graph(graph, filename):
 
 
 def graph_nodes(curation,monarch,transcriptomics,regulation,input_from_file=False):
-    """This function generates graph nodes."""
+    """
+    This function generates graph nodes. The user can choose to input individual networks from file or \
+    from the workflow.
+    :param curation: curation graph edges
+    :param monarch: monarch edges
+    :param transcriptomics: rna graph edges
+    :param regulation: regulation edges
+    :param input_from_file: False (default value) or True
+    :return: graph nodes list, regulation graph (merged) dataframe edges
+    """
 
     ## Edges
 
@@ -243,7 +257,16 @@ def graph_nodes(curation,monarch,transcriptomics,regulation,input_from_file=Fals
 
 # BUILD GRAPH
 def build_edges(curation,monarch,transcriptomics,regulation,input_from_file=False):
-    """This function builds edges"""
+    """
+    This function builds the edges graph. The user can choose to input individual networks from file or \
+    from the workflow.
+    :param curation: curation graph edges object list
+    :param monarch: monarch graph edges object list
+    :param transcriptomics: rna graph edges object list
+    :param regulation: regulation graph edges object list
+    :param input_from_file: False (default value) or True
+    :return: edges dataframe
+    """
 
     ## Edges
 
@@ -333,7 +356,17 @@ def build_edges(curation,monarch,transcriptomics,regulation,input_from_file=Fals
 
 
 def build_nodes(statements,curation,monarch,transcriptomics,regulation,input_from_file=False):
-    """This function builds graph nodes."""
+    """
+    This function builds the nodes graph. The user can choose to input individual networks from file or \
+    from the workflow.
+    :param statements: graph edges dataframe
+    :param curation: curation graph nodes object list
+    :param monarch: monarch graph nodes object list
+    :param transcriptomics: rna graph nodes object list
+    :param regulation: regulation graph nodes object list
+    :param input_from_file: False (default value) or True
+    :return: nodes dataframe
+    """
 
     # load networks
     print('\nPreparing networks...')
@@ -438,7 +471,7 @@ def build_nodes(statements,curation,monarch,transcriptomics,regulation,input_fro
 
 # USER FUNCTIONS
 
-def build(network_list):
+def _build(network_list):
     """This function formats, integrates and concats a list of networks passed."""
 
     # print of starting the process
@@ -454,13 +487,13 @@ def build(network_list):
 
     return graph
 
-def edges(graph):
+def _edges(graph):
     """This function retrieves graph edges."""
 
     return graph.get('edges')
 
 
-def nodes(graph):
+def _nodes(graph):
     """This function retrieves graph edges."""
 
     return graph.get('nodes')

@@ -35,7 +35,11 @@ today = datetime.date.today()
 
 
 def parse_path( path ):
-    """This function parses neo4j results."""
+    """
+    This function parses neo4j results.
+    :param path: neo4j path object
+    :return: parsed path dictionary
+    """
 
     out = {}
     out['Nodes'] = []
@@ -61,7 +65,18 @@ def parse_path( path ):
 
 
 def query(genelist, queryname='', pwdegree='50', phdegree='20', format='json', port='7687'):
-    """This function queries the graph database."""
+    """
+    This function queries the graph database with the following specific ortho-phenotype query topology: \
+    '(source:GENE)-[:`RO:HOM0000020`]-(:GENE)--(ds:DISO)--(:GENE)-[:`RO:HOM0000020`]-(:GENE)--(pw:PHYS)--(target:GENE)'\
+    From an input gene list, it queries all possible source-target pairwise queries.
+    :param genelist: gene list
+    :param queryname: output file name string
+    :param pwdegree: pathway node degree threshold string ('50' as default value)
+    :param phdegree: phenotype node degree threshold string ('20' as default value)
+    :param format: yaml or json output file format string  ('json' as default value)
+    :param port: neo4j bolt port string ('7687' as default value)
+    :return: None object
+    """
 
     # initialize neo4j
     try:
@@ -137,7 +152,16 @@ def query(genelist, queryname='', pwdegree='50', phdegree='20', format='json', p
     return sys.stderr.write("\nHypothesis generator has finished. {} QUERIES completed.\n".format(len(outputAll)))
 
 def open_query(genelist, queryname='', format='json', port='7687'):
-    """This function performs open queries to the graph database."""
+    """
+    This function performs open queries to the graph database with the following query topology:\
+    '(source:GENE)-[:`RO:HOM0000020`]-(:GENE)--(:DISO)--(:GENE)-[:`RO:HOM0000020`]-(:GENE)--(:PHYS)--(target:GENE)'
+    From an input gene list, it queries all possible source-target pairwise queries.
+    :param genelist: gene list
+    :param queryname: output file name string
+    :param format: yaml or json output file format string  ('json' as default value)
+    :param port: neo4j bolt port string ('7687' as default value)
+    :return: None object
+    """
 
     # initialize neo4j
     try:

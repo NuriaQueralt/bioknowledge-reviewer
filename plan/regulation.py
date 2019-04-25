@@ -34,7 +34,13 @@ if not os.path.isdir(graph): os.makedirs(graph)
 # TODO: check functions
 
 def unique_list(dictionary, key, value):
-    """This function adds non redundant values into a list value in a passed key dictionary."""
+    """
+    This function adds non redundant values from an input list into the values list of a passed key and dictionary.
+    :param dictionary: dictionary to update
+    :param key: key string
+    :param value: input list
+    :return: updated dictionary
+    """
     
     genes = dictionary.get(key,set())
     for gene in value:
@@ -45,7 +51,13 @@ def unique_list(dictionary, key, value):
 
 
 def add_gene(dictionary, key, element):
-    """This function prepares tf-gene_list dictionary: {symbol: [entrez]}."""
+    """
+    This function prepares tf-gene_list dictionary: {symbol: [entrez]}.
+    :param dictionary: dictionary to update
+    :param key: key string
+    :param element: value string
+    :return: updated dictionary
+    """
 
     aux = dictionary.get(key)
     aux = set(aux)
@@ -56,7 +68,15 @@ def add_gene(dictionary, key, element):
 
 
 def add_elem_dictionary(dictionary, key, elem, repet = False):
-    """This function add elements to a dictionary key."""
+    """
+    This function adds elements to a dictionary key. The value list can be set \
+    whether to include redundant values (repet=True) or not (repet=False).
+    :param dictionary: dictionary to update
+    :param key: key string
+    :param elem: value string
+    :param repet: False (default value) or True
+    :return: updated dictionary
+    """
 
     if key in dictionary:
         aux = dictionary.get(key)
@@ -75,7 +95,13 @@ def add_elem_dictionary(dictionary, key, elem, repet = False):
 
 # check functions
 def format_exp(dictionary, key, element):
-    """This function creates a dictionary where values are lists of items that can be redundant."""
+    """
+    This function creates a dictionary where values are lists of items that can be redundant.
+    :param dictionary: dictionary to update
+    :param key: key string
+    :param element: value string
+    :return: updated dictionary
+    """
 
     aux = dictionary.get(key, [])
     aux.append(element)
@@ -85,13 +111,16 @@ def format_exp(dictionary, key, element):
 
 
 def check_msigdb_geneset_name_format(data):
-    """This function checks the format of gene set names.
+    """
+    This function checks the format of gene set names.
     Nomenclature for TF binding sites sequences: TF symbol + :
         * _01: binding site id (consecutive number)
         * _Q2: binding site id (quality)
         * _Q6_01: binding site id
         * _DECAMER_Q2: binding site id
         * _B: binding site id (consensus)
+    :param data: MSigDB raw gene_set_name-geneset edges data
+    :return: None object
     """
 
     maxlen = 0
@@ -111,7 +140,9 @@ def check_msigdb_geneset_name_format(data):
 
     #return
 
-## Prepare tftargets data: from regulation/tftargets/save_data.R
+
+## Prepare individual raw TF-gene networks
+# Prepare tftargets data: from regulation/tftargets/save_data.R
 # TODO: function to prepare tftargets data with R
 
 #def prepare_tftargets_data():
@@ -120,9 +151,14 @@ def check_msigdb_geneset_name_format(data):
 
     #return
 
-## Prepare msigdb data: from regulation/msigdb/exploration.ipynb
+
 def prepare_msigdb_data(gmt_path):
-    """This function prepares MSigDB data."""
+    """
+    This function prepares MSigDB raw data for TF-gene integration.
+    It saves the MSigDB raw TF-gene network as JSON file.
+    :param gmt_path: path to C3:TFT entrez GMT data file string
+    :return: None object
+    """
 
     # path to write data
     path = os.getcwd() + '/regulation/msigdb/out'
@@ -204,9 +240,13 @@ def prepare_msigdb_data(gmt_path):
     # return data
 
 
-## Prepare regulation data: regulation/regulation.ipynb
+## Prepare regulation data
 def load_tf_gene_edges():
-    """This function loads raw networks from JSON files into dict variables."""
+    """
+    This function loads individually each database raw network from JSON files into a dict variable.
+    Each dictionary contains TFs as keys and target genes list as values.
+    :return: tred, encode, neph, trrust and msigdb individual raw networks dictionaries (in this order) as tuple
+    """
 
     # load json files data
     #json_tftargets_path = '/home/nuria/workspace/ngly1-graph/regulation/tftargets/data'
@@ -233,10 +273,14 @@ def load_tf_gene_edges():
 
 # normalize to entrez, hgnc ids
 def get_gene_id_normalization_dictionaries(data):
-    """This function gets gene ID dictionaries to normalize network gene IDs to gene symbol, entrez and HGNC IDs.
+    """
+    This function gets gene ID dictionaries to normalize network gene IDs to gene symbol, entrez and HGNC IDs. \
     In the raw networks there is a mismatch of ID schemes:
         * **symbols**: TF, trrust.genes
         * **entrez**: tred.genes, encode.genes, neph.genes, msigdb.genes
+    :param data: (tred, encode, neph, trrust, msigdb) individual raw networks dictionaries (in this order) as tuple \
+    from the load_tf_gene_edges() function
+    :return: (symbol2entrez_dict, symbol2hgnc_dict, entrez2hgnc_dict, entrez2symbol_dict) dictionaries tuple
     """
 
     # individual raw networks
@@ -360,8 +404,10 @@ def get_gene_id_normalization_dictionaries(data):
 
 # save edges
 def prepare_data_edges(data,dicts):
-    """This function prepares each individual regulatory dataset as edges.
-    Edge (network) format:
+    """
+    This function prepares each individual regulatory dataset as edges. It normalizes and stores them \
+     separately as tftargets and msigdb edges.
+    Edges (network) data structure:
 
     | source | dataset | tf_source_id | gene_source_id | source_uri | s_entrez_id | s_hgnc_id | s_symbol | p_id | \
     p_label | o_entrez_id | o_hgnc_id | o_symbol | reference_id | reference_date |
@@ -382,6 +428,11 @@ def prepare_data_edges(data,dicts):
     13. `o_symbol`: str object label
     14. `reference_id`: str pmid
     15. `reference_date`: str yyyy-mm-dd
+    :param data: (tred, encode, neph, trrust, msigdb) individual raw networks dictionaries (in this order) as tuple \
+    from the load_tf_gene_edges() function
+    :param dicts: (symbol2entrez_dict, symbol2hgnc_dict, entrez2hgnc_dict, entrez2symbol_dict) dictionaries tuple \
+    from the get_gene_id_normalization_dictionaries() function
+    :return: (tftargets, msigdb) edges dataframes tuple
     """
 
     # raw networks
@@ -630,7 +681,11 @@ def prepare_data_edges(data,dicts):
 
 # prepare regulation edges to build the graph
 def prepare_regulation_edges(data_edges):
-    """This function prepares and compiles all individual data edges into regulation edges to build the graph."""
+    """
+    This function prepares and compiles all individual data edges into regulation edges to build the graph.
+    :param data_edges: (tftargets, msigdb) edges dataframes tuple
+    :return: network dataframe
+    """
 
     # load individual regulation networks
     tftargets = data_edges[0]
@@ -665,7 +720,11 @@ def prepare_regulation_edges(data_edges):
 ## build edges and nodes files
 # build edges
 def build_edges(edges):
-    """This function builds the edges network file."""
+    """
+    This function builds the edges network with the graph schema.
+    :param edges: network dataframe from the prepare_regulation_edges() function
+    :return: graph edges object as a list of dictionaries, where every dictionary is a record
+    """
 
     # give graph format
     curie_dct = {
@@ -725,7 +784,11 @@ def build_edges(edges):
 
 # build nodes
 def build_nodes(edges):
-    """This function builds the nodes network file."""
+    """
+    This function builds the nodes network with the graph schema.
+    :param edges: network dataframe from the prepare_regulation_edges() function
+    :return: graph nodes object as a list of dictionaries, where every dictionary is a record
+    """
 
     # retrieve node attributes from biothings and build dictionary
     # from biothings we retrieve: name (new attribute for short description), alias (synonyms), summary (description)
@@ -847,7 +910,7 @@ def build_nodes(edges):
 # NETWORK MANAGEMENT FUNCTIONS
 #TODO: prepare graph functions to get list of nodes, edges..
 
-def print_nodes(nodes, filename):
+def _print_nodes(nodes, filename):
     """This function save nodes into a CSV file."""
 
     # print output file
