@@ -2,10 +2,11 @@
 This is a Python library to create structured reviews integrating knowledge and data from different types. We built a library for a dynamic, interactive and evolving network construction and hypothesis generation process. It is designed to build the review network based on the research question hypothesis. In Figure workflow we show the workflow of network-based review and hypothesis generation process. 
 
 ##### Prerequisites
-Python 3. We provide a requirements.txt file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
+* Python 3. We provide a requirements.txt file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
 
+* Neo4j Community Server Edition 3.0.3.
 
-Neo4j needs Java 8. It won't work with superior java versions.
+* Neo4j needs Java 8. It won't work with superior java versions.
 
 ### Input / Output
 #### Input
@@ -64,7 +65,7 @@ mondo_class module contains functions to manage the MONDO ontology.
 ### Usage
 This sections showcase examples of use.
 
-To run the library to reproduce the generation of the NGLY1 Deficiency Knowledge Graph v3.2, the user can use either the jupyter notebook or the python script provided in this repository. To run the jupyter notebook, the user should have installed the Jupyter framework and the ipython 3 kernel.
+To run the library to reproduce the generation of the NGLY1 Deficiency Knowledge Graph v3.2, the user can use either the jupyter notebook or the python script provided in this repository [graph_v3.2_v20190312.ipynb](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/graph_v3.2_v20190312.ipynb). To run the jupyter notebook, the user should have installed the Jupyter framework and the ipython 3 kernel.
 
 
 #### 1. Build a review knowledge graph
@@ -229,7 +230,7 @@ Set up a Neo4j server instance and load the review knowledge graph into the data
 
 ~~~~
 # import to Neo4j graph interface
-## get edges/nodes and files for Neo4j
+## create edges/nodes files for Neo4j
 edges_df = utils.get_dataframe(edges)
 nodes_df = utils.get_dataframe(nodes)
 statements = neo4jlib.get_statements(edges_df)
@@ -246,6 +247,32 @@ neo4jlib.save_neo4j_files(concepts, neo4j_path, file_type = 'concepts')
 # import graph into Neo4j
 neo4jlib.do_import(neo4j_path)
 ~~~~
+
+
+Alternatively, you can get edges and nodes from file. This is useful in case you want to explore hypotheses with another graph you created before. The workflow should then be:
+
+~~~~
+# import to Neo4j graph interface
+## create edges/nodes files for Neo4j
+### get edges and nodes from file
+graph_path = '~/workspace/ngly1-graph/regulation'
+edges = utils.get_dataframe_from_file('{}/graph/graph_edges_v2019-01-18.csv'.format(graph_path))
+nodes = utils.get_dataframe_from_file('{}/graph/graph_nodes_v2019-01-18.csv'.format(graph_path))
+statements = neo4jlib.get_statements(edges)
+concepts = neo4jlib.get_concepts(nodes)
+print('statements: ', len(statements))
+print('concepts: ',len(concepts))
+
+## import the graph into neo4j
+# save files into neo4j import dir
+neo4j_path = './neo4j-community-3.0.3'
+neo4jlib.save_neo4j_files(statements, neo4j_path, file_type='statements')
+neo4jlib.save_neo4j_files(concepts, neo4j_path, file_type='concepts')
+
+# import graph into neo4j
+neo4jlib.do_import(neo4j_path)
+~~~~
+
 
 #### 3. Generate hypotheses and summarize them
 Generate and summarize hypotheses by querying the graph in Neo4j using the Cypher query language.
