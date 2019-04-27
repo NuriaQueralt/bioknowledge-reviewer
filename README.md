@@ -2,13 +2,13 @@
 This is a Python library to create structured reviews integrating knowledge and data from different types. We built a library for a dynamic, interactive and evolving network construction and hypothesis generation process. It is designed to build the review network based on the research question hypothesis. In Figure workflow we show the workflow of network-based review and hypothesis generation process. 
 
 ##### Prerequisites
-* Python 3. We provide a requirements.txt file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
+* Python 3. We provide a [requirements.txt](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/requirements.txt) file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
 
-* Neo4j Community Server Edition 3.0.3.
+* Neo4j Community Server Edition 3.0.3. We provide an [instance](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/tree/master/plan/neo4j-community-3.0.3) of this server edition. The server is already configured with authentication disabled and default ports set, which are `7474` for http connection and `7687` for bolt connection. Changes in the Neo4j configuration and the server edition can affect the performance of the library.
 
 * Neo4j needs Java 8. It won't work with superior java versions.
 
-### Input / Output
+## Input / Output
 #### Input
 Edges to build the structured review.
 
@@ -28,39 +28,87 @@ Structured review network.
 http://edamontology.org/data_2600
 
 
-### Library architecture
+## Library architecture
 The library is currently under testing.  
 
-#### Edges
+### Review graph creation
+#### 1. Edges
+First, we prepare all reviewed edges to be integrated to the review knoweldge graph schema. 
+
 ##### Curation
-Edges from curation.
+Edges from curation. Preparation of edges from biocuration by the module:
+
+~~~~
+curation.py
+~~~~
 
 ##### Monarch
-Edges from the Monarch Knowledge Graph.
+Edges from the Monarch Knowledge Graph. Preparation of edges from Monarch by the module:
+
+~~~~
+monarch.py
+~~~~
 
 ##### Transcriptomics
-Edges from RNA-seq graph.
+Edges from RNA-seq graph. Preparation of RNA-seq data edges by the module:
+
+~~~~
+transcriptomics.py
+~~~~
 
 ##### Regulation
-Edges from regulation graph.
+Edges from regulation graph. Preparation of the transcription factor regulation edges by the module:
 
-#### Graph
-Build the review network.
+~~~~
+regulation.py
+~~~~
 
-#### Neo4jlib
-Store the network in the Neo4j graph database.
+#### 2. Graph
+Second, we build the review knowledge graph integrating all the reviewed edges prepared in the prior step by the module:
 
-#### Hypothesis
-Compute review-based explanations.
+~~~~
+graph.py
+~~~~
 
-#### Summary
-Summarize extracted explanations.
+
+### Hypothesis discovery
+#### 3. Neo4jlib
+Third, we store the network in the Neo4j graph database via the module:
+
+~~~~
+neo4jlib.py
+~~~~
+
+#### 4. Hypothesis
+Forth, we compute review-based explanations by querying the graph with the module:
+
+~~~~
+hypothesis.py
+~~~~
+
+#### 5. Summary
+Fifth, we summarize extracted explanations via the module:
+
+~~~~
+summary.py
+~~~~
+
+### Support
+General support functions.
 
 #### Utils
-Useful functions for the library.
+Useful functions for the library by the module:
+
+~~~~
+utils.py
+~~~~
 
 #### Ontologies
 mondo_class module contains functions to manage the MONDO ontology.
+
+~~~~
+mondo_class.py
+~~~~
 
 ### Usage
 This sections showcase examples of use.
@@ -69,7 +117,19 @@ To run the library to reproduce the generation of the NGLY1 Deficiency Knowledge
 
 
 #### 1. Build a review knowledge graph
-Build the network by compiling edges.
+Build the network by compiling edges. *Input* directories:
+
+* curation/
+* transcriptomics/
+* regulation/
+* ontologies/
+
+##### 1.0 Set up: the virtual environment, the Neo4j server and import the library
+Set the environment using the provided `requirements.txt` file (see the _Prerequisits_ section on top). We provide a Neo4j server instance already configured, check that the folder is in your working directory. Then, import the library:
+
+~~~~
+import transcriptomics, regulation, curation, monarch, graph, neo4jlib, hypothesis, summary, utils
+~~~~
 
 ##### 1.1 Decompress the MONDO OWL file:
 ~~~~ 
@@ -80,7 +140,7 @@ bzip2 -d ontologies/mondo.owl.bz2
 First, prepare individual networks with graph schema to build the graph.
 
 ###### CURATION EDGES
-Preparing curated network.
+Preparing curated network. *Output*: Curated network in `curation` directory. Curated network with the graph schema in `graph` directory.
 
 ~~~~
 # read network from drive and concat all curated statements
@@ -101,7 +161,7 @@ curation_nodes = curation.build_nodes(curated_concepts)
 ~~~~
 
 ###### MONARCH EDGES
-Preparing Monarch network.
+Preparing Monarch network. *Output*: Individual network in `monarch` directory. Monarch graph edges in `graph` directory.
 
 ~~~~
 # prepare data to graph schema
@@ -148,7 +208,7 @@ monarch_nodes = monarch.build_nodes(monarch_network)
 ~~~~
 
 ###### TRANSCRIPTOMICS EDGES
-Preparing transcriptomics network.
+Preparing transcriptomics network. *Output*: Individual networks in `transcriptomics` directory. Transcriptomics graph edges in `graph` directory.
 
 ~~~~
 # prepare data to graph schema
@@ -164,7 +224,7 @@ rna_nodes = transcriptomics.build_nodes(rna_network)
 ~~~~
 
 ###### REGULATION EDGES
-Preparing regulation network.
+Preparing regulation network. *Output*: Individual networks in `regulation` directory. Regulation graph edges in `graph` directory.
 
 ~~~~
 # prepare msigdb data
@@ -185,7 +245,7 @@ reg_nodes = regulation.build_nodes(reg_network)
 ~~~~
 
 ##### 1.3 Build the review knowledge graph 
-Then, compile individual networks and build the graph.
+Then, compile individual networks and build the graph. *Output*: review knowledge graph in `graph` directory.
 For graph v3.2 we concatenated curation, monarch and transcriptomics networks. Then, the regulation network was merged with this aggregated network. The resulting merged or also called graph regulation network was concatenated to the aggregated network to build the graph.Finally, extra connectivity from Monarch was retrieved and added to the graph.
 
 ~~~~
@@ -226,7 +286,7 @@ nodes = graph.build_nodes(
 ~~~~
 
 #### 2. Store into a Neo4j graph database instance
-Set up a Neo4j server instance and load the review knowledge graph into the database.
+Set up a Neo4j server instance and load the review knowledge graph into the database. *Output*: Neo4j format edges in `neo4j` and `Neo4j-community-v3.0.3` import directories.
 
 ~~~~
 # import to Neo4j graph interface
@@ -278,7 +338,7 @@ neo4jlib.do_import(neo4j_path)
 Generate and summarize hypotheses by querying the graph in Neo4j using the Cypher query language.
 
 ##### 3.1 Get hypotheses
-Query for hypotheses (or paths) between two nodes in the graph that retrives mechanistic explanations based on ortho-phenotype information from model organisms. The following example will query for paths between the NGLY1 human gene and the AQP1 human gene in the current review. 
+Query for hypotheses (or paths) between two nodes in the graph that retrives mechanistic explanations based on ortho-phenotype information from model organisms. The following example will query for paths between the NGLY1 human gene and the AQP1 human gene in the current review. *Output*: retrieved paths in `hypothesis` directory. 
 
 ~~~~
 # get orthopheno paths
@@ -290,7 +350,7 @@ hypothesis.query(seed, queryname='ngly1_aqp1', pwdegree='1000', phdegree='1000',
 ~~~~
 
 ##### 3.2 Get hypotheses summaries
-Get summaries from the resulting paths. These functions store tabular results in output files.
+Get summaries from the resulting paths. These functions store tabular results in output files. *Output*: edges in `summaries` directory.
 
 ~~~~
 # get summary
@@ -309,8 +369,18 @@ summary.edge_types(data_parsed)
 ~~~~
 
 
-#### License
+## Contributors
+Mitali Tambe, Hudson Freeze, Andrew I. Su
+
+## Collaborators
+* Scripps Research
+* Sanford Burnham Prebys Medical Discovery Institute
+
+## License
 GPL v3.0
 
-#### DOI
+## Acknowledgments
+To the NGLY1 Deficiency community for sharing their expert knowledge. To the Scripps Research for the infrastructure. To the DBCLS and BioHackathon 2018 sponsors and organizers to select and allow this project improvement such as to measure their FAIRness.
+
+## DOI
 [![DOI](https://zenodo.org/badge/132827298.svg)](https://zenodo.org/badge/latestdoi/132827298)

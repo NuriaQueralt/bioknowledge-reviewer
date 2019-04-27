@@ -84,7 +84,7 @@ def query(genelist, queryname='', pwdegree='50', phdegree='20', format='json', p
 
     # initialize neo4j
     try:
-        driver = GraphDatabase.driver("bolt://localhost:{}".format(port), auth=("neo4j", "xena"))
+        driver = GraphDatabase.driver("bolt://localhost:{}".format(port), auth=("neo4j", "ngly1"))
     except neo4j.exceptions.ServiceUnavailable:
         raise
 
@@ -170,7 +170,7 @@ def open_query(genelist, queryname='', format='json', port='7687'):
 
     # initialize neo4j
     try:
-        driver = GraphDatabase.driver("bolt://localhost:{}".format(port), auth=("neo4j", "xena"))
+        driver = GraphDatabase.driver("bolt://localhost:{}".format(port), auth=("neo4j", "ngly1"))
     except neo4j.exceptions.ServiceUnavailable:
         raise
 
