@@ -303,7 +303,7 @@ nodes = graph.build_nodes(
 ~~~~
 
 #### 2. Store into a Neo4j graph database instance
-Set up a Neo4j server instance and load the review knowledge graph into the database. *Output*: Neo4j format edges in `neo4j` and `Neo4j-community-v3.0.3` import directories.
+Set up a Neo4j server instance and load the review knowledge graph into the database. *Output*: Neo4j format edges in `neo4j` and `Neo4j-community-v3.0.3` import directories. See a tar.gz sample of Neo4j community edition v3.0.3 at [neo4j-dirs]().
 
 ~~~~
 # import to Neo4j graph interface
