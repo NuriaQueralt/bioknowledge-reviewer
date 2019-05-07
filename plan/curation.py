@@ -65,6 +65,7 @@ def prepare_data_edges(curated_df):
     :return: pre-processed edges dataframe
     """
 
+    print('\nThe function "prepare_data_edges()" is running...')
     print('\nPreparing curated network...')
     # concat curation edges
     #read_network()
@@ -95,12 +96,14 @@ def prepare_data_edges(curated_df):
 
     # save curated edges file at curation/
     #TODO: abstract this function
-    print('\nSave curated network at curation/...')
+    print('\nSaving curated network at curation/...')
     path = os.getcwd() + "/curation"
     if not os.path.isdir(path): os.makedirs(path)
     curated_df.fillna('NA').to_csv('{}/curated_edges_v{}.csv'.format(path, today), index=False)
-    print('Curated edges data structure shape:', curated_df.shape)
-    print('Curated edges data structure fields:', curated_df.columns)
+    print('\n*Curated edges data structure shape:', curated_df.shape)
+    print('*Curated edges data structure fields:', curated_df.columns)
+    print('\nThe curated edges are saved at: {}/curated_edges_v{}.csv\n'.format(path, today))
+    print('\nFinished prepare_data_edges().\n')
 
     return curated_df
 
@@ -114,6 +117,7 @@ def prepare_data_nodes(curated_df):
     :return: pre-processed nodes dataframe
     """
 
+    print('\nThe function "prepare_data_nodes()" is running...')
     print('\nPreparing curated nodes...')
     # concat curation nodes
     #read_network()
@@ -133,12 +137,14 @@ def prepare_data_nodes(curated_df):
 
     # save curated nodes file at curation/
     #TODO: abstract this function
-    print('\nSave curated nodes at curation/...')
+    print('\nSaving curated nodes at curation/...')
     path = os.getcwd() + "/curation"
     if not os.path.isdir(path): os.makedirs(path)
     curated_df.fillna('NA').to_csv('{}/curated_nodes_v{}.csv'.format(path, today), index=False)
-    print('Curated nodes data structure shape:', curated_df.shape)
-    print('Curated nodes data structure fields:', curated_df.columns)
+    print('\n*Curated nodes data structure shape:', curated_df.shape)
+    print('*Curated nodes data structure fields:', curated_df.columns)
+    print('\nThe curated nodes are saved at: {}/curated_nodes_v{}.csv\n'.format(path, today))
+    print('\nFinished prepare_data_nodes().\n')
 
     return curated_df
 
@@ -342,6 +348,7 @@ def prepare_curated_edges(edges_df):
     :return: edges dataframe
     """
 
+    print('\nThe function "prepare_curated_edges()" is running...')
     print('\nPreparing curated edges to graph schema...')
     print('\nMapping genes to HGNC ID...')
     ## Normalize GENES: NCBI to HGNC
@@ -352,6 +359,7 @@ def prepare_curated_edges(edges_df):
 
     ## Normalize PROTEINS2GENES: add g2p network
     edges = normalize_genes_to_proteins_to_graph(edges, concept_dct)
+    print('\nFinished prepare_curated_edges().\n')
 
     return edges
 
@@ -364,6 +372,7 @@ def prepare_curated_nodes(curated_df):
     :return: nodes dataframe
     """
 
+    print('\nThe function "prepare_curated_nodes()" is running...')
     print('\nPreparing curated nodes to graph schema...')
     ## GENES: id normalization
     print('\nMapping genes to HGNC ID...')
@@ -377,6 +386,7 @@ def prepare_curated_nodes(curated_df):
     entrez = list(set(entrez))
 
     # api call
+    print('\n* Querying BioThings to map Entrez gene IDs to HGNC IDs...')
     mg = get_client('gene')
     df = mg.querymany(entrez, scopes='entrezgene', fields='HGNC', size=1, as_dataframe=True)
 
@@ -434,6 +444,7 @@ def prepare_curated_nodes(curated_df):
     symbols = list(curated_df.preflabel)
 
     # query biothings
+    print('\n* Querying BioThings to map gene symbols to name...')
     mg = get_client('gene')
     df = mg.querymany(symbols, scopes='symbol,alias', fields='name', size=1, as_dataframe=True)
 
@@ -457,6 +468,7 @@ def prepare_curated_nodes(curated_df):
                 uniprot.add(row['id'].split(':')[1])
 
     # api call
+    print('\n* Querying BioThings to map UniProt IDs to HGNC IDs, gene symbol, name, aliases, and description...')
     mg = get_client('gene')
     df = mg.querymany(uniprot, scopes='uniprot', fields='HGNC,symbol,name,alias,summary', size=1, as_dataframe=True)
 
@@ -484,6 +496,7 @@ def prepare_curated_nodes(curated_df):
 
     # drop duplicates *new*
     curated_df = curated_df.drop_duplicates(subset=['id'], keep='first')
+    print('\nFinished prepare_curated_nodes().\n')
 
     return curated_df
 
@@ -496,6 +509,7 @@ def build_edges(edges_df):
     :return: graph edges object as a list of dictionaries, where every dictionary is a record
     """
 
+    print('\nThe function "build_edges()" is running...')
     # give graph format
     edges_l = list()
     for row in edges_df.itertuples():
@@ -526,6 +540,8 @@ def build_edges(edges_df):
     print('\n* This is the size of the edges file data structure: {}'.format(pd.DataFrame(edges_l).shape))
     print('* These are the edges attributes: {}'.format(pd.DataFrame(edges_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(edges_l).head(1)))
+    print('\nThe curation network edges are built and saved at: {}/curated_graph_edges_v{}.csv\n'.format(path, today))
+    print('\nFinished build_edges().\n')
 
     return edges_l
 
@@ -537,6 +553,7 @@ def build_nodes(nodes_df):
     :return: graph nodes object as a list of dictionaries, where every dictionary is a record
     """
 
+    print('\nThe function "build_nodges()" is running...')
     # give graph format
     nodes_l = list()
     for row in nodes_df.itertuples():
@@ -562,6 +579,8 @@ def build_nodes(nodes_df):
     print('\n* This is the size of the nodes file data structure: {}'.format(pd.DataFrame(nodes_l).shape))
     print('* These are the nodes attributes: {}'.format(pd.DataFrame(nodes_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(nodes_l).head(1)))
+    print('\nThe curation network nodes are built and saved at: {}/curated_graph_nodes_v{}.csv\n'.format(path, today))
+    print('\nFinished build_nodes().\n')
 
     return nodes_l
 
@@ -620,6 +639,7 @@ def read_network(version=version):
     :return: curated edges dataframe, curated nodes dataframe
     """
 
+    print('\nThe function "read_network()" is running...')
     # concat all statements in the network
     print('\nReading and concatenating all curated statements in the network...')
     df_l = []
@@ -641,6 +661,7 @@ def read_network(version=version):
 
     nodes_df = pd.concat(df_l, ignore_index=True, join="inner")
     print('\n* Curation node files concatenated shape:', nodes_df.shape)
+    print('\nFinished read_network().\n')
 
     return network_df, nodes_df
 

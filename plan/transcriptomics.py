@@ -34,6 +34,7 @@ def read_data(csv_path):
     :return: rna dataframe
     """
 
+    print('\nThe function "read_data()" is running...')
     # import table S1 (dNGLY1 KO - transcriptomic profile)
     #csv_path = '~/workspace/ngly1-graph/regulation/ngly1-fly-chow-2018/data/supp_table_1.csv'
     data_df = pd.read_csv('{}'.format(csv_path))
@@ -46,6 +47,8 @@ def read_data(csv_path):
     if not os.path.isdir(path): os.makedirs(path)
     if not os.path.exists('{}/supp_table_1.csv'.format(path)):
         data_df.to_csv('{}/supp_table_1.csv'.format(path), index=False)
+    print('\nThe raw data is saved at: {}/supp_table_1.csv\n'.format(path))
+    print('\nFinished read_data().\n')
 
     return data_df
 
@@ -57,6 +60,7 @@ def clean_data(data_df):
     :return: expression dataframe
     """
 
+    print('\nThe function "clean_data()" is running. Keeping only data with FC > 1.5 and FDR < 5% ...')
     # subset [FC 1.5, FDR 5%] (386 = sum(96,290))
     up = data_df.query('log2FoldChange >= 0.57 and padj <= 0.05')
     down = data_df.query('log2FoldChange <= -0.57 and padj <= 0.05')
@@ -83,6 +87,8 @@ def clean_data(data_df):
     path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out'
     if not os.path.isdir(path): os.makedirs(path)
     subset_df.to_csv('{}/fc1.5_fdr5_transcriptome_fly.csv'.format(path), index=False)
+    print('\nThe clean data is saved at: {}/fc1.5_fdr5_transcriptome_fly.csv\n'.format(path))
+    print('\nFinished clean_data().\n')
 
     return subset_df
 
@@ -94,6 +100,7 @@ def prepare_data_edges(chow):
     :return: edges dataframe
     """
 
+    print('\nThe function "prepare_data_edges()" is running...')
     # read dataset
     # csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/fc1.5_fdr5_transcriptome_fly.csv'
     # chow = pd.read_csv('{}'.format(csv_path))
@@ -117,6 +124,9 @@ def prepare_data_edges(chow):
     print('\n* This is the size of the expression data structure: {}'.format(chow.shape))
     print('* These are the expression attributes: {}'.format(chow.columns))
     print('* This is the first record:\n{}'.format(chow.head(1)))
+    print('\nThe ngly1-fly-chow-2018 transcriptomics expression edges are saved at:'
+          ' {}/chow_fc1.5_fdr5_transcriptome_fly_edges.csv\n'.format(path))
+    print('\nFinished prepare_data_edges().\n')
 
     return chow
 
@@ -128,6 +138,7 @@ def prepare_rna_edges(chow):
     :return: network dataframe
     """
 
+    print('\nThe function "prepare_rna_edges()" is running...')
     # read individual datasets
     # csv_path = os.getcwd() + '/transcriptomics/ngly1-fly-chow-2018/out/chow_fc1.5_fdr5_transcriptome_fly_edges.csv'
     # chow = pd.read_csv('{}'.format(csv_path))
@@ -155,6 +166,8 @@ def prepare_rna_edges(chow):
     print('\n* This is the size of the edges data structure: {}'.format(edges.shape))
     print('* These are the edges attributes: {}'.format(edges.columns))
     print('* This is the first record:\n{}'.format(edges.head(1)))
+    print('\nThis data object is not saved.\n')
+    print('\nFinished prepare_rna_edges().\n')
 
     return edges
 
@@ -168,6 +181,7 @@ def build_edges(edges):
     :return: graph edges object as a list of dictionaries, where every dictionary is a record
     """
 
+    print('\nThe function "build_edges()" is running...')
     # give graph format
     curie_dct = {
         'ro': 'http://purl.obolibrary.org/obo/',
@@ -219,6 +233,8 @@ def build_edges(edges):
     print('\n* This is the size of the edges file data structure: {}'.format(pd.DataFrame(edges_l).shape))
     print('* These are the edges attributes: {}'.format(pd.DataFrame(edges_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(edges_l).head(1)))
+    print('\nThe transcriptomics network edges are built and saved at: {}/rna_edges_v{}.csv\n'.format(path,today))
+    print('\nFinished build_edges().\n')
 
     return edges_l
 
@@ -230,6 +246,7 @@ def build_nodes(edges):
     :return: graph nodes object as a list of dictionaries, where every dictionary is a record
     """
 
+    print('\nThe function "build_nodes()" is running...')
     # retrieve node attributes from biothings and build dictionary
     # from biothings we retrieve: name (new attribute for short description), alias (synonyms), summary (description).
     # symbols in this case come from the original source. otherwise are gonna be retrieved from biothings as well.
@@ -287,12 +304,16 @@ def build_nodes(edges):
         nodes_l.append(node)
 
     # save nodes file
-    pd.DataFrame(nodes_l).fillna('NA').to_csv('./graph/rna_nodes_v{}.csv'.format(today), index=False)
+    path = os.getcwd() + '/graph'
+    if not os.path.isdir(path): os.makedirs(path)
+    pd.DataFrame(nodes_l).fillna('NA').to_csv('{}/rna_nodes_v{}.csv'.format(path,today), index=False)
 
     # print nodes info
     print('\n* This is the size of the nodes file data structure: {}'.format(pd.DataFrame(nodes_l).shape))
     print('* These are the nodes attributes: {}'.format(pd.DataFrame(nodes_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(nodes_l).head(1)))
+    print('\nThe transcriptomics network nodes are built and saved at: {}/rna_nodes_v{}.csv\n'.format(path,today))
+    print('\nFinished build_nodes().\n')
 
     return nodes_l
 

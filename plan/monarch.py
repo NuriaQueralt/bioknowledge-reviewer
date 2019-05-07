@@ -225,7 +225,6 @@ def get_neighbours(seed):
     keepEdges = set()
     seedNodes = set(seed)
     for node in tqdm(seedNodes):
-    # for node in seedNodes:
         try:
             r_out, r_in = hit_monarch_api(node)
             sub_l, rel_l, obj_l, ref_l = get_edges_objects(r_out, r_in)
@@ -233,13 +232,11 @@ def get_neighbours(seed):
             keepEdges = keep_edges(keepEdges, edges)
             keepNodes = keep_nodes(keepNodes, edges, seedNodes)
 
-        except json.decoder.JSONDecodeError:
+        except (json.decoder.JSONDecodeError, simplejson.errors.JSONDecodeError, KeyError):
             pass
         except:
             print('error: {}'.format(sys.exc_info()[0]))
             print(node)
-
-    print('Finished get_neighbours...')
 
     return keepNodes, keepEdges
 
@@ -324,7 +321,6 @@ def get_connections(nodes):
 
     keep = set()
     for node in tqdm(nodes):
-    # for node in nodes:
         try:
             r_out, r_in = hit_monarch_api(node, 1000)
             sub_l, rel_l, obj_l, ref_l = get_edges_objects(r_out, r_in)
@@ -333,13 +329,11 @@ def get_connections(nodes):
             metaFilteredEdges = add_attributes(sub_l, rel_l, obj_l, filteredEdges)
             keep = keep_edges(keep, metaFilteredEdges)
 
-        except json.decoder.JSONDecodeError:
+        except (json.decoder.JSONDecodeError, simplejson.errors.JSONDecodeError, KeyError):
             pass
         except:
             print('error: {}'.format(sys.exc_info()[0]))
             print(node)
-
-    print('Finished get_connections...')
 
     return keep
 
@@ -354,10 +348,13 @@ def get_neighbours_list(seed_list):
     """
 
     # print executing function
-    print('\nThe function "get_neighbours_list()" is running, please keep calm and have some coffee...')
+    print('\nThe function "get_neighbours_list()" is running. Its runtime may take some minutes. '
+          'If you interrupt the process, you will lose all the nodes retrieved '
+          'and you should start over the execution of this function.')
 
     # get first layer of neighbour nodes
     neighbours, relations = get_neighbours(seed_list)
+    print('\nFinished get_neighbours_list().\n')
 
     return list(neighbours)
 
@@ -370,7 +367,9 @@ def get_orthopheno_list(seed_list):
     """
 
     # print executing function
-    print('\nThe function "get_orthopheno_list()" is running, please keep calm and have some coffee...')
+    print('\nThe function "get_orthopheno_list()" is running. Its runtime may take some hours. '
+          'If you interrupt the process, you will lose all the nodes retrieved '
+          'and you should start over the execution of this function.')
 
     # get first layer of neighbour nodes
     neighbours, relations = get_neighbours(seed_list)
@@ -386,6 +385,7 @@ def get_orthopheno_list(seed_list):
 
     nodes = set()
     nodes.update(orthologs, phenotypes)
+    print('\nFinished get_orthopheno_list().\n')
 
     return list(nodes)
 
@@ -399,13 +399,16 @@ def extract_edges(gene_list):
     """
 
     # print executing function
-    print('\nThe function "extract_edges()" is running, please keep calm and have some coffee...')
+    print('\nThe function "extract_edges()" is running. Its runtime may take some hours. '
+          'If you interrupt the process, you will lose all the edges retrieved '
+          'and you should start over the execution of this function.')
 
     # set network nodes: gene list provided by the user
     nodes = set(gene_list)
 
     # get connections
     network = get_connections(nodes)
+    print('\nFinished extract_edges(). To save the retrieved Monarch edges use the function "print_network()".\n')
 
     return network
 
@@ -413,7 +416,8 @@ def extract_edges(gene_list):
 def _print_network2(network, filename):
     """This function saves the Monarch expanded network into a CSV file. this function save connections file format into
     get-monarch-connections/"""
-    # TODO: this function only writes down the network connections format from monarch, originally stored into get-monarch-connections/
+    # TODO: this function only writes down the network connections format from monarch,
+    #  originally stored into get-monarch-connections/
 
     # print output file
     path = os.getcwd() + '/monarch'
@@ -454,7 +458,7 @@ def print_network(network, filename):
     if not os.path.isdir(path): os.makedirs(path)
     pd.DataFrame(edges).fillna('None').to_csv('{}/{}_v{}.csv'.format(path, filename, today), index=False)
 
-    return print("\nFile '{}/{}_v{}.csv' saved.".format(path, filename, today))
+    return print("\nSaving Monarch edges at: '{}/{}_v{}.csv'...\n".format(path, filename, today))
 
 
 def print_nodes(nodes, filename):
@@ -528,6 +532,7 @@ def build_edges(edges_df):
     :return: graph edges object as a list of dictionaries, where every dictionary is a record
     """
 
+    print('\nThe function "build_edges()" is running...')
     ## variables
     # if edges_df is not a df, it is a set of tuples, then convert to a df
     if isinstance(edges_df, set):
@@ -557,9 +562,20 @@ def build_edges(edges_df):
         'wormbase': 'http://www.wormbase.org/resources/paper/',
         'hpo': 'http://compbio.charite.de/hpoweb/showterm?id=HP:',
         'isbn-10': 'ISBN-10:',
-        'isbn-13': 'ISBN-13:'
+        'isbn-13': 'ISBN-13:',
         #'isbn-10': 'https://www.wikidata.org/wiki/Special:BookSources/',
         #'isbn-13': 'https://www.wikidata.org/wiki/Special:BookSources/'
+        'mondo': 'http://purl.obolibrary.org/obo/MONDO_',  # http://purl.obolibrary.org/obo/MONDO_0009026
+        'rgd': 'https://rgd.mcw.edu/rgdweb/report/reference/main.html?id=', \
+        # https://rgd.mcw.edu/rgdweb/report/reference/main.html?id=1600115
+        'omim': 'http://omim.org/entry/',  # http://omim.org/entry/61527
+        'sgd_ref': 'https://db.yeastgenome.org/reference/',  # https://db.yeastgenome.org/reference/S000124036
+        'genereviews': 'https://www.ncbi.nlm.nih.gov/books/',  # https://www.ncbi.nlm.nih.gov/books/NBK1526/
+        'omia': 'http://omia.angis.org.au/',  # http://omia.angis.org.au/000214/9913
+        'hgnc': 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:', \
+        # https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:7132
+        'orpha': 'Go to ORPHANET web site (https://www.orpha.net/) and in the search field introduce the Orpha number: '
+                 'ORPHA:' # no entry in monarch for that edge
     }
 
     # generate static variable: dbPrefixes_dct (source/database references)
@@ -603,9 +619,14 @@ def build_edges(edges_df):
                 try:
                     ref_uri = dbPrefixes_dct[ref.lower()]
                 except KeyError:
-                    print("Error:")
-                    print("In build_edges() method, update 'dbPrefixes_dct' variable with '{}'".format(ref))
-                    print(edge)
+                    print("Warning:")
+                    print('Detected a new reference database in Monarch not yet implemented in this module. '
+                          'The new source should be added to the dictionary of databases.'
+                          'Otherwise, the source CURIE cannot be translated to the corresponding URI.')
+                    print("In the build_edges() method, update 'dbPrefixes_dct' dictionary with '{}'".format(ref))
+                    print('The edge that includes this new reference database is {}'.format(edge))
+                    print('The method will continue to run without problem, writing the CURIE instead of the URI,'
+                          'until the dictionary is updated.')
                 ref_uri_l.append(ref_uri)
             # publication uri: pubmed_id or url
             else:
@@ -615,13 +636,20 @@ def build_edges(edges_df):
                 if ref.startswith('PMID'):
                     pmid_l.append(uriId)
                 # url
+                elif ref.lower().startswith('http'):
+                    ref_uri_l.append(ref)
                 else:
                     try:
                         ref_uri = uriPrefixes_dct[pref.lower()] + uriId
                     except KeyError:
-                        print("Error:")
-                        print("In build_edges() method, update 'uriPrefixes_dct' variable with '{}'".format(pref))
-                        print(edge)
+                        print("Warning:")
+                        print('Detected a new reference source in Monarch not yet implemented in this module. '
+                              'The new source should be added to the dictionary of sources.'
+                              'Otherwise, the source CURIE cannot be translated to the corresponding URI.')
+                        print("In the build_edges() method, update 'uriPrefixes_dct' dictionary with '{}'".format(pref))
+                        print('The edge that includes this new reference source is {}'.format(edge))
+                        print('The method will continue to run without problem, writing the CURIE instead of the URI,'
+                              'until the dictionary is updated.')
                     ref_uri_l.append(ref_uri)
         # create multi-term pubmed url
         if len(pmid_l):
@@ -666,6 +694,8 @@ def build_edges(edges_df):
     print('\n* This is the size of the edges file data structure: {}'.format(pd.DataFrame(edges_l).shape))
     print('* These are the edges attributes: {}'.format(pd.DataFrame(edges_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(edges_l).head(1)))
+    print('\nThe Monarch network edges are built and saved at: {}/monarch_edges_v{}.csv\n'.format(path,today))
+    print('\nFinished build_edges().\n')
 
     return edges_l
 
@@ -677,6 +707,7 @@ def build_nodes(edges_df):
     :return: graph nodes object as a list of dictionaries, where every dictionary is a record
     """
 
+    print('\nThe function "build_nodes()" is running...')
     # build semantic groups dictionary
     # collide concepts in a concept dict
     concept_dct = dict()
@@ -736,7 +767,8 @@ def build_nodes(edges_df):
             conceptPrefix2semantic_dct[prefix] = 'PHYS'
         elif 'uberon' in prefix or 'cl' in prefix:
             conceptPrefix2semantic_dct[prefix] = 'ANAT'
-        elif 'coriell' in prefix or 'monarch' in prefix or 'mmrrc' in prefix or '' in prefix:
+        elif 'geno' in prefix or 'coriell' in prefix or 'monarch' in prefix or 'mmrrc' in prefix or '' in prefix \
+                or 'bnode' in prefix:
             conceptPrefix2semantic_dct[prefix] = 'GENO'
         else:
             conceptPrefix2semantic_dct[prefix] = 'CONC'
@@ -821,6 +853,8 @@ def build_nodes(edges_df):
     print('\n* This is the size of the nodes file data structure: {}'.format(pd.DataFrame(nodes_l).shape))
     print('* These are the nodes attributes: {}'.format(pd.DataFrame(nodes_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(nodes_l).head(1)))
+    print('\nThe Monarch network nodes are built and saved at: {}/monarch_nodes_v{}.csv\n'.format(path,today))
+    print('\nFinished build_nodes().\n')
 
     return nodes_l
 

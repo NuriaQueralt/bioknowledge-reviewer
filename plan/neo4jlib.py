@@ -135,6 +135,7 @@ def do_import(neo4j_path):
     :return: None object
     """
 
+    print('\nThe function "do_import()" is running...')
     try:
         #graph_version = 'v{}'.format(today)
         path_to_import = neo4j_path + '/import/ngly1'
@@ -148,7 +149,8 @@ def do_import(neo4j_path):
         cmd = 'cd {}'.format(path_to_import)
         subprocess.call(cmd, shell=True)
         #  neo4j-import
-        cmd = '{}/bin/neo4j-import --into {}/data/databases/graph.db --id-type string --nodes {}/ngly1_concepts.csv --relationships {}/ngly1_statements.csv'.format(neo4j_path, neo4j_path, path_to_import, path_to_import)
+        cmd = '{}/bin/neo4j-import --into {}/data/databases/graph.db --id-type string ' \
+              '--nodes {}/ngly1_concepts.csv --relationships {}/ngly1_statements.csv'.format(neo4j_path, neo4j_path, path_to_import, path_to_import)
         subprocess.call(cmd, shell=True)
         # start neo4j from database dir
         cmd = 'cd {}/data/databases/graph.db'.format(neo4j_path)
@@ -159,7 +161,10 @@ def do_import(neo4j_path):
         print('error: {}'.format(sys.exc_info()[0]))
         raise
     else:
-        return print('\nThe graph is imported into the server. The server is running.\n')
+        return print('\nThe graph is imported into the server. The server is running. '
+                     'You can start exploring and querying for hypothesis. '
+                     'If you change ports or authentication in the Neo4j configuration file,'
+                     'the hypothesis-generation modules performance, hypothesis and summary, will be affected.\n')
 
 
 if __name__ == '__main__':

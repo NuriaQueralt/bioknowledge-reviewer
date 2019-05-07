@@ -82,6 +82,7 @@ def query(genelist, queryname='', pwdegree='50', phdegree='20', format='json', p
     :return: None object
     """
 
+    print('\nThe function "query()" is running...')
     # initialize neo4j
     try:
         driver = GraphDatabase.driver("bolt://localhost:{}".format(port), auth=("neo4j", "ngly1"))
@@ -144,12 +145,18 @@ def query(genelist, queryname='', pwdegree='50', phdegree='20', format='json', p
                 outputAll.append(pair)
 
                 # print output
-                if (format == "yaml"):
-                    print(yaml.dump(outputAll, default_flow_style=False))
-                elif (format == "json"):
-                    with open('./hypothesis/{}.json'.format(filename), 'w') as f:
+                path = os.getcwd() + '/hypothesis'
+                if not os.path.isdir(path): os.makedirs(path)
+                if ( format == "yaml" ):
+                    with open('{}/{}.yaml'.format(path, filename), 'w') as f:
+                        yaml.dump(outputAll, f, default_flow_style=False)
+                    # print(yaml.dump(outputAll, default_flow_style=False))
+                    print('\nThe query results are saved at: {}/{}.yaml\n'.format(path, filename))
+                elif ( format == "json" ):
+                    with open('{}/{}.json'.format(path, filename), 'w') as f:
                         json.dump(outputAll, f)
                     # print(json.dumps(outputAll))
+                    print('\nThe query results are saved at: {}/{}.json\n'.format(path, filename))
                 else:
                     sys.stderr.write("Error.\n")
 
@@ -168,6 +175,7 @@ def open_query(genelist, queryname='', format='json', port='7687'):
     :return: None object
     """
 
+    print('\nThe function "open_query()" is running...')
     # initialize neo4j
     try:
         driver = GraphDatabase.driver("bolt://localhost:{}".format(port), auth=("neo4j", "ngly1"))
@@ -220,12 +228,18 @@ def open_query(genelist, queryname='', format='json', port='7687'):
                 outputAll.append(pair)
 
                 # print output
-                if (format == "yaml"):
-                    print(yaml.dump(outputAll, default_flow_style=False))
-                elif (format == "json"):
-                    with open('./hypothesis/{}.json'.format(filename), 'w') as f:
+                path = os.getcwd() + '/hypothesis'
+                if not os.path.isdir(path): os.makedirs(path)
+                if ( format == "yaml" ):
+                    with open('{}/{}.yaml'.format(path, filename), 'w') as f:
+                        yaml.dump(outputAll, f, default_flow_style=False)
+                    # print(yaml.dump(outputAll, default_flow_style=False))
+                    print('\nThe query results are saved at: {}/{}.yaml\n'.format(path, filename))
+                elif ( format == "json" ):
+                    with open('{}/{}.json'.format(path, filename), 'w') as f:
                         json.dump(outputAll, f)
                     # print(json.dumps(outputAll))
+                    print('\nThe query results are saved at: {}/{}.json\n'.format(path, filename))
                 else:
                     sys.stderr.write("Error.\n")
 

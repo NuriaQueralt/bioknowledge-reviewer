@@ -8,6 +8,16 @@ This is a Python library to create structured reviews integrating knowledge and 
 
 * Neo4j needs Java 8. It won't work with superior java versions.
 
+## README structure:
+- Input / Output
+- Library architecture
+- Usage  
+- Contributors
+- Collaborators
+- License
+- Acknowledgments
+- DOI
+
 ## Input / Output
 #### Input
 Edges to build the structured review.
@@ -29,9 +39,12 @@ http://edamontology.org/data_2600
 
 
 ## Library architecture
-The library is currently under testing.  
+The library has two main components: 1) **Review graph creation** with functionality to create the NGLY1 Deficiency structured reviews as knowledge graphs,  and 2) **Hypothesis discovery** with the functionality for exploring the graph. 
+
 
 ### Review graph creation
+First, we have to retrieve edges from different sources. Every source has its own module, e.g. to retrieve edges from the Monarch knowledge graph we have to import the _monarch_ module. Second, we have to create the NGLY1 knowledge graph composed with all the edges retrieved importing the _graph_ module.
+
 #### 1. Edges
 First, we prepare all reviewed edges to be integrated to the review knoweldge graph schema. 
 
@@ -72,6 +85,8 @@ graph.py
 
 
 ### Hypothesis discovery
+Once we have a structured review created, we can explore it for hypothesis discovery. Third, we need to import the graph into the Neo4j graph database using the _neo4jlib_ module. Fourth, we query the graph for hypothesis or paths linking nodes by means of the _hypothesis_ module. Finally, we can summarize the results of these queries importing the _summary_ module.
+
 #### 3. Neo4jlib
 Third, we store the network in the Neo4j graph database via the module:
 
@@ -93,25 +108,27 @@ Fifth, we summarize extracted explanations via the module:
 summary.py
 ~~~~
 
-### Support
-General support functions.
+### Supporting modules
+General supporting functionality for the library.
 
 #### Utils
-Useful functions for the library by the module:
+The _utils_ module contains useful functions:
 
 ~~~~
 utils.py
 ~~~~
 
 #### Ontologies
-mondo_class module contains functions to manage the MONDO ontology.
+The *mondo_class* module contains functions to manage the MONDO ontology:
 
 ~~~~
 mondo_class.py
 ~~~~
 
-### Usage
-This sections showcase examples of use.
+## Usage
+**_WARNING_: The library is currently under testing.**  
+
+This sections showcase examples of use by reproducing the creation of the NGLY1 Deficiency Knowledge Graph v3.2. As reference, the graph size contains **9,365 nodes** linked by **237,027 edges**. These numbers may vary as the retrieval of Monarch edges may differ due to new updated content into the Monarch database.
 
 To run the library to reproduce the generation of the NGLY1 Deficiency Knowledge Graph v3.2, the user can use either the jupyter notebook or the python script provided in this repository [graph_v3.2_v20190312.ipynb](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/graph_v3.2_v20190312.ipynb). To run the jupyter notebook, the user should have installed the Jupyter framework and the ipython 3 kernel.
 
@@ -370,7 +387,7 @@ summary.edge_types(data_parsed)
 
 
 ## Contributors
-Mitali Tambe, Hudson Freeze, Andrew I. Su
+Mitali Tambe, Hudson Freeze, Michael Meyers, Andrew I. Su
 
 ## Collaborators
 * Scripps Research
@@ -380,7 +397,7 @@ Mitali Tambe, Hudson Freeze, Andrew I. Su
 GPL v3.0
 
 ## Acknowledgments
-To the NGLY1 Deficiency community for sharing their expert knowledge. To the Scripps Research for the infrastructure. To the DBCLS and BioHackathon 2018 sponsors and organizers to select and allow this project improvement such as to measure their FAIRness.
+To the NGLY1 Deficiency community for sharing their expert knowledge. To the Scripps Research for the infrastructure. To the [NIH NCATS' Biomedical Data Translator](https://ncats.nih.gov/translator) Hackathon January 2018. To the DBCLS and [BioHackathon 2018](http://2018.biohackathon.org/) sponsors and organizers to select and allow this project improvement such as to measure their FAIRness.
 
 ## DOI
 [![DOI](https://zenodo.org/badge/132827298.svg)](https://zenodo.org/badge/latestdoi/132827298)

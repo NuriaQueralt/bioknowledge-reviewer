@@ -81,10 +81,11 @@ def graph_nodes(curation,monarch,transcriptomics,regulation,input_from_file=Fals
     :return: graph nodes list, regulation graph (merged) dataframe edges
     """
 
-    ## Edges
+    print('\nThe function "graph_nodes()" is running...')
 
+    ## Edges
     # load networks
-    # print('\nPreparing networks...')
+    print('\nPreparing networks...')
     if input_from_file:
         if isinstance(curation,str) and isinstance(monarch,str) and isinstance(transcriptomics,str) and \
                 isinstance(regulation,str):
@@ -228,6 +229,7 @@ def graph_nodes(curation,monarch,transcriptomics,regulation,input_from_file=Fals
     print('\nSaving tf merged edges...')
     path = os.getcwd() + "/graph"
     merged.fillna('NA').to_csv('{}/regulation_graph_edges_v{}.csv'.format(path, today), index=False)
+    print('\nThe regulation graph merged edges are saved at: {}/regulation_graph_edges_v{}.csv\n'.format(path, today))
 
     # concat merged to statements
     statements = pd.concat([statements, merged], ignore_index=True, join="inner")
@@ -245,6 +247,7 @@ def graph_nodes(curation,monarch,transcriptomics,regulation,input_from_file=Fals
     st_nodes_l.drop_duplicates(inplace=True)
     st_nodes_df = pd.DataFrame({'id': st_nodes_l})
     print(st_nodes_df.shape)
+    print('\nFinished graph_nodes().\n')
 
     return st_nodes_l, merged
 
@@ -263,6 +266,7 @@ def build_edges(curation,monarch,transcriptomics,regulation,input_from_file=Fals
     :return: edges dataframe
     """
 
+    print('\nThe function "build_edges()" is running...')
     ## Edges
 
     # load networks
@@ -347,6 +351,14 @@ def build_edges(curation,monarch,transcriptomics,regulation,input_from_file=Fals
     print(statements.columns)
     statements.fillna('NA').to_csv('{}/graph_edges_v{}.csv'.format(path, today), index=False)
 
+    # print info
+    print('\n* This is the size of the edges file data structure: {}'.format(statements.shape))
+    print('* These are the edges attributes: {}'.format(statements.columns))
+    print('* This is the first record:\n{}'.format(statements.head(1)))
+    print('\nThe NGLY1 Deficiency knowledge graph edges are built and saved at:'
+          ' {}/graph_edges_v{}.csv\n'.format(path, today))
+    print('\nFinished build_edges().\n')
+
     return statements
 
 
@@ -363,6 +375,7 @@ def build_nodes(statements,curation,monarch,transcriptomics,regulation,input_fro
     :return: nodes dataframe
     """
 
+    print('\nThe function "build_nodes()" is running...')
     # load networks
     print('\nPreparing networks...')
     if input_from_file:
@@ -438,7 +451,8 @@ def build_nodes(statements,curation,monarch,transcriptomics,regulation,input_fro
     # check
     if len(set(st_nodes_df.id)) != len(set(nodes.id)):
         print(
-            '\nThere is a problem in the annotation of nodes.\nThe number of annotated nodes is different than the number of nodes in the graph.')
+            '\nThere is a problem in the annotation of nodes.\nThe number of annotated nodes '
+            'is different than the number of nodes in the graph.')
         print('Curated nodes not in the graph: {}'.format(set(curated_df.id) - set(curated_nodes.id)))
         print('Monarch nodes not in the graph: {}'.format(set(monarch_df.id) - set(monarch_nodes.id)))
         print('RNA-seq nodes not in the graph: {}'.format(set(rna_df.id) - set(rna_nodes.id)))
@@ -460,6 +474,14 @@ def build_nodes(statements,curation,monarch,transcriptomics,regulation,input_fro
     print(nodes.shape)
     print(nodes.columns)
     nodes.fillna('NA').to_csv('{}/graph_nodes_v{}.csv'.format(path, today), index=False)
+
+    # print info
+    print('\n* This is the size of the edges file data structure: {}'.format(nodes.shape))
+    print('* These are the edges attributes: {}'.format(nodes.columns))
+    print('* This is the first record:\n{}'.format(nodes.head(1)))
+    print('\nThe NGLY1 Deficiency knowledge graph nodes are built and saved at: '
+          '{}/graph_nodes_v{}.csv\n'.format(path, today))
+    print('\nFinished build_nodes().\n')
 
     return nodes
 

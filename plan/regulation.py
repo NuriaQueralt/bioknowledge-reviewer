@@ -158,6 +158,7 @@ def prepare_msigdb_data(gmt_path):
     :return: None object
     """
 
+    print('\nThe function "prepare_msigdb_data()" is running...')
     # path to write data
     path = os.getcwd() + '/regulation/msigdb/out'
     if not os.path.exists(path): os.makedirs(path)
@@ -234,6 +235,9 @@ def prepare_msigdb_data(gmt_path):
 
     with open('{}/tf_with_multiple_tfid_entrez.tsv'.format(path), 'w') as f:
         f.write('\n'.join(set(redundant_tf)))
+    print('\nThe MSigDB raw network is saved at: {}/tf_genelist_entrez_msigdb.json. '
+          'Other reporting files are also saved at the same directory.\n'.format(path))
+    print('\nFinished prepare_msigdb_data().\n')
     #
     # return data
 
@@ -246,6 +250,7 @@ def load_tf_gene_edges():
     :return: tred, encode, neph, trrust and msigdb individual raw networks dictionaries (in this order) as tuple
     """
 
+    print('\nThe function "load_tf_gene_edges()" is running...')
     # load json files data
     #json_tftargets_path = '/home/nuria/workspace/ngly1-graph/regulation/tftargets/data'
     json_tftargets_path = './regulation/tftargets/data'
@@ -265,6 +270,7 @@ def load_tf_gene_edges():
 
     # prepare data in a tuple
     data = (tred, encode, neph, trrust, msigdb)
+    print('\nFinished load_tf_gene_edges().\n')
 
     return data
 
@@ -281,6 +287,7 @@ def get_gene_id_normalization_dictionaries(data):
     :return: (symbol2entrez_dict, symbol2hgnc_dict, entrez2hgnc_dict, entrez2symbol_dict) dictionaries tuple
     """
 
+    print('\nThe function "get_gene_id_normalization_dictionaries()" is running...')
     # individual raw networks
     tred = data[0]
     encode = data[1]
@@ -296,7 +303,7 @@ def get_gene_id_normalization_dictionaries(data):
 
     ## ID dictionaries: symbols2entrez and symbol2hgnc
     # query biothings for symbol2entrez and symbol2hgnc
-    print('\n* Querying BioThings to map gene symbols to hgnc and entrez IDs...')
+    print('\n* Querying BioThings to map gene symbols to HGNC and Entrez IDs...')
     mg = get_client('gene')
     df = mg.querymany(symbols, scopes='symbol,alias', fields='entrezgene,HGNC', size=1, as_dataframe=True)
     #print('symbols to entrez/hgnc: ',df.shape)
@@ -311,6 +318,7 @@ def get_gene_id_normalization_dictionaries(data):
     #print('\n * Missing symbols:', len(missing_symbol_l))
     with open('{}/not_found_symbols.list'.format(path), 'w') as f:
         f.write('\n'.join(missing_symbol_l))
+    print('\nSaving not found gene symbols at: {}/not_found_symbols.list\n'.format(path))
 
     # prepare ids dataframe for dictionary construction
     ids = (df.reset_index()
@@ -354,7 +362,7 @@ def get_gene_id_normalization_dictionaries(data):
 
     ## ID dictionaries: entrez2hgnc, entrez2symbol
     # query biothings for entrez2hgnc, entrez2symbol
-    print('\n* Querying BioThings to map entrez to hgnc IDs and gene symbols...')
+    print('\n* Querying BioThings to map Entrez to HGNC IDs and gene symbols...')
     mg = get_client('gene')
     df = mg.querymany(entrez, scopes='entrezgene', fields='HGNC,symbol', size=1, as_dataframe=True)
     #print('entrez to hgnc/symbol: ', df.shape)
@@ -369,6 +377,7 @@ def get_gene_id_normalization_dictionaries(data):
     #print('\n * Missing entrez:', len(missing_entrez_l))
     with open('{}/not_found_entrez.list'.format(path), 'w') as f:
         f.write('\n'.join(missing_entrez_l))
+    print('\nSaving not found Entrez gene IDs at: {}/not_found_entrez.list\n'.format(path))
 
     # prepare ids dataframe for dictionary construction
     ids = (df.reset_index()
@@ -396,6 +405,7 @@ def get_gene_id_normalization_dictionaries(data):
             entrez2symbol_dict[entrez] = 'NA'
 
     dicts = (symbol2entrez_dict, symbol2hgnc_dict, entrez2hgnc_dict, entrez2symbol_dict)
+    print('\nFinished get_gene_id_normalization_dictionaries().\n')
 
     return dicts
 
@@ -433,6 +443,7 @@ def prepare_data_edges(data,dicts):
     :return: (tftargets, msigdb) edges dataframes tuple
     """
 
+    print('\nThe function "prepare_data_edges()" is running...')
     # raw networks
     tred = data[0]
     encode = data[1]
@@ -580,7 +591,7 @@ def prepare_data_edges(data,dicts):
                         reference_date
                     )
                 )
-
+    print('\nThe tftargets edges are saved at: {}/tftargets_edges.csv\n'.format(tftargets_path))
 
     ## msigdb network
     # REFERENCES: add ref_uri to msigdb statements
@@ -669,10 +680,12 @@ def prepare_data_edges(data,dicts):
                         reference_date
                     )
                 )
+    print('\nThe MSigDB edges are saved at: {}/msigdb_edges.csv\n'.format(msigdb_path))
 
     tftargets = pd.read_csv('{}/tftargets/tftargets_edges.csv'.format(path), low_memory=False)
     msigdb = pd.read_csv('{}/msigdb/msigdb_edges.csv'.format(path))
     data_edges = (tftargets, msigdb)
+    print('\nFinished prepare_data_edges().\n')
 
     return data_edges
 
@@ -685,6 +698,7 @@ def prepare_regulation_edges(data_edges):
     :return: network dataframe
     """
 
+    print('\nThe function "prepare_regulation_edges()" is running...')
     # load individual regulation networks
     tftargets = data_edges[0]
     msigdb = data_edges[1]
@@ -709,6 +723,7 @@ def prepare_regulation_edges(data_edges):
                               'o_hgnc_id': 'object_id'
                               })
              )
+    print('\nFinished prepare_regulation_edges().\n')
 
     return edges
 
@@ -722,6 +737,7 @@ def build_edges(edges):
     :return: graph edges object as a list of dictionaries, where every dictionary is a record
     """
 
+    print('\nThe function "build_edges()" is running...')
     # give graph format
     curie_dct = {
         'ro': 'http://purl.obolibrary.org/obo/',
@@ -774,6 +790,8 @@ def build_edges(edges):
     print('\n* This is the size of the edges file data structure: {}'.format(pd.DataFrame(edges_l).shape))
     print('* These are the edges attributes: {}'.format(pd.DataFrame(edges_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(edges_l).head(1)))
+    print('\nThe regulation network edges are built and saved at: {}/regulation_edges_v{}.csv\n'.format(graph,today))
+    print('\nFinished build_edges().\n')
 
     return edges_l
 
@@ -785,6 +803,7 @@ def build_nodes(edges):
     :return: graph nodes object as a list of dictionaries, where every dictionary is a record
     """
 
+    print('\nThe function "build_nodes()" is running...')
     # retrieve node attributes from biothings and build dictionary
     # from biothings we retrieve: name (new attribute for short description), alias (synonyms), summary (description)
     # symbols in this case come from the original source. otherwise are gonna be retrieved from biothings as well.
@@ -805,7 +824,7 @@ def build_nodes(edges):
             'synonyms': None,
             'description': None
         }
-    print('* Total number of nodes: {}'.format(len(concept_dct.keys())))
+    print('\n* Total number of nodes: {}'.format(len(concept_dct.keys())))
 
     ### retrieve node attributes from gene symbol using BioThings API
     ## But first, trap genes without symbol, i.e. discontinued entrez
@@ -829,7 +848,7 @@ def build_nodes(edges):
             entrez.append(concept.split(':')[1])
 
     # query biothings for retired entrez to symbol
-    print('\n* Querying BioThings to map retired entrez to gene symbols...')
+    print('\n* Querying BioThings to map retired Entrez to gene symbols...')
     mg = get_client('gene')
     df = mg.querymany(entrez, scopes='entrezgene,retired', fields='symbol', size=1, as_dataframe=True)
 
@@ -898,6 +917,8 @@ def build_nodes(edges):
     print('\n* This is the size of the nodes file data structure: {}'.format(pd.DataFrame(nodes_l).shape))
     print('* These are the nodes attributes: {}'.format(pd.DataFrame(nodes_l).columns))
     print('* This is the first record:\n{}'.format(pd.DataFrame(nodes_l).head(1)))
+    print('\nThe regulation network nodes are built and saved at: {}/regulation_nodes_v{}.csv\n'.format(graph,today))
+    print('\nFinished build_nodes().\n')
 
     return nodes_l
 

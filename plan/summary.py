@@ -51,6 +51,8 @@ def query_parser(query):
     :param query: result query object
     :return: parsed query object
     """
+
+    print('\nThe function "query_parser()" is running...')
     source = query.get('source')
     target = query.get('target')
     #print('The query is {}-{}'.format(source, target))
@@ -124,7 +126,7 @@ def query_parser(query):
     query['entities'] = entities
     query['nodes'] = nodes
     query['edges'] = edges
-
+    print('\nFinished query_parser().\n')
 
     return query
 
@@ -224,6 +226,7 @@ def metapaths(data):
     :return: None object
     """
 
+    print('\nThe function "metapaths()" is running...')
     for query in data:
         #print()
         #print(query.get('source'), query.get('target'))
@@ -241,6 +244,7 @@ def metapaths(data):
 
         # from 'metapaths'
         #print('path_count\tmetapath_idx\tmetapath_count\tmetapath_label')
+        print('\nPrinting summaries...\n')
         metapath_dct = dict()
         metapath_l = list()
         for metapath_idx in { mp.get('metapath_idx') for mp in query.get('metapaths') }:
@@ -287,6 +291,7 @@ def metapaths(data):
                         filename='query_ngly1_aqp1_paths_source:{}_target:{}_summary_entities_in_metapaths'.format(
                             query.get('source'), query.get('target')))
 
+    print('\nFinished metapaths().\n')
 
 def node(idx, nodes_l):
     """
@@ -353,6 +358,8 @@ def nodes(data):
     :return: None object
     """
 
+    print('\nThe function "nodes()" is running...')
+    print('\nPrinting summaries...\n')
     for query in data:
         #print()
         #print(query.get('source'), query.get('target'))
@@ -372,9 +379,12 @@ def nodes(data):
             #print('{}\t{}\t{}\t{}\n'.format(path_count(query), node_dct.get('label'),
             #                                   node_dct.get('preflabel') + '::' + node_dct.get('id'),
             #                                   nodes_count(node_idx, query.get('nodes'), attribute = 'idx')))
+
         print_summaries(nodes_sum_l,
                         filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_nodes'.format(
                             query.get('source'), query.get('target')))
+
+    print('\nFinished nodes().\n')
 
     #return nodes_sum_l
 
@@ -386,6 +396,8 @@ def node_types(data):
     :return: None object
     """
 
+    print('\nThe function "node_types()" is running...')
+    print('\nPrinting summaries...\n')
     for query in data:
         #print()
         #print(query.get('source'), query.get('target'))
@@ -402,10 +414,12 @@ def node_types(data):
             nodes_sum_l.append(dict(node_sum_dct))
             #print('{}\t{}\t{}\n'.format(path_count(query), node_label,
             #                            nodes_count(node_label, query.get('nodes'), attribute = 'label')))
+
         print_summaries(nodes_sum_l,
                         filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_node_types'.format(
                             query.get('source'), query.get('target')))
 
+    print('\nFinished node_types().\n')
     #return nodes_sum_l
 
 
@@ -416,6 +430,8 @@ def edges(data):
     :return: None object
     """
 
+    print('\nThe function "edges()" is running...')
+    print('\nPrinting summaries...\n')
     for query in data:
         #print()
         #print(query.get('source'), query.get('target'))
@@ -442,6 +458,7 @@ def edges(data):
                         filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_edges'.format(
                             query.get('source'), query.get('target')))
 
+    print('\nFinished edges().\n')
     #return edges_sum_l
 
 
@@ -452,6 +469,8 @@ def edge_types(data):
     :return: None object
     """
 
+    print('\nThe function "edge_types()" is running...')
+    print('\nPrinting summaries...\n')
     for query in data:
         #print()
         #print(query.get('source'), query.get('target'))
@@ -469,8 +488,10 @@ def edge_types(data):
             #print('{}\t{}\t{}\n'.format(path_count(query), edge_label,
             #                            nodes_count(edge_label, query.get('edges'), attribute = 'label')))
             #
+
         print_summaries(edges_sum_l, filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_edge_types'.format(query.get('source'),query.get('target')))
 
+    print('\nFinished edge_types().\n')
     #return edges_sum_l
 
 
