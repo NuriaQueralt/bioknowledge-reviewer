@@ -2,7 +2,7 @@
 This is a Python library to create structured reviews integrating knowledge and data from different types. We built a library for a dynamic, interactive and evolving network construction and hypothesis generation process. It is designed to build the review network based on the research question hypothesis. In Figure workflow we show the workflow of network-based review and hypothesis generation process. 
 
 ##### Prerequisites
-* Python 3.6.4. We provide a [requirements.txt](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/requirements.txt) file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
+* Python 3 (we used Python 3.6.4). We provide a [requirements.txt](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/requirements.txt) file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
 
 * Neo4j Community Server Edition 3.0.3. We provide an [instance](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/tree/master/plan/neo4j-community-3.0.3) of this server edition. The server is already configured with authentication disabled and default ports set, which are `7474` for http connection and `7687` for bolt connection. Changes in the Neo4j configuration and the server edition can affect the performance of the library.
 
