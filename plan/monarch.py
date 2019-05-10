@@ -232,7 +232,7 @@ def get_neighbours(seed):
             keepEdges = keep_edges(keepEdges, edges)
             keepNodes = keep_nodes(keepNodes, edges, seedNodes)
 
-        except (json.decoder.JSONDecodeError, simplejson.errors.JSONDecodeError, KeyError):
+        except (ValueError, KeyError):
             pass
         except:
             print('error: {}'.format(sys.exc_info()[0]))
@@ -329,7 +329,7 @@ def get_connections(nodes):
             metaFilteredEdges = add_attributes(sub_l, rel_l, obj_l, filteredEdges)
             keep = keep_edges(keep, metaFilteredEdges)
 
-        except (json.decoder.JSONDecodeError, simplejson.errors.JSONDecodeError, KeyError):
+        except (ValueError, KeyError):
             pass
         except:
             print('error: {}'.format(sys.exc_info()[0]))
