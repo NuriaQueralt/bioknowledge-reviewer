@@ -330,6 +330,8 @@ def build_edges(curation,monarch,transcriptomics,regulation,input_from_file=Fals
     for i, row in statements.iterrows():
         if ':' in str(row['property_uri']):
             property_uri = row['property_uri']
+        elif ':' in str(row['property_id']) and str(row['property_id']).split(':')[0].lower() == 'skos':
+            property_uri = curie_dct[row['property_id'].split(':')[0].lower()] + row['property_id'].split(':')[1]
         elif ':' in str(row['property_id']):
             try:
                 property_uri = curie_dct[row['property_id'].split(':')[0].lower()] + row['property_id'].replace(':',
