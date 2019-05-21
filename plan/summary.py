@@ -321,7 +321,7 @@ def edges_count(paths):
             start = path.get('Nodes')[node_i].get('preflabel') + '::' + path.get('Nodes')[node_i].get('id')
             edge = path.get('Edges')[node_i].get('preflabel') + '::' + path.get('Edges')[node_i].get('type')
             end = path.get('Nodes')[node_i + 1].get('preflabel') + '::' + path.get('Nodes')[node_i + 1].get('id')
-            key = start + '_' + edge + '_' + end
+            key = start + '__' + edge + '__' + end
             edge_pattern_dct[key] = {start, edge, end}
             edges_l.append({start, edge, end})
             if node_i == len(path.get('Nodes')) - 2:
@@ -444,7 +444,7 @@ def edges(data):
         edge_sum_dct['path_count'] = path_count(query)
         edge2count_dict = edges_count(query.get('paths'))
         for edge_pattern in edge2count_dict:
-            start,edge,end = edge_pattern.split('_')
+            start,edge,end = edge_pattern.split('__')
             edge_sum_dct['subject_value'] = start
             edge_sum_dct['edge_type'] = edge
             edge_sum_dct['object_value'] = end
