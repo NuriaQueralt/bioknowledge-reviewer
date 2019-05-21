@@ -134,10 +134,10 @@ def query_parser(query):
 def path_load(filename):
     """
     This function loads paths from a json file to a digital object.
-    :param filename: path to filename (without json extension) string
+    :param filename: path to JSON file string
     :return: loaded json object
     """
-    return json.load(open('{}.json'.format(filename),'r'))
+    return json.load(open('{}'.format(filename),'r'))
 
 
 def path_count(query):
@@ -257,7 +257,7 @@ def metapaths(data):
             #                                metapath_count2(metapath_idx, query.get('metapaths')),
             #                                metapath_label2(metapath_idx, query.get('metapaths'))))
         print_summaries(metapath_l,
-                        filename='query_ngly1_aqp1_paths_source:{}_target:{}_summary_metapaths'.format(
+                        filename='query_source:{}_target:{}_summary_metapaths'.format(
                             query.get('source'), query.get('target')))
 
         # table 2: bioinformatic profile
@@ -288,7 +288,7 @@ def metapaths(data):
                 #print(mp.get('metapath_idx'), entity.get('metapath_idx'), entity.get('object_order'), entity.get('label'), metapath_count2(mp.get('metapath_idx'), query.get('metapaths')), len(mp.get('entities')), mp.get('length'))
 
         print_summaries(entity_l,
-                        filename='query_ngly1_aqp1_paths_source:{}_target:{}_summary_entities_in_metapaths'.format(
+                        filename='query_source:{}_target:{}_summary_entities_in_metapaths'.format(
                             query.get('source'), query.get('target')))
 
     print('\nFinished metapaths().\n')
@@ -381,7 +381,7 @@ def nodes(data):
             #                                   nodes_count(node_idx, query.get('nodes'), attribute = 'idx')))
 
         print_summaries(nodes_sum_l,
-                        filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_nodes'.format(
+                        filename='query_source:{}_target:{}_summary_nodes'.format(
                             query.get('source'), query.get('target')))
 
     print('\nFinished nodes().\n')
@@ -416,7 +416,7 @@ def node_types(data):
             #                            nodes_count(node_label, query.get('nodes'), attribute = 'label')))
 
         print_summaries(nodes_sum_l,
-                        filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_node_types'.format(
+                        filename='query_source:{}_target:{}_summary_node_types'.format(
                             query.get('source'), query.get('target')))
 
     print('\nFinished node_types().\n')
@@ -455,7 +455,7 @@ def edges(data):
             #                                    edge_sum_dct['edge_count']))
 
         print_summaries(edges_sum_l,
-                        filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_edges'.format(
+                        filename='query_source:{}_target:{}_summary_edges'.format(
                             query.get('source'), query.get('target')))
 
     print('\nFinished edges().\n')
@@ -489,7 +489,7 @@ def edge_types(data):
             #                            nodes_count(edge_label, query.get('edges'), attribute = 'label')))
             #
 
-        print_summaries(edges_sum_l, filename='monarch_orthopeno_network_query_source:{}_target:{}_summary_edge_types'.format(query.get('source'),query.get('target')))
+        print_summaries(edges_sum_l, filename='query_source:{}_target:{}_summary_edge_types'.format(query.get('source'),query.get('target')))
 
     print('\nFinished edge_types().\n')
     #return edges_sum_l
