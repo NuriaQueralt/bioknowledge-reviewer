@@ -326,6 +326,9 @@ neo4jlib.do_import(neo4j_path)
 ~~~~
 
 
+_Note_: Neo4j server needs some seconds to be up and running. Wait a moment to proceed and run the next cell. If even waiting the server is not up, run this cell twice.
+ 
+
 Alternatively, you can get edges and nodes from file. This is useful in case you want to explore hypotheses with another graph you created before. The workflow should then be:
 
 ~~~~
@@ -367,11 +370,11 @@ hypothesis.query(seed, queryname='ngly1_aqp1', pwdegree='1000', phdegree='1000',
 ~~~~
 
 ##### 3.2 Get hypotheses summaries
-Get summaries from the resulting paths. These functions store tabular results in output files. *Output*: edges in `summaries` directory.
+Get summaries from the resulting paths. These functions store tabular results in output files. *Output*: files in `summaries` directory.
 
 ~~~~
 # get summary
-data = summary.path_load('./hypothesis/query_ngly1_aqp1_paths_v2019-03-10')
+data = summary.path_load('./hypothesis/query_ngly1_aqp1_paths_v2019-03-10.json')
 
 #parse data for summarization
 data_parsed = list()
@@ -385,6 +388,7 @@ summary.edges(data_parsed)
 summary.edge_types(data_parsed)
 ~~~~
 
+_Note_: output filenames are fixed. If you run summaries from different queries, you should change output filenames by hand at the moment.
 
 ## Contributors
 Mitali Tambe, Hudson Freeze, Michael Meyers, Andrew I. Su
