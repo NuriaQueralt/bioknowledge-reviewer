@@ -337,7 +337,7 @@ print('concepts: ',len(concepts))
 
 ## import the graph into Neo4j
 # save files into Neo4j import dir
-neo4j_path = './neo4j-community-3.0.3'
+neo4j_path = './neo4j-community-3.5.5'
 neo4jlib.save_neo4j_files(statements, neo4j_path, file_type = 'statements')
 neo4jlib.save_neo4j_files(concepts, neo4j_path, file_type = 'concepts')
 
@@ -365,7 +365,7 @@ print('concepts: ',len(concepts))
 
 ## import the graph into neo4j
 # save files into neo4j import dir
-neo4j_path = './neo4j-community-3.0.3'
+neo4j_path = './neo4j-community-3.5.5'
 neo4jlib.save_neo4j_files(statements, neo4j_path, file_type='statements')
 neo4jlib.save_neo4j_files(concepts, neo4j_path, file_type='concepts')
 
