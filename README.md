@@ -4,11 +4,7 @@ This is a Python library to create structured reviews integrating knowledge and 
 ##### Prerequisites
 * Python 3 (we used Python 3.6.4). We provide a [requirements.txt](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/requirements.txt) file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
 
-// * Neo4j Community Server Edition 3.5 (we used Neo4j v3.5.5). We provide an [instance](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/tree/master/plan/neo4j-community-3.0.3) of this server edition. The server is already configured with authentication disabled and default ports set, which are `7474` for http connection and `7687` for bolt connection. Changes in the Neo4j configuration and the server edition can affect the performance of the library.
-* Neo4j Community Server Edition 3.5 (we used Neo4j v3.5.5). 
-// We provide an [instance](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/tree/master/plan/neo4j-community-3.0.3) of this server edition. 
-//The server is already configured with authentication disabled and default ports set, which are `7474` for http connection and `7687` for bolt connection. Changes in the Neo4j configuration and the server edition can affect the performance of the library.
-The server configuration in `conf/neo4j.conf` file has to be:
+* Neo4j Community Server Edition 3.5 (we used Neo4j v3.5.5). The server configuration in `conf/neo4j.conf` file has to be:
  
    * authentication disabled (uncomment the following line)
    ~~~~
