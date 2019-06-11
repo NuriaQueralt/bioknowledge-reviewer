@@ -22,8 +22,7 @@
 #   * add specific query topology as a function parameter
 """Module for hypothesis generation"""
 
-from neo4j.v1 import GraphDatabase, basic_auth
-#import argparse
+from neo4j import GraphDatabase
 import sys,os
 import json
 import yaml
@@ -51,19 +50,20 @@ def parse_path( path ):
         n = {}
         n['idx'] = node.id
         n['label'] = list(node.labels)[0]
-        n['id'] = node.properties['id']
-        n['preflabel'] = node.properties['preflabel']
-        n['description'] = node.properties['description']
+        n['id'] = node.get('id')
+        n['preflabel'] = node.get('preflabel')
+        n['name'] = node.get('name')
+        n['description'] = node.get('description')
         out['Nodes'].append(n)
     out['Edges'] = []
     for edge in path['path'].relationships:
         e = {}
         e['idx'] = edge.id
-        e['start_node'] = edge.start
-        e['end_node'] = edge.end
+        e['start_node'] = edge.start_node.id
+        e['end_node'] = edge.end_node.id
         e['type'] = edge.type
-        e['preflabel'] = edge.properties['property_label']
-        e['references'] = edge.properties['reference_uri']
+        e['preflabel'] = edge.get('property_label')
+        e['references'] = edge.get('reference_uri')
         out['Edges'].append(e)
     return out
 
@@ -256,4 +256,4 @@ if __name__ == '__main__':
     #query(seed,'ngly1_aqp1_port7689',port='7689')
     # seed=['NCBIGene:55768', 'NCBIGene:358']
     #query(seed, 'ngly1_aqp1_port7688', port='7688')
-    open_query(seed, queryname='ngly1_aqp1', port='7687')
+    #open_query(seed, queryname='ngly1_aqp1', port='7687')
