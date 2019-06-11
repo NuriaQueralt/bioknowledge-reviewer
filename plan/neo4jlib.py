@@ -143,14 +143,16 @@ def do_import(neo4j_path):
         cmd = '{}/bin/neo4j stop'.format(neo4j_path)
         subprocess.call(cmd, shell=True)
         # rm any database in the database dir
-        cmd = 'rm -rf {}/data/databases/graph.db/*'.format(neo4j_path)
-        subprocess.call(cmd, shell=True)
+        if os.path.isdir('{}/data/databases/graph.db'.format(neo4j_path)):
+            cmd = 'rm -rf {}/data/databases/graph.db/*'.format(neo4j_path)
+            subprocess.call(cmd, shell=True)
         # cd import dir files path
         cmd = 'cd {}'.format(path_to_import)
         subprocess.call(cmd, shell=True)
         #  neo4j-import
-        cmd = '{}/bin/neo4j-import --into {}/data/databases/graph.db --id-type string ' \
-              '--nodes {}/ngly1_concepts.csv --relationships {}/ngly1_statements.csv'.format(neo4j_path, neo4j_path, path_to_import, path_to_import)
+        cmd = '{}/bin/neo4j-admin import --id-type string ' \
+              '--nodes {}/ngly1_concepts.csv ' \
+              '--relationships {}/ngly1_statements.csv'.format(neo4j_path, path_to_import, path_to_import)
         subprocess.call(cmd, shell=True)
         # start neo4j from database dir
         cmd = 'cd {}/data/databases/graph.db'.format(neo4j_path)
