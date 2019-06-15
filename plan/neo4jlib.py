@@ -126,11 +126,80 @@ def get_concepts(nodes):
     return concepts
 
 
+# CREATE Neo4j Community Server v3.5 INSTANCE
+def create_neo4j_instance(version='3.5.6'):
+    """
+    This function downloads an creates a Neo4j Community v3.5 server instance.
+    :param version: Neo4j server version number string (default '3.5.6')
+    :return: Neo4j server directory name string
+    """
+
+    print('Creating a Neo4j community v{} server instance...'.format(version))
+    # download neo4j community server v3.5.6
+    # wget http://dist.neo4j.org/neo4j-community-3.5.6-unix.tar.gz
+    # cmd = 'wget http://dist.neo4j.org/neo4j-community-{}-unix.tar.gz'.format(version)
+    # subprocess.call(cmd, shell=True)
+    directory = 'neo4j-community-{}'.format(version)
+    if not os.path.isfile('neo4j-community-{}-unix.tar.gz'.format(version)):
+        print('Downloading the server from neo4j.org...')
+        cmd = 'wget http://dist.neo4j.org/neo4j-community-{}-unix.tar.gz'.format(version)
+        subprocess.call(cmd, shell=True)
+
+    # untar server directory
+    # tar -xf neo4j-community-3.5.6-unix.tar.gz
+    if not os.path.isdir('./neo4j-community-{}'.format(version)):
+        print('Preparing the server...')
+        cmd = 'tar -xf neo4j-community-{}-unix.tar.gz'.format(version)
+        subprocess.call(cmd, shell=True)
+
+    # update configuration file
+    if os.path.isdir('./neo4j-community-{}'.format(version)):
+        conf_filepath = os.path.join('.', directory, 'conf', 'neo4j.conf')
+        with open(conf_filepath) as f:
+            text = f.read()
+        f.close()
+        find = '#dbms.security.auth_enabled=false'
+        pattern = re.escape(find)
+        replace = 'dbms.security.auth_enabled=false'
+        text = re.sub(pattern, replace, text)
+        find = '#dbms.connectors.default_listen_address=0.0.0.0'
+        pattern = re.escape(find)
+        replace = 'dbms.connectors.default_listen_address=0.0.0.0'
+        text = re.sub(pattern, replace, text)
+        find = '#dbms.connector.bolt.listen_address=:7687'
+        pattern = re.escape(find)
+        replace = 'dbms.connector.bolt.listen_address=:7687'
+        text = re.sub(pattern, replace, text)
+        find = '#dbms.connector.http.listen_address=:7474'
+        pattern = re.escape(find)
+        replace = 'dbms.connector.http.listen_address=:7474'
+        text = re.sub(pattern, replace, text)
+        with open(conf_filepath, 'wt') as f:
+            f.write(text)
+        f.close()
+        print('Configuration adjusted!')
+
+    # start server and check is running (return answer)
+    if not os.path.isfile('{}/run/neo4j.pid'.format(directory)):
+        print('Starting the server...')
+        cmd = './{}/bin/neo4j start'.format(directory)
+        subprocess.call(cmd, shell=True)
+
+    # wait for 5 seconds and check
+    time.sleep(5)
+    if os.path.isfile('{}/run/neo4j.pid'.format(directory)):
+        print('Neo4j v{} is running.'.format(version))
+    else:
+        print('Neo4j v{} is NOT running. Some problem occurred and should be checked. Bye!'.format(version))
+
+    return directory
+
+
 # LOAD GRAPH
 
 def do_import(neo4j_path):
     """
-    This function executes the import of the graph into the neo4j server v3.0 instance.
+    This function executes the import of the graph into the neo4j server v3.5 instance.
     :param neo4j_path: path to neo4j directory string
     :return: None object
     """
@@ -152,7 +221,7 @@ def do_import(neo4j_path):
         #  neo4j-import
         cmd = '{}/bin/neo4j-admin import --id-type string ' \
               '--nodes {}/ngly1_concepts.csv ' \
-              '--relationships {}/ngly1_statements.csv'.format(neo4j_path, path_to_import, path_to_import)
+              m-relationships {}/ngly1_statements.csv'.format(neo4j_path, path_to_import, path_to_import)
         subprocess.call(cmd, shell=True)
         # start neo4j from database dir
         cmd = 'cd {}/data/databases/graph.db'.format(neo4j_path)
