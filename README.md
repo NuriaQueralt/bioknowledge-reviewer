@@ -1,7 +1,10 @@
 # BioKnowledge reviewer library
 This is a Python library to create structured reviews integrating knowledge and data from different types. We built a library for a dynamic, interactive and evolving network construction and hypothesis generation process. It is designed to build the review network based on the research question hypothesis. In Figure workflow we show the workflow of network-based review and hypothesis generation process. 
 
+The library was developed and tested on Ubuntu 18.04.
+
 ##### Prerequisites
+
 * Python 3 (we used Python 3.6.4). We provide a [requirements.txt](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/requirements.txt) file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
 
 * Neo4j Community Server Edition 3.5 (we used Neo4j v3.5.5). The server configuration in `conf/neo4j.conf` file has to be:
@@ -163,7 +166,7 @@ Build the network by compiling edges. *Input* directories:
 * ontologies/
 
 ##### 1.0 Set up: the virtual environment, the Neo4j server and import the library
-Set the environment using the provided `requirements.txt` file (see the _Prerequisits_ section on top). We provide a Neo4j server instance already configured, check that the folder is in your working directory. Then, import the library:
+Set the environment using the provided `requirements.txt` file (see the _Prerequisits_ section on top). Then, import the library:
 
 ~~~~
 import transcriptomics, regulation, curation, monarch, graph, neo4jlib, hypothesis, summary, utils
@@ -178,7 +181,11 @@ bzip2 -d ontologies/mondo.owl.bz2
 First, prepare individual networks with graph schema to build the graph.
 
 ###### CURATION EDGES
-Preparing curated network. *Output*: Curated network in `curation` directory. Curated network with the graph schema in `graph` directory.
+Preparing curated network. 
+
+*Output*: two curated networks 
+    1. Curated network in `curation` directory. 
+    2. Curated network with the graph schema in `graph` directory.
 
 ~~~~
 # read network from drive and concat all curated statements
@@ -198,7 +205,11 @@ curation_nodes = curation.build_nodes(curated_concepts)
 ~~~~
 
 ###### MONARCH EDGES
-Preparing Monarch network. *Output*: Individual network in `monarch` directory. Monarch graph edges in `graph` directory.
+Preparing Monarch network. 
+
+*Output*: two Monarch networks 
+    1. Monarch edges in `monarch` directory. 
+    2. Monarch network with the graph schema in `graph` directory.
 
 ~~~~
 # prepare data to graph schema
@@ -208,7 +219,7 @@ seedList = [
     'HGNC:17646', # NGLY1 human gene
     'HGNC:633', # AQP1 human gene
     'MGI:103201', # AQP1 mouse gene
-    'HGNC:7781', # NRF1 human gene* Ginger: known as NFE2L1. http://biogps.org/#goto=genereport&id=4779
+    'HGNC:7781', # NFE2L1 human gene
     'HGNC:24622', # ENGASE human gene
     'HGNC:636', # AQP3 human gene
     'HGNC:19940' # AQP11 human gene
@@ -245,7 +256,11 @@ monarch_nodes = monarch.build_nodes(monarch_network)
 ~~~~
 
 ###### TRANSCRIPTOMICS EDGES
-Preparing transcriptomics network. *Output*: Individual networks in `transcriptomics` directory. Transcriptomics graph edges in `graph` directory.
+Preparing transcriptomics network. 
+
+*Output*: 
+    1. Individual edge datasets in `transcriptomics` directory. 
+    2. Transcriptomics network with the graph schema in `graph` directory.
 
 ~~~~
 # prepare data to graph schema
@@ -261,7 +276,11 @@ rna_nodes = transcriptomics.build_nodes(rna_network)
 ~~~~
 
 ###### REGULATION EDGES
-Preparing regulation network. *Output*: Individual networks in `regulation` directory. Regulation graph edges in `graph` directory.
+Preparing regulation network. 
+
+*Output*: 
+    1. Individual networks in `regulation` directory. 
+    2. Regulation graph in `graph` directory.
 
 ~~~~
 # prepare msigdb data
@@ -282,7 +301,9 @@ reg_nodes = regulation.build_nodes(reg_network)
 ~~~~
 
 ##### 1.3 Build the review knowledge graph 
-Then, compile individual networks and build the graph. *Output*: review knowledge graph in `graph` directory.
+Then, compile individual networks and build the graph. 
+
+*Output*: review knowledge graph in `graph` directory.
 For graph v3.2 we concatenated curation, monarch and transcriptomics networks. Then, the regulation network was merged with this aggregated network. The resulting merged or also called graph regulation network was concatenated to the aggregated network to build the graph.Finally, extra connectivity from Monarch was retrieved and added to the graph.
 
 ~~~~
@@ -323,9 +344,15 @@ nodes = graph.build_nodes(
 ~~~~
 
 #### 2. Store into a Neo4j graph database instance
-Set up a Neo4j server instance and load the review knowledge graph into the database. *Output*: Neo4j format edges in `neo4j` and `Neo4j-community-v3.0.3` import directories. See a tar.gz sample of Neo4j community edition v3.0.3 at [neo4j-dirs]().
+Set up a Neo4j server instance and load the review knowledge graph into the database. 
+
+*Output*: Neo4j format edges in `neo4j` and `Neo4j-community-v3.5.x` import directories. See a tar.gz sample of Neo4j community edition v3.5.6 at [neo4j-dirs]().
 
 ~~~~
+# create a Neo4j server instance
+neo4j_dir = create_neo4j_instance(version='3.5.5')
+print('The name of the neo4j directory is {}'.format(neo4j_dir))
+
 # import to Neo4j graph interface
 ## create edges/nodes files for Neo4j
 edges_df = utils.get_dataframe(edges)
@@ -337,7 +364,7 @@ print('concepts: ',len(concepts))
 
 ## import the graph into Neo4j
 # save files into Neo4j import dir
-neo4j_path = './neo4j-community-3.5.5'
+neo4j_path = './{}'.format(neo4j_dir)
 neo4jlib.save_neo4j_files(statements, neo4j_path, file_type = 'statements')
 neo4jlib.save_neo4j_files(concepts, neo4j_path, file_type = 'concepts')
 
@@ -352,6 +379,10 @@ _Note_: Neo4j server needs some seconds to be up and running. Wait a moment to p
 Alternatively, you can get edges and nodes from file. This is useful in case you want to explore hypotheses with another graph you created before. The workflow should then be:
 
 ~~~~
+# create a Neo4j server instance
+neo4j_dir = create_neo4j_instance(version='3.5.5')
+print('The name of the neo4j directory is {}'.format(neo4j_dir))
+
 # import to Neo4j graph interface
 ## create edges/nodes files for Neo4j
 ### get edges and nodes from file
@@ -365,7 +396,7 @@ print('concepts: ',len(concepts))
 
 ## import the graph into neo4j
 # save files into neo4j import dir
-neo4j_path = './neo4j-community-3.5.5'
+neo4j_path = './{}'.format(neo4j_dir)
 neo4jlib.save_neo4j_files(statements, neo4j_path, file_type='statements')
 neo4jlib.save_neo4j_files(concepts, neo4j_path, file_type='concepts')
 
