@@ -31,6 +31,8 @@
 import datetime
 import os, sys
 import subprocess
+import re
+import time
 from utils import *
 
 # VARIABLES
@@ -135,10 +137,7 @@ def create_neo4j_instance(version='3.5.6'):
     """
 
     print('Creating a Neo4j community v{} server instance...'.format(version))
-    # download neo4j community server v3.5.6
-    # wget http://dist.neo4j.org/neo4j-community-3.5.6-unix.tar.gz
-    # cmd = 'wget http://dist.neo4j.org/neo4j-community-{}-unix.tar.gz'.format(version)
-    # subprocess.call(cmd, shell=True)
+    # download neo4j community server v3.5.X
     directory = 'neo4j-community-{}'.format(version)
     if not os.path.isfile('neo4j-community-{}-unix.tar.gz'.format(version)):
         print('Downloading the server from neo4j.org...')
@@ -146,7 +145,6 @@ def create_neo4j_instance(version='3.5.6'):
         subprocess.call(cmd, shell=True)
 
     # untar server directory
-    # tar -xf neo4j-community-3.5.6-unix.tar.gz
     if not os.path.isdir('./neo4j-community-{}'.format(version)):
         print('Preparing the server...')
         cmd = 'tar -xf neo4j-community-{}-unix.tar.gz'.format(version)
@@ -206,7 +204,6 @@ def do_import(neo4j_path):
 
     print('\nThe function "do_import()" is running...')
     try:
-        #graph_version = 'v{}'.format(today)
         path_to_import = neo4j_path + '/import/ngly1'
         # stop neo4j
         cmd = '{}/bin/neo4j stop'.format(neo4j_path)
@@ -218,25 +215,30 @@ def do_import(neo4j_path):
         # cd import dir files path
         cmd = 'cd {}'.format(path_to_import)
         subprocess.call(cmd, shell=True)
-        #  neo4j-import
+        # neo4j-import
         cmd = '{}/bin/neo4j-admin import --id-type string ' \
               '--nodes {}/ngly1_concepts.csv ' \
-              m-relationships {}/ngly1_statements.csv'.format(neo4j_path, path_to_import, path_to_import)
+              '--relationships {}/ngly1_statements.csv'.format(neo4j_path, path_to_import, path_to_import)
         subprocess.call(cmd, shell=True)
         # start neo4j from database dir
         cmd = 'cd {}/data/databases/graph.db'.format(neo4j_path)
         subprocess.call(cmd, shell=True)
         cmd = '{}/bin/neo4j start'.format(neo4j_path)
         subprocess.call(cmd, shell=True)
+        # wait for 5 seconds and check
+        time.sleep(5)
+        if os.path.isfile('{}/run/neo4j.pid'.format(neo4j_path)):
+            neo4j_msg = 'Neo4j is running.'
+        else:
+            neo4j_msg = 'Neo4j is NOT running. Some problem occurred and should be checked.'
     except:
         print('error: {}'.format(sys.exc_info()[0]))
         raise
     else:
-        return print('\nThe graph is imported into the server. The server is running. '
+        return print('\nThe graph is imported into the server. {}'
                      'You can start exploring and querying for hypothesis. '
-                     'If you change ports or authentication in the Neo4j configuration file,'
-                     'the hypothesis-generation modules performance, hypothesis and summary, will be affected.\n')
-
+                     'If you change ports or authentication in the Neo4j configuration file, '
+                     'the hypothesis-generation modules performance, hypothesis.py and summary.py, will be affected.\n'.format(neo4j_msg))
 
 if __name__ == '__main__':
     ## get edges and files for neo4j
