@@ -7,7 +7,7 @@ The library was developed and tested on Ubuntu 18.04.
 
 * Python 3 (we used Python 3.6.4). We provide a [requirements.txt](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/requirements.txt) file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
 
-* Neo4j Community Server Edition 3.5 (we used Neo4j v3.5.5). The server configuration in `conf/neo4j.conf` file has to be:
+* Neo4j Community Server Edition 3.5 (we used Neo4j v3.5.6). The server configuration in `conf/neo4j.conf` file has to be:
  
    * authentication disabled (uncomment the following line)
    ~~~~
