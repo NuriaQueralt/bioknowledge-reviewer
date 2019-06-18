@@ -207,9 +207,9 @@ curation_nodes = curation.build_nodes(curated_concepts)
 ###### MONARCH EDGES
 Preparing Monarch network. 
 
-*Output*: two Monarch networks 
+*Output*:  
     1. Monarch edges in `monarch` directory. 
-    2. Monarch network with the graph schema in `graph` directory.
+    2. Monarch network with the graph schema in `monarch` directory.
 
 ~~~~
 # prepare data to graph schema
