@@ -346,11 +346,11 @@ nodes = graph.build_nodes(
 #### 2. Store into a Neo4j graph database instance
 Set up a Neo4j server instance and load the review knowledge graph into the database. 
 
-*Output*: Neo4j format edges in `neo4j` and `Neo4j-community-v3.5.x` import directories. See a tar.gz sample of Neo4j community edition v3.5.6 at [neo4j-dirs]().
+*Output*: Neo4j format edges in `Neo4j-community-v3.5.x` import directory. 
 
 ~~~~
 # create a Neo4j server instance
-neo4j_dir = create_neo4j_instance(version='3.5.5')
+neo4j_dir = neo4jlib.create_neo4j_instance(version='3.5.5')
 print('The name of the neo4j directory is {}'.format(neo4j_dir))
 
 # import to Neo4j graph interface
@@ -380,7 +380,7 @@ Alternatively, you can get edges and nodes from file. This is useful in case you
 
 ~~~~
 # create a Neo4j server instance
-neo4j_dir = create_neo4j_instance(version='3.5.5')
+neo4j_dir = neo4jlib.create_neo4j_instance(version='3.5.5')
 print('The name of the neo4j directory is {}'.format(neo4j_dir))
 
 # import to Neo4j graph interface
@@ -421,7 +421,7 @@ hypothesis.query(seed, queryname='ngly1_aqp1', pwdegree='1000', phdegree='1000',
 ~~~~
 
 ##### 3.2 Get hypotheses summaries
-Get summaries from the resulting paths. These functions store tabular results in output files. *Output*: files in `summaries` directory.
+Get summaries from the resulting paths about `metapaths` or semantic path types, i.e. edge and node types, `nodes`, `node types`, `edges`, and `edge_types`. These functions store tabular results in separate output files. The user has to introduce the path to the JSON file with the resulting paths to summarize. *Output*: files in `summaries` directory.
 
 ~~~~
 # get summary
