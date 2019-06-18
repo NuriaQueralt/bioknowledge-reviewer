@@ -183,7 +183,7 @@ First, prepare individual networks with graph schema to build the graph.
 ###### CURATION EDGES
 Preparing curated network. 
 
-*Output*: two curated networks 
+*Output*:  
     1. Curated network in `curation` directory. 
     2. Curated network with the graph schema in `graph` directory.
 
