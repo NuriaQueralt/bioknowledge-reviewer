@@ -5,7 +5,7 @@ The library was developed and tested on Ubuntu 18.04.
 
 ##### Prerequisites
 
-* Python 3 (we used Python 3.6.4). We provide a [requirements.txt](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/requirements.txt) file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
+* Python 3 (we used Python 3.6.4). We provide a [requirements.txt](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/requirements.txt) file to set a virtual environment to run the library for the creation of structured reviews around the NGLY1 Deficiency. The library + the environment runs without problems in an Ubuntu 18.04 distribution.
 
 * Neo4j Community Server Edition 3.5 (we used Neo4j v3.5.6). The server configuration in `conf/neo4j.conf` file has to be:
  
@@ -48,10 +48,12 @@ Edges to build the structured review.
 
 Data used for Graph v3.2:
 * curation/data/v20180118
-* transcriptomics/ngly1-fly-chow-2018
+* transcriptomics/ngly1-fly-chow-2018/data
 * regulation/msigdb/data
 * regulation/tftargets
-* ontologies/mondo.owl
+   * /data
+   * /data-raw
+* ontologies/mondo.owl.bz2
 
 
 http://edamontology.org/data_2080
@@ -150,11 +152,9 @@ mondo_class.py
 ~~~~
 
 ## Usage
-**_WARNING_: The library is currently under testing.**  
+This sections showcase examples of use by reproducing the creation of the NGLY1 Deficiency Knowledge Graph v3.2. As reference, the graph size contains **9,361 nodes** linked by **234,717 edges**. These numbers may vary as the retrieval of Monarch edges may differ due to new updated content into the Monarch database.
 
-This sections showcase examples of use by reproducing the creation of the NGLY1 Deficiency Knowledge Graph v3.2. As reference, the graph size contains **9,365 nodes** linked by **237,027 edges**. These numbers may vary as the retrieval of Monarch edges may differ due to new updated content into the Monarch database.
-
-To run the library to reproduce the generation of the NGLY1 Deficiency Knowledge Graph v3.2, the user can use either the jupyter notebook or the python script provided in this repository [graph_v3.2_v20190616.ipynb](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/plan/graph_v3.2_v20190616.ipynb). To run the jupyter notebook, the user should have installed the Jupyter framework and the ipython 3 kernel.
+To run the library to reproduce the generation of the NGLY1 Deficiency Knowledge Graph v3.2, the user can use either the jupyter notebook or the python script provided in this repository [graph_v3.2_v20190616.ipynb](https://github.com/NuriaQueralt/graph-hypothesis-generation-lib/blob/master/graph_v3.2_v20190616.ipynb). To run the jupyter notebook, the user should have installed the Jupyter framework and the ipython 3 kernel.
 
 
 #### 1. Build a review knowledge graph
