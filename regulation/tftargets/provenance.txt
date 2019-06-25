@@ -1,0 +1,5 @@
+# tftargets data
+https://github.com/slowkow/tftargets/commit/c0694f1f05b327c72f6bb63ecf86a092f8d79597
+
+# tftargets raw data
+https://github.com/slowkow/tftargets/blob/master/data-raw/TRRUST/trrust_rawdata.txt.gz
