@@ -1,2 +1,0 @@
-subject_id	property_id	property_label	property_description	property_uri	object_id	subject_qid	property_pid	object_qid	reference_uri	reference_supporting_text	reference_date	property_term	subject_type	object_type	subject_term	object_term	prevalence	curation_evidence	curation_date	curator_uri	comments
-KEGG-path:map04141	RO:0002200	has phenotype			DOID:0060728	Q30032991	P2293	Q28024539					pathway	disease	Protein processing in endoplasmic reticulum	NGLY1 deficiency		http://www.genome.jp/dbget-bin/www_bget?pathway:map04141	2017-11-16	http://orcid.org/0000-0003-0169-8159	

@@ -1,4 +1,0 @@
-id	bridge_id2_qid	qid	semantic_groups	preflabel	synonyms	description	uri	comments
-NCBIGene:55768		Q18042037	GENE	NGLY1	CDDG|CDG1V|N-glycanase 1|NGLY1|PNG1|PNGase	protein-coding gene in the species Homo sapiens		
-Reactome:R-HSA-532668		Q29017194	PHYS	N-glycan trimming in the ER and Calnexin/Calreticulin cycle	Reactome:R-HSA-532668			
-KEGG-path:map04141		Q30032991	PHYS	Protein processing in endoplasmic reticulum		Biochemical pathway		

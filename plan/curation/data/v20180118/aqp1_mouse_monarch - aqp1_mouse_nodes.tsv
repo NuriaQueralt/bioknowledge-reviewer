@@ -1,4 +1,0 @@
-id	bridge_id2_qid	qid	semantic_groups	preflabel	synonyms	description	uri	comments
-NCBIGene:11826		Q14905239	GENE	Aqp1	Aqp1|CHIP28|aquaporin 1	protein-coding gene in the species Mus musculus		
-FlyBase:FBgn0000180	bib		GENE	bib		gene in the species Drosophila melanogaster		
-FBcv:0000435			DISO	neuroanatomy defective		Drosophila melanogaster phenotype		
