@@ -45,7 +45,7 @@ Changes in the Neo4j configuration and the server edition can affect the perform
 
 
 ## Usage
-This sections showcase examples of use by reproducing the creation of the NGLY1 Deficiency Knowledge Graph v3.2. As reference, the graph size contains **9,361 nodes** linked by **234,717 edges**. These numbers may vary as the retrieval of Monarch edges may differ due to new updated content into the Monarch database.
+This sections showcase examples of use by reproducing the creation of the NGLY1 Deficiency Knowledge Graph v3.2. As reference, the graph size contains **9,359 nodes** linked by **234,714 edges**. These numbers may vary as the retrieval of Monarch edges may differ due to new updated content into the Monarch database.
 
 To run the library to reproduce the generation of the NGLY1 Deficiency Knowledge Graph v3.2, the user can use either the jupyter notebook or the python script provided in this repository [graph_v3.2_v20190616.ipynb](https://github.com/NuriaQueralt/bioknowledge-reviewer/blob/master/bioknowledge_reviewer/graph_v3.2_v20190616.ipynb). To run the jupyter notebook, the user should have installed the Jupyter framework and the ipython 3 kernel.
 
