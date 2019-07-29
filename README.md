@@ -32,126 +32,17 @@ Changes in the Neo4j configuration and the server edition can affect the perform
 
 * Neo4j needs Java 8. It won't work with superior java versions.
 
+
 ## README structure:
+- Usage  
 - Input / Output
 - Library architecture
-- Usage  
 - Contributors
 - Collaborators
 - License
 - Acknowledgments
 - DOI
 
-## Input / Output
-#### Input
-Edges to build the structured review.
-
-Data used for Graph v3.2:
-* curation/data/v20180118
-* transcriptomics/ngly1-fly-chow-2018/data
-* regulation/msigdb/data
-* regulation/tftargets
-   * /data
-   * /data-raw
-* ontologies/mondo.owl.bz2
-
-
-http://edamontology.org/data_2080
-
-#### Output
-Structured review network.
-
-http://edamontology.org/data_2600
-
-
-## Library architecture
-The library has two main components: 1) **Review graph creation** with functionality to create the NGLY1 Deficiency structured reviews as knowledge graphs,  and 2) **Hypothesis discovery** with the functionality for exploring the graph. The following figure shows the library architecture and the creation-exploration review workflow:
-
-![library_architecture.png](library_architecture.png)
-
-
-### Review graph creation
-First, we have to retrieve edges from different sources. Every source has its own module, e.g. to retrieve edges from the Monarch knowledge graph we have to import the _monarch_ module. Second, we have to create the NGLY1 knowledge graph composed with all the edges retrieved importing the _graph_ module.
-
-#### 1. Edges
-First, we prepare all reviewed edges to be integrated to the review knoweldge graph schema. 
-
-##### Curation
-Edges from curation. Preparation of edges from biocuration by the module:
-
-~~~~
-curation.py
-~~~~
-
-##### Monarch
-Edges from the Monarch Knowledge Graph. Preparation of edges from Monarch by the module:
-
-~~~~
-monarch.py
-~~~~
-
-##### Transcriptomics
-Edges from RNA-seq graph. Preparation of RNA-seq data edges by the module:
-
-~~~~
-transcriptomics.py
-~~~~
-
-##### Regulation
-Edges from regulation graph. Preparation of the transcription factor regulation edges by the module:
-
-~~~~
-regulation.py
-~~~~
-
-#### 2. Graph
-Second, we build the review knowledge graph integrating all the reviewed edges prepared in the prior step by the module:
-
-~~~~
-graph.py
-~~~~
-
-
-### Hypothesis discovery
-Once we have a structured review created, we can explore it for hypothesis discovery. Third, we need to import the graph into the Neo4j graph database using the _neo4jlib_ module. Fourth, we query the graph for hypothesis or paths linking nodes by means of the _hypothesis_ module. Finally, we can summarize the results of these queries importing the _summary_ module.
-
-#### 3. Neo4jlib
-Third, we store the network in the Neo4j graph database via the module:
-
-~~~~
-neo4jlib.py
-~~~~
-
-#### 4. Hypothesis
-Forth, we compute review-based explanations by querying the graph with the module:
-
-~~~~
-hypothesis.py
-~~~~
-
-#### 5. Summary
-Fifth, we summarize extracted explanations via the module:
-
-~~~~
-summary.py
-~~~~
-
-### Supporting modules
-General supporting functionality for the library.
-
-#### Utils
-The _utils_ module contains useful functions:
-
-~~~~
-utils.py
-~~~~
-
-#### Ontologies
-The *mondo_class* module contains functions to manage the MONDO ontology:
-
-~~~~
-mondo_class.py
-~~~~
 
 ## Usage
 This sections showcase examples of use by reproducing the creation of the NGLY1 Deficiency Knowledge Graph v3.2. As reference, the graph size contains **9,361 nodes** linked by **234,717 edges**. These numbers may vary as the retrieval of Monarch edges may differ due to new updated content into the Monarch database.
@@ -442,6 +333,119 @@ summary.edge_types(data_parsed)
 ~~~~
 
 _Note_: output filenames are fixed. If you run summaries from different queries, you should change output filenames by hand at the moment.
+
+
+## Input / Output
+#### Input
+Edges to build the structured review.
+
+Data used for Graph v3.2:
+* curation/data/v20180118
+* transcriptomics/ngly1-fly-chow-2018/data
+* regulation/msigdb/data
+* regulation/tftargets
+   * /data
+   * /data-raw
+* ontologies/mondo.owl.bz2
+
+
+http://edamontology.org/data_2080
+
+#### Output
+Structured review network.
+
+http://edamontology.org/data_2600
+
+
+## Library architecture
+The library has two main components: 1) **Review graph creation** with functionality to create the NGLY1 Deficiency structured reviews as knowledge graphs,  and 2) **Hypothesis discovery** with the functionality for exploring the graph. The following figure shows the library architecture and the creation-exploration review workflow:
+
+![library_architecture.png](library_architecture.png)
+
+
+### Review graph creation
+First, we have to retrieve edges from different sources. Every source has its own module, e.g. to retrieve edges from the Monarch knowledge graph we have to import the _monarch_ module. Second, we have to create the NGLY1 knowledge graph composed with all the edges retrieved importing the _graph_ module.
+
+#### 1. Edges
+First, we prepare all reviewed edges to be integrated to the review knoweldge graph schema. 
+
+##### Curation
+Edges from curation. Preparation of edges from biocuration by the module:
+
+~~~~
+curation.py
+~~~~
+
+##### Monarch
+Edges from the Monarch Knowledge Graph. Preparation of edges from Monarch by the module:
+
+~~~~
+monarch.py
+~~~~
+
+##### Transcriptomics
+Edges from RNA-seq graph. Preparation of RNA-seq data edges by the module:
+
+~~~~
+transcriptomics.py
+~~~~
+
+##### Regulation
+Edges from regulation graph. Preparation of the transcription factor regulation edges by the module:
+
+~~~~
+regulation.py
+~~~~
+
+#### 2. Graph
+Second, we build the review knowledge graph integrating all the reviewed edges prepared in the prior step by the module:
+
+~~~~
+graph.py
+~~~~
+
+
+### Hypothesis discovery
+Once we have a structured review created, we can explore it for hypothesis discovery. Third, we need to import the graph into the Neo4j graph database using the _neo4jlib_ module. Fourth, we query the graph for hypothesis or paths linking nodes by means of the _hypothesis_ module. Finally, we can summarize the results of these queries importing the _summary_ module.
+
+#### 3. Neo4jlib
+Third, we store the network in the Neo4j graph database via the module:
+
+~~~~
+neo4jlib.py
+~~~~
+
+#### 4. Hypothesis
+Forth, we compute review-based explanations by querying the graph with the module:
+
+~~~~
+hypothesis.py
+~~~~
+
+#### 5. Summary
+Fifth, we summarize extracted explanations via the module:
+
+~~~~
+summary.py
+~~~~
+
+### Supporting modules
+General supporting functionality for the library.
+
+#### Utils
+The _utils_ module contains useful functions:
+
+~~~~
+utils.py
+~~~~
+
+#### Ontologies
+The *mondo_class* module contains functions to manage the MONDO ontology:
+
+~~~~
+mondo_class.py
+~~~~
+
 
 ## Contributors
 Mitali Tambe, Hudson Freeze, Michael Meyers, Andrew I. Su
