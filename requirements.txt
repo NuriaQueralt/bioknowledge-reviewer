@@ -29,7 +29,7 @@ Cython==0.27.3
 cytoolz==0.9.0
 dask==0.16.1
 decorator==4.2.1
-distributed==1.20.2
+distributed==2021.10.0
 docutils==0.14
 easydev==0.9.36
 entrypoints==0.2.3
